@@ -7,7 +7,7 @@ public class MeshColliderCtrl : MonoBehaviour
     SkinnedMeshRenderer meshRenderer;
     MeshCollider collider;
 
-    float delay = 0.1f;
+    float delay = 0.2f;
 
     private void Awake()
     {
