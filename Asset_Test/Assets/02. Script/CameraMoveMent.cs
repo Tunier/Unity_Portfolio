@@ -30,7 +30,7 @@ public class CameraMoveMent : MonoBehaviour
             float x = camAngle.x - mouseDelta.y;
 
             if (x < 180f)
-                x = Mathf.Clamp(x, -1f, 70f);
+                x = Mathf.Clamp(x, -1f, 50f);
             else
                 x = Mathf.Clamp(x, 335f, 361f);
 
@@ -38,7 +38,6 @@ public class CameraMoveMent : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         CamMove();

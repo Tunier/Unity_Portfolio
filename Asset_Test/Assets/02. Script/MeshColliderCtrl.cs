@@ -5,14 +5,14 @@ using UnityEngine;
 public class MeshColliderCtrl : MonoBehaviour
 {
     SkinnedMeshRenderer meshRenderer;
-    MeshCollider collider;
+    MeshCollider m_collider;
 
     float delay = 0.2f;
 
     private void Awake()
     {
         meshRenderer = GetComponent<SkinnedMeshRenderer>();
-        collider = GetComponent<MeshCollider>();
+        m_collider = GetComponent<MeshCollider>();
         
         StartCoroutine(UpdateCollider());
     }
@@ -23,8 +23,8 @@ public class MeshColliderCtrl : MonoBehaviour
         {
             Mesh colliderMesh = new Mesh();
             meshRenderer.BakeMesh(colliderMesh);
-            collider.sharedMesh = null;
-            collider.sharedMesh = colliderMesh;
+            m_collider.sharedMesh = null;
+            m_collider.sharedMesh = colliderMesh;
 
             yield return new WaitForSeconds(delay);
         }
