@@ -38,7 +38,7 @@ public class CameraMoveMent : MonoBehaviour
         }
     }
 
-    void Update()
+    private void LateUpdate()
     {
         CamMove();
 
