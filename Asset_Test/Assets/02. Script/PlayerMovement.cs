@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     void setMoveDir(float _x, float _z)
     {
-        if (_z > 0.25f)
+        if (_z == 1f)
         {
             if (!isRun)
                 speed = walkMoveSpeed;
@@ -85,17 +85,17 @@ public class PlayerMovement : MonoBehaviour
 
             moveDirection = new Vector3(transform.forward.x * speed, moveDirection.y, transform.forward.z * speed);
         }
-        else if (_z < -0.25f)
+        else if (_z == -1)
         {
             speed = backMoveSpeed;
             moveDirection = new Vector3(-transform.forward.x * speed, moveDirection.y, -transform.forward.z * speed);
         }
-        else if (_x > 0.25f)
+        else if (_x == 1)
         {
             speed = walkMoveSpeed;
             moveDirection = new Vector3(transform.right.x * speed, moveDirection.y, transform.right.z * speed);
         }
-        else if (_x < -0.25f)
+        else if (_x == -1f)
         {
             speed = walkMoveSpeed;
             moveDirection = new Vector3(-transform.right.x * speed, moveDirection.y, -transform.right.z * speed);
@@ -109,9 +109,9 @@ public class PlayerMovement : MonoBehaviour
         if (speed == runMoveSpeed)
             ani.SetFloat(hashSpeed, 1f);
         else if (speed == walkMoveSpeed)
-            ani.SetFloat(hashSpeed, 0.4f);
+            ani.SetFloat(hashSpeed, 0.5f);
         else if (speed == backMoveSpeed)
-            ani.SetFloat(hashSpeed, 0.4f);
+            ani.SetFloat(hashSpeed, 0.5f);
         else
             ani.SetFloat(hashSpeed, 0);
     }
