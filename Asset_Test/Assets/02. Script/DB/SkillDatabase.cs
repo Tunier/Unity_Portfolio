@@ -12,7 +12,8 @@ public class Skill
     {
         Passive,
         AoEAttack,
-        TargetingAttack,
+        Target,
+        NoneTarget,
         Buff,
         Debuff,
         Heal,
@@ -25,19 +26,6 @@ public class Skill
         Mp,
     }
 
-    public Skill(int _Index, SkillType _skillType, string _Name, CostType _costType, int _Cost, int _Value, float _ValueFactor, string _SkillDescription, string _SkillImagePath)
-    {
-        Index = _Index;
-        skillType = _skillType;
-        Name = _Name;
-        costType = _costType;
-        Cost = _Cost;
-        Value = _Value;
-        ValueFactor = _ValueFactor;
-        SkillDescription = _SkillDescription;
-        SkillImagePath = _SkillImagePath;
-    }
-
     public int Index;
     [JsonConverter(typeof(StringEnumConverter))]
     public SkillType skillType;
@@ -47,6 +35,7 @@ public class Skill
     public int Cost;
     public int Value;
     public float ValueFactor;
+    public float CoolTime;
     public int SkillLv;
     public int MaxSkillLv;
 
@@ -58,6 +47,8 @@ public class Skill
 public class SkillDatabase : MonoBehaviour
 {
     public static SkillDatabase instance;
+
+    Player_SkillIndicator skillIndicator;
 
     public List<Skill> AllSkillList = new List<Skill>();
     public Dictionary<int, Skill> AllSkillDic = new Dictionary<int, Skill>();
@@ -77,6 +68,8 @@ public class SkillDatabase : MonoBehaviour
                 Destroy(gameObject);
         }
 
+        skillIndicator = FindObjectOfType<Player_SkillIndicator>();
+
         if (File.Exists(Application.dataPath + skillDataPath))
         {
             string Jdata = File.ReadAllText(Application.dataPath + skillDataPath);
@@ -89,22 +82,30 @@ public class SkillDatabase : MonoBehaviour
         for (int i = 0; i < AllSkillList.Count; i++)
         {
             AllSkillDic.Add(AllSkillList[i].Index, AllSkillList[i]);
+            Debug.Log(AllSkillList[i].Name + " 등록");
+            if (i == AllSkillList.Count - 1)
+            {
+                Debug.Log("딕셔너리에 모두 등록 완료");
+            }
         }
     }
 
-    public Skill newSkill(int i)
+    public Skill NewSkill(int i)
     {
-        //벨류 공식 : Mathf.RoundToInt(AllSkillDic[i].Value + (AllSkillDic[i].Skill_Level - 1) * AllSkillDic[i].ValueFactor);
+        //최종 데미지 공식 : Mathf.RoundToInt(AllSkillDic[i].Value + (AllSkillDic[i].Skill_Level - 1) * AllSkillDic[i].ValueFactor);
 
-        var skill = new Skill(AllSkillDic[i].Index,
-                              AllSkillDic[i].skillType,
-                              AllSkillDic[i].Name,
-                              AllSkillDic[i].costType,
-                              AllSkillDic[i].Cost,
-                              AllSkillDic[i].Value,
-                              AllSkillDic[i].ValueFactor,
-                              AllSkillDic[i].SkillDescription,
-                              AllSkillDic[i].SkillImagePath);
+        var skill = new Skill();
+
+        skill.Index = AllSkillDic[i].Index;
+        skill.skillType = AllSkillDic[i].skillType;
+        skill.Name = AllSkillDic[i].Name;
+        skill.costType = AllSkillDic[i].costType;
+        skill.Cost = AllSkillDic[i].Cost;
+        skill.Value = AllSkillDic[i].Value;
+        skill.ValueFactor = AllSkillDic[i].ValueFactor;
+        skill.SkillDescription = AllSkillDic[i].SkillDescription;
+        skill.SkillImagePath = AllSkillDic[i].SkillImagePath;
+
         return skill;
     }
 
@@ -151,8 +152,31 @@ public class SkillDatabase : MonoBehaviour
                 //{ 
                 //}
                 break;
-            case Skill.SkillType.TargetingAttack:
-
+            case Skill.SkillType.Target:
+                if (_user.CompareTag("Player"))
+                {
+                    var player = _user.GetComponent<PlayerInfo>();
+                    //var target = _target.GetComponent<MonsterInfo>();
+                    switch (_skill.Index)
+                    {
+                        case 0: // "파이어볼"
+                                // 스킬이 쿨타임인지, 마나가 사용에 필요한 마나이상 있는지 체크 코드 작성 필요
+                            Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.5f, 0);
+                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
+                            obj.transform.forward = player.transform.forward;
+                            break;
+                    }
+                }
+                break;
+            case Skill.SkillType.NoneTarget:
+                if (_user.CompareTag("Player"))
+                {
+                    var player = _user.GetComponent<PlayerInfo>();
+                    switch (_skill.Index)
+                    {
+                        //
+                    }
+                }
                 break;
             case Skill.SkillType.AoEAttack:
 

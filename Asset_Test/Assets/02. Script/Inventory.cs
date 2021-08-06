@@ -35,7 +35,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        rect.localPosition = new Vector3(190, -12); // 게임켜면 위치 초기화.
+        //rect.localPosition = new Vector3(190, -12); // 게임켜면 위치 초기화.
     }
 
     private void Update()

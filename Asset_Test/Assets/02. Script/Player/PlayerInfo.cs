@@ -59,7 +59,7 @@ public class PlayerInfo : MonoBehaviour
     {
         skillDic.Add(skillDB.AllSkillDic[0].Index, skillDB.AllSkillDic[0]); // 임시로 플레이어의 스킬리스트에 파이어볼 스킬을 넣어줌.
         skillDic.Add(skillDB.AllSkillDic[1].Index, skillDB.AllSkillDic[1]); // 임시로 플레이어의 스킬리스트에 Hp증가 스킬 넣어줌.
-        skillDic[1].SkillLv = 0;
+        skillDic[0].SkillLv = 1;
 
         foreach (KeyValuePair<int, Skill> skill in skillDic)
         {
@@ -70,14 +70,18 @@ public class PlayerInfo : MonoBehaviour
         }
 
         RefeshFinalStats();
-        curHp = finalMaxHp;
+
+        curHp = finalMaxHp; // 시작할때 풀피로 만들어줌.
     }
 
     void Update()
     {
-        
+
     }
 
+    /// <summary>
+    /// 최종적으로 사용할 스텟들 정리함.
+    /// </summary>
     public void RefeshFinalStats()
     {
         finalMaxHp = stats.MaxHp + ItemEffectMaxHp + SkillEffectMaxHp;
