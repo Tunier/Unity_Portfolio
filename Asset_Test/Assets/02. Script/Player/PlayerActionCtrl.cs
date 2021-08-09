@@ -14,25 +14,29 @@ public class PlayerActionCtrl : MonoBehaviour
 
     SkillDatabase skillDB;
 
-    Skill skill;
+    CharacterController cController;
 
     void Awake()
     {
         player = FindObjectOfType<PlayerInfo>();
         skillDB = FindObjectOfType<SkillDatabase>();
+        cController = FindObjectOfType<CharacterController>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (cController.isGrounded)
         {
-            UseQuickSlotSkill(0);
-        }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                UseQuickSlotSkill(0);
+            }
 
-        if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
-        {
-            skillIndicator.straightIndicator.SetActive(false);
-            skillDB.UseSkill(player.skillDic[0], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
+            if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
+            {
+                skillIndicator.straightIndicator.SetActive(false);
+                skillDB.UseSkill(player.skillDic[0], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
+            }
         }
     }
 

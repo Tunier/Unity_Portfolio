@@ -82,10 +82,10 @@ public class SkillDatabase : MonoBehaviour
         for (int i = 0; i < AllSkillList.Count; i++)
         {
             AllSkillDic.Add(AllSkillList[i].Index, AllSkillList[i]);
-            Debug.Log(AllSkillList[i].Name + " 등록");
+
             if (i == AllSkillList.Count - 1)
             {
-                Debug.Log("딕셔너리에 모두 등록 완료");
+                Debug.Log("모두 등록 완료");
             }
         }
     }
@@ -159,12 +159,7 @@ public class SkillDatabase : MonoBehaviour
                     //var target = _target.GetComponent<MonsterInfo>();
                     switch (_skill.Index)
                     {
-                        case 0: // "파이어볼"
-                                // 스킬이 쿨타임인지, 마나가 사용에 필요한 마나이상 있는지 체크 코드 작성 필요
-                            Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.5f, 0);
-                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
-                            obj.transform.forward = player.transform.forward;
-                            break;
+                        //
                     }
                 }
                 break;
@@ -174,7 +169,12 @@ public class SkillDatabase : MonoBehaviour
                     var player = _user.GetComponent<PlayerInfo>();
                     switch (_skill.Index)
                     {
-                        //
+                        case 0: // "파이어볼"
+                                // 스킬이 쿨타임인지, 마나가 사용에 필요한 마나이상 있는지 체크 코드 작성 필요
+                            Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.5f, 0);
+                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
+                            obj.transform.forward = player.transform.forward;
+                            break;
                     }
                 }
                 break;
@@ -204,15 +204,15 @@ public class SkillDatabase : MonoBehaviour
             switch (_skill.Index)
             {
                 case 1://"Hp증가"
-                    if (_skill.SkillLv != 0)
+                    if (_skill.SkillLv > 0)
                     {
                         player.SkillEffectMaxHp += _skill.Value + (_skill.SkillLv - 1) * _skill.ValueFactor;
                         player.RefeshFinalStats();
                         Debug.Log(_skill.Name + " (패시브)스킬 효과 발동");
                     }
-                    else if (_skill.SkillLv == 0)
+                    else
                     {
-                        Debug.Log("아직 배우지 않은 스킬이라 효과발동안됨.");
+                        //Debug.Log("아직 배우지 않은 스킬이라 효과발동안됨.");
                     }
                     break;
             }

@@ -18,18 +18,18 @@ public class FireBall : MonoBehaviour
         explosion_Effet.SetActive(false);
         rb = GetComponent<Rigidbody>();
 
-        moveSpeed = 7f;
+        moveSpeed = 20f;
     }
 
     void Start()
     {
         rb.velocity = transform.forward * moveSpeed;
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 4f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (!other.CompareTag("RaycastTarget") && !other.CompareTag("Player"))
         {
             rb.velocity = Vector3.zero;
             fireBallEffect.SetActive(false);

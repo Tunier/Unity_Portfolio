@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2657590873239739945}
   - component: {fileID: 2657590873214530217}
   - component: {fileID: 2657590873214421769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireBallParticle
   m_TagString: Effect
   m_Icon: {fileID: 0}
@@ -4721,7 +4721,7 @@ GameObject:
   - component: {fileID: 2657590873233930221}
   - component: {fileID: 2657590873240332009}
   - component: {fileID: 2657590873239739947}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4830,7 +4830,7 @@ GameObject:
   - component: {fileID: 2657590873233930219}
   - component: {fileID: 2657590873214530219}
   - component: {fileID: 2657590873214421771}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CFX4 Small Balls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9521,9 +9521,9 @@ GameObject:
   - component: {fileID: 2657590873430618225}
   - component: {fileID: 2657590873430618228}
   - component: {fileID: 6822162763580289318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9598,7 +9598,7 @@ GameObject:
   - component: {fileID: 6615196939441407569}
   - component: {fileID: 6615196939455562513}
   - component: {fileID: 6615196939455675057}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CFX4 Traits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14328,7 +14328,7 @@ GameObject:
   - component: {fileID: 6615196939441407571}
   - component: {fileID: 6615196939455562515}
   - component: {fileID: 6615196939455675059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CFX4 Mid Circle
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}
@@ -19058,7 +19058,7 @@ GameObject:
   - component: {fileID: 6615196939441407575}
   - component: {fileID: 6615196939455562519}
   - component: {fileID: 6615196939455675063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CFX4 BackFire
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}
@@ -23798,7 +23798,7 @@ GameObject:
   - component: {fileID: 6615196939455562517}
   - component: {fileID: 6615196939455675061}
   - component: {fileID: 6615196939430653847}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CFX4 Wave Explosion (Red)
   m_TagString: Effect
   m_Icon: {fileID: 0}
@@ -28545,7 +28545,7 @@ GameObject:
   - component: {fileID: 6615196939441407583}
   - component: {fileID: 6615196939455562527}
   - component: {fileID: 6615196939455675071}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CFX4 Background Circle
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}

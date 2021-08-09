@@ -9,6 +9,7 @@ TagManager:
   - Effect
   - RaycastTarget
   - Monster
+  - Skill
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - RaycastTarget
   - Player
-  - 
+  - Skill
   - 
   - 
   - 

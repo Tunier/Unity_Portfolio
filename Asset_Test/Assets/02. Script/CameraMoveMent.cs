@@ -11,10 +11,14 @@ public class CameraMoveMent : MonoBehaviour
     float mouseX;
     float mouseY;
 
+    CharacterController cController;
+
     Vector2 mouseDelta;
 
     private void Awake()
     {
+        cController = FindObjectOfType<CharacterController>();
+
         camSpeed = 3.5f;
     }
 
@@ -32,7 +36,7 @@ public class CameraMoveMent : MonoBehaviour
             if (x < 180f)
                 x = Mathf.Clamp(x, -1f, 50f);
             else
-                x = Mathf.Clamp(x, 335f, 361f);
+                x = Mathf.Clamp(x, 355f, 361f);
 
             cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseX, camAngle.z);
         }
