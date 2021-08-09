@@ -9,14 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
-    public GameObject pauseCanvas;
-    public GameObject statusUI;
     public GameObject inventoryUI;
-    public GameObject shopUI;
-    public GameObject wayPointUI;
 
     ItemDatabase ItemDB;
-    Shop shop;
 
     [SerializeField]
     RectTransform invenBase;
@@ -53,16 +48,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("PLAYER").GetComponent<PlayerInfo>();
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
 
         ItemDB = FindObjectOfType<ItemDatabase>();
-        shop = FindObjectOfType<Shop>();
-        quickSlots = quickSlotParent.GetComponentsInChildren<Slot>();
 
         isPause = false;
-
-        inventoryUI.SetActive(false);
-        statusUI.SetActive(false);
 
 #if UNITY_EDITOR
 
@@ -73,20 +63,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        PlayerPrefs.Save();
-
         UIHotKey();
-
-        if (isPause)
-        {
-            Time.timeScale = 0f;
-            pauseCanvas.SetActive(true);
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            pauseCanvas.SetActive(false);
-        }
 
         //if (player.state == PlayerCtrl.State.DIE)
         //{
@@ -133,53 +110,53 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.O))
         {
-            statusUI.SetActive(!statusUI.activeSelf);
+            //statusUI.SetActive(!statusUI.activeSelf);
 
-            if (!statusUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(statusBase, Input.mousePosition))
-                toolTip.HideToolTip();
+            //if (!statusUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(statusBase, Input.mousePosition))
+            //    toolTip.HideToolTip();
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!inventoryUI.activeSelf && !statusUI.activeSelf && !shopUI.activeSelf && !wayPointUI.activeSelf)
-            {
-                isPause = !isPause;
-            }
-            else
-            {
-                inventoryUI.SetActive(false);
-                statusUI.SetActive(false);
-                shopUI.SetActive(false);
-                wayPointUI.SetActive(false);
+            //if (!inventoryUI.activeSelf && !statusUI.activeSelf && !shopUI.activeSelf && !wayPointUI.activeSelf)
+            //{
+            //    isPause = !isPause;
+            //}
+            //else
+            //{
+            //    inventoryUI.SetActive(false);
+            //    statusUI.SetActive(false);
+            //    shopUI.SetActive(false);
+            //    wayPointUI.SetActive(false);
 
-                toolTip.HideToolTip();
-                DragSlot.instance.SetColorAlpha(0);
-                DragSlot.instance.dragSlot = null;
-            }
+            //    toolTip.HideToolTip();
+            //    DragSlot.instance.SetColorAlpha(0);
+            //    DragSlot.instance.dragSlot = null;
+            //}
         }
-        else if (Input.GetKeyDown(KeyCode.F10))
-        {
-            isPause = !isPause;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            QuickSlotUseItem(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            QuickSlotUseItem(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            QuickSlotUseItem(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            QuickSlotUseItem(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            QuickSlotUseItem(4);
-        }
+        //else if (Input.GetKeyDown(KeyCode.F10))
+        //{
+        //    isPause = !isPause;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    QuickSlotUseItem(0);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    QuickSlotUseItem(1);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    QuickSlotUseItem(2);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    QuickSlotUseItem(3);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha5))
+        //{
+        //    QuickSlotUseItem(4);
+        //}
     }
 
     public void OnPauseClick()
@@ -189,7 +166,7 @@ public class GameManager : MonoBehaviour
 
     public void OnStatusBottonClick()
     {
-        statusUI.SetActive(!statusUI.activeSelf);
+        //statusUI.SetActive(!statusUI.activeSelf);
     }
 
     public void OnInventoryBottonClick()

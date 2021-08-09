@@ -21,19 +21,6 @@ public class Item
         Epic,
     }
 
-    public enum ValueType
-    {
-        curHp,
-        curMp,
-        maxHp,
-        maxMp,
-        Atk,
-        Str,
-        Dex,
-        Int,
-        Luk,
-    }
-
     public int Index;
     [JsonConverter(typeof(StringEnumConverter))]
     public ItemType Type;

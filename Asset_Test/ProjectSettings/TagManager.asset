@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
+  - FxTemporaire
+  - Effect
+  - RaycastTarget
+  - Monster
   layers:
   - Default
   - TransparentFX
