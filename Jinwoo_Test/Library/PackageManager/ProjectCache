@@ -5,16 +5,26 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
       ticks: 637638089311744758
     m_Hash: 2309819339
+=======
+      ticks: 637631368048668065
+    m_Hash: 3573095225
+>>>>>>> parent of fe226af0 (21.08.06)
   m_LockFileStatus:
     m_FilePath: C:/Users/admin/Documents/GitHub/Unity_Portfolio/Jinwoo_Test/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
       ticks: 637638089312002624
     m_Hash: 4292777623
+=======
+      ticks: 637631368048814465
+    m_Hash: 78989346
+>>>>>>> parent of fe226af0 (21.08.06)
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -115,8 +125,6 @@ m_PackageAssets:
         - 1.5.7
         - 1.6.0
         - 1.7.1
-        - 1.8.0
-        - 1.9.0
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -130,7 +138,6 @@ m_PackageAssets:
         compatible:
         - 1.5.7
         - 1.6.0
-        - 1.8.0
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
