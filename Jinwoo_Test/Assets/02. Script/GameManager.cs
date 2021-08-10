@@ -8,11 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     public GameObject wayPointUI;
-    
 
     public bool isPause;
-
-    
 
     private void Awake()
     {

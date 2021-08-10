@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class ClickEffect : MonoBehaviour
 {
-    [SerializeField]
-    Canvas clickEffectCanvas;
+    public Canvas clickEffectCanvas;
     [SerializeField]
     GameObject cameraArm;
-    PlayerMovement playerMove;
-
-    Ray ray;
-    RaycastHit hit;
-
-    void Awake()
-    {
-        playerMove = FindObjectOfType<PlayerMovement>();
-    }
 
     private void Start()
     {
@@ -26,7 +16,10 @@ public class ClickEffect : MonoBehaviour
     void Update()
     {
         if (clickEffectCanvas.enabled)
+        {
             clickEffectCanvas.transform.forward = cameraArm.transform.forward;
+            transform.Translate(new Vector3(0, Mathf.Sin(Time.time * 10)) * Time.deltaTime);
+        }
     }
 
     public IEnumerator ClickEffectCtrl(Vector3 _pos)

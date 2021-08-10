@@ -67,19 +67,19 @@ public class PlayerMovement : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown(runKeyCode))
+            isRun = !isRun;
+
         if (!cController.isGrounded)
             moveDirection.y += gravity * Time.deltaTime;
         else
             ani.SetBool(hashJump, false);
 
-        if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded)
+        if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded && cController.enabled)
         {
             moveDirection.y = jumpForce;
             ani.SetBool(hashJump, true);
         }
-
-        if (Input.GetKeyDown(runKeyCode))
-            isRun = !isRun;
 
         if (!pSkillIndicator.straightIndicator.activeSelf)
         {
@@ -107,11 +107,16 @@ public class PlayerMovement : MonoBehaviour
         {
             if (nav.enabled)
             {
+                isMove = false;
+                ani.SetFloat(hashSpeed, 0f);
+
                 nav.isStopped = true;
                 nav.ResetPath();
 
                 nav.enabled = false;
                 cController.enabled = true;
+
+                clickEffect.clickEffectCanvas.enabled = false;
             }
         }
         #endregion
@@ -125,8 +130,15 @@ public class PlayerMovement : MonoBehaviour
                 isMove = false;
             else
                 isMove = true;
+
         }
         #endregion
+
+        #region 네브메쉬 에이전트 제어구문
+        if (isRun)
+            nav.speed = runMoveSpeed;
+        else
+            nav.speed = walkMoveSpeed;
 
         if (Input.GetMouseButtonUp(1))
         {
@@ -138,26 +150,16 @@ public class PlayerMovement : MonoBehaviour
 
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6);
+                Physics.Raycast(ray, out hit, Mathf.Infinity);
 
                 Vector3 mousePos = new Vector3(hit.point.x, 0, hit.point.z);
 
                 nav.SetDestination(mousePos);
 
                 StopAllCoroutines();
-                StartCoroutine(clickEffect.ClickEffectCtrl(new Vector3(hit.point.x, 1.1f, hit.point.z)));
-
-                if (isRun)
-                {
-                    nav.speed = runMoveSpeed;
-                    ani.SetFloat(hashSpeed, 1f);
-                }
-                else
-                {
-                    nav.speed = walkMoveSpeed;
-                    ani.SetFloat(hashSpeed, 0.5f);
-                }
+                StartCoroutine(clickEffect.ClickEffectCtrl(new Vector3(hit.point.x, hit.point.y + 1.1f, hit.point.z)));
             }
+
         }
 
         if (Vector3.Distance(nav.destination, transform.position) <= 0.1f)
@@ -167,7 +169,22 @@ public class PlayerMovement : MonoBehaviour
 
             cController.enabled = true;
             nav.enabled = false;
+
+            isMove = false;
         }
+
+        if (isMove)
+        {
+            if (isRun)
+            {
+                ani.SetFloat(hashSpeed, 1f);
+            }
+            else
+            {
+                ani.SetFloat(hashSpeed, 0.5f);
+            }
+        }
+        #endregion
     }
 
     /// <summary>
