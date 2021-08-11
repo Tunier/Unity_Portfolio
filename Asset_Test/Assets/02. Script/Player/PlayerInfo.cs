@@ -2,31 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Stats
+public class PlayerInfo : Creature
 {
-    public int Level;
-    public float MaxHp;
-    public float MaxMp;
-    public float Str;
-    public float Int;
-    public int Gold;
-}
-
-public class PlayerInfo : MonoBehaviour
-{
-    public Stats stats;
-
     public List<Skill> skillList = new List<Skill>(); // 나중에 세이브용 데이터. 세이브할때 딕셔너리에서 스킬만 받아서 저장할것.
     public Dictionary<int, Skill> skillDic = new Dictionary<int, Skill>();
 
-    public float finalMaxHp;
-    public float curHp;
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
 
     public float finalMaxMp;
     public float curMp;
+    public float mpRegen;
     public float ItemEffectMaxMp;
     public float SkillEffectMaxMp;
 
@@ -34,11 +20,14 @@ public class PlayerInfo : MonoBehaviour
     public float ItemEffectStr;
     public float SkillEffectStr;
 
+    public float finalDex;
+    public float ItemEffectDex;
+    public float SkillEffectDex;
+
     public float finalInt;
     public float ItemEffectInt;
     public float SkillEffectInt;
 
-    public float finalAtk;
     public float ItemEffectAtk;
     public float SkillEffectAtk;
 
@@ -50,7 +39,7 @@ public class PlayerInfo : MonoBehaviour
 
         stats.Level = 1;
         stats.MaxHp = 100f + (stats.Level - 1) * 20;
-        //stats.MaxMp = 50f;
+        stats.MaxMp = 20f + (stats.Level - 1) * 5;
         stats.Str = 5f + (stats.Level - 1);
         stats.Int = 5f + (stats.Level - 1);
     }
@@ -87,6 +76,7 @@ public class PlayerInfo : MonoBehaviour
         finalMaxHp = stats.MaxHp + ItemEffectMaxHp + SkillEffectMaxHp;
         finalAtk = stats.Str + ItemEffectAtk + SkillEffectAtk;
         finalStr = stats.Str + ItemEffectStr + SkillEffectStr;
+        finalDex = stats.Dex + ItemEffectDex + SkillEffectDex;
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt;
     }
 
@@ -103,5 +93,15 @@ public class PlayerInfo : MonoBehaviour
         }
         else
             Debug.LogError("플레이어가 해당 스킬을 가지고 있지 않습니다.");
+    }
+
+    public override void Hit(float _damage)
+    {
+        curHp -= _damage - finalDef;
+
+        if (curHp <= 0)
+        {
+            state = STATE.Die;
+        }
     }
 }

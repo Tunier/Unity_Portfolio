@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
+    PlayerInfo playerInfo;
     CharacterController cController;
     NavMeshAgent nav;
     Animator ani;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         pSkillIndicator = FindObjectOfType<Player_SkillIndicator>();
         clickEffect = FindObjectOfType<ClickEffect>();
 
+        playerInfo = GetComponent<PlayerInfo>();
         cController = GetComponent<CharacterController>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponent<Animator>();
@@ -60,131 +62,133 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        #region 키보드로 제어하는 움직임 부분
-        runMoveSpeed = walkMoveSpeed * 2f;
-        backMoveSpeed = walkMoveSpeed * 0.85f;
-
-        x = Input.GetAxisRaw("Horizontal");
-        z = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetKeyDown(runKeyCode))
-            isRun = !isRun;
-
-        if (!cController.isGrounded)
-            moveDirection.y += gravity * Time.deltaTime;
-        else
-            ani.SetBool(hashJump, false);
-
-        if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded && cController.enabled)
+        if (playerInfo.state != STATE.Die)
         {
-            moveDirection.y = jumpForce;
-            ani.SetBool(hashJump, true);
-        }
+            #region 키보드로 제어하는 움직임 부분
+            runMoveSpeed = walkMoveSpeed * 2f;
+            backMoveSpeed = walkMoveSpeed * 0.85f;
 
-        if (!pSkillIndicator.straightIndicator.activeSelf)
-        {
+            x = Input.GetAxisRaw("Horizontal");
+            z = Input.GetAxisRaw("Vertical");
+
+            if (Input.GetKeyDown(runKeyCode))
+                isRun = !isRun;
+
+            if (!cController.isGrounded)
+                moveDirection.y += gravity * Time.deltaTime;
+            else
+                ani.SetBool(hashJump, false);
+
+            if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded && cController.enabled)
+            {
+                moveDirection.y = jumpForce;
+                ani.SetBool(hashJump, true);
+            }
+
+            if (!pSkillIndicator.straightIndicator.activeSelf)
+            {
+                if (x != 0 || z != 0)
+                {
+                    Vector3 camArmRot = new Vector3(0, cameraArm.transform.eulerAngles.y, 0);
+                    transform.rotation = Quaternion.Euler(camArmRot);
+                }
+
+                if (x * z == 1)
+                    transform.eulerAngles += new Vector3(0, 45, 0);
+                else if (x * z == -1)
+                    transform.eulerAngles += new Vector3(0, -45, 0);
+            }
+
+            if (cController.enabled)
+            {
+                setMoveDir(x, z);
+                cController.Move(moveDirection * Time.deltaTime);
+            }
+            #endregion
+
+            #region 캐릭터 제어권을 가지는 컴포넌트 변경 부분
             if (x != 0 || z != 0)
             {
-                Vector3 camArmRot = new Vector3(0, cameraArm.transform.eulerAngles.y, 0);
-                transform.rotation = Quaternion.Euler(camArmRot);
+                if (nav.enabled)
+                {
+                    isMove = false;
+                    ani.SetFloat(hashSpeed, 0f);
+
+                    nav.isStopped = true;
+                    nav.ResetPath();
+
+                    nav.enabled = false;
+                    cController.enabled = true;
+
+                    clickEffect.clickEffectCanvas.enabled = false;
+                }
+            }
+            #endregion
+
+            #region 마우스 우클릭을 했을때 누르는 시간 체크
+            if (Input.GetMouseButton(1))
+            {
+                pushTime += Time.deltaTime;
+
+                if (pushTime >= 0.12f)
+                    isMove = false;
+                else
+                    isMove = true;
+            }
+            #endregion
+
+            #region 네브메쉬 에이전트 제어구문
+            if (isRun)
+                nav.speed = runMoveSpeed;
+            else
+                nav.speed = walkMoveSpeed;
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                pushTime = 0;
+                if (isMove)
+                {
+                    nav.enabled = true;
+                    cController.enabled = false;
+
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                    Physics.Raycast(ray, out hit, Mathf.Infinity);
+
+                    Vector3 mousePos = new Vector3(hit.point.x, 0, hit.point.z);
+
+                    nav.SetDestination(mousePos);
+
+                    StopAllCoroutines();
+                    StartCoroutine(clickEffect.ClickEffectCtrl(new Vector3(hit.point.x, hit.point.y + 1.1f, hit.point.z)));
+                }
+
             }
 
-            if (x * z == 1)
-                transform.eulerAngles += new Vector3(0, 45, 0);
-            else if (x * z == -1)
-                transform.eulerAngles += new Vector3(0, -45, 0);
-        }
-
-        if (cController.enabled)
-        {
-            setMoveDir(x, z);
-            cController.Move(moveDirection * Time.deltaTime);
-        }
-        #endregion
-
-        #region 캐릭터 제어권을 가지는 컴포넌트 변경 부분
-        if (x != 0 || z != 0)
-        {
-            if (nav.enabled)
+            if (Vector3.Distance(nav.destination, transform.position) <= 0.1f)
             {
-                isMove = false;
+                nav.ResetPath();
                 ani.SetFloat(hashSpeed, 0f);
 
-                nav.isStopped = true;
-                nav.ResetPath();
-
-                nav.enabled = false;
                 cController.enabled = true;
+                nav.enabled = false;
 
-                clickEffect.clickEffectCanvas.enabled = false;
-            }
-        }
-        #endregion
-
-        #region 마우스 우클릭을 했을때 누르는 시간 체크
-        if (Input.GetMouseButton(1))
-        {
-            pushTime += Time.deltaTime;
-
-            if (pushTime >= 0.1f)
                 isMove = false;
-            else
-                isMove = true;
+            }
 
-        }
-        #endregion
-
-        #region 네브메쉬 에이전트 제어구문
-        if (isRun)
-            nav.speed = runMoveSpeed;
-        else
-            nav.speed = walkMoveSpeed;
-
-        if (Input.GetMouseButtonUp(1))
-        {
-            pushTime = 0;
             if (isMove)
             {
-                nav.enabled = true;
-                cController.enabled = false;
-
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                Physics.Raycast(ray, out hit, Mathf.Infinity);
-
-                Vector3 mousePos = new Vector3(hit.point.x, 0, hit.point.z);
-
-                nav.SetDestination(mousePos);
-
-                StopAllCoroutines();
-                StartCoroutine(clickEffect.ClickEffectCtrl(new Vector3(hit.point.x, hit.point.y + 1.1f, hit.point.z)));
+                if (isRun)
+                {
+                    ani.SetFloat(hashSpeed, 1f);
+                }
+                else
+                {
+                    ani.SetFloat(hashSpeed, 0.5f);
+                }
             }
-
+            #endregion
         }
-
-        if (Vector3.Distance(nav.destination, transform.position) <= 0.1f)
-        {
-            nav.ResetPath();
-            ani.SetFloat(hashSpeed, 0f);
-
-            cController.enabled = true;
-            nav.enabled = false;
-
-            isMove = false;
-        }
-
-        if (isMove)
-        {
-            if (isRun)
-            {
-                ani.SetFloat(hashSpeed, 1f);
-            }
-            else
-            {
-                ani.SetFloat(hashSpeed, 0.5f);
-            }
-        }
-        #endregion
     }
 
     /// <summary>
