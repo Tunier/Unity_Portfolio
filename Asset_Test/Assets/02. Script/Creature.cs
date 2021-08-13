@@ -7,6 +7,11 @@ interface IHit
     public void Hit(float _damage);
 }
 
+interface IDie
+{
+    public void Die();
+}
+
 [System.Serializable]
 public class Stats
 {
@@ -20,7 +25,7 @@ public class Stats
 }
 
 public enum STATE
-{ 
+{
     Idle,
     Attacking,
     Jump,
@@ -29,10 +34,9 @@ public enum STATE
     Die,
 }
 
-
-public abstract class Creature : MonoBehaviour, IHit
+public abstract class Creature : MonoBehaviour, IHit, IDie
 {
-    public Stats stats = new Stats();
+    public Stats stats;
 
     public STATE state = STATE.Idle;
 
@@ -46,4 +50,6 @@ public abstract class Creature : MonoBehaviour, IHit
     public float finalDef;
 
     public abstract void Hit(float _damage);
+
+    public abstract void Die();
 }

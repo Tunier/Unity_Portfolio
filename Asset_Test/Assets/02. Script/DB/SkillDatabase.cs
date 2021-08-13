@@ -171,8 +171,10 @@ public class SkillDatabase : MonoBehaviour
                     {
                         case 0: // "파이어볼"
                                 // 스킬이 쿨타임인지, 마나가 사용에 필요한 마나이상 있는지 체크 코드 작성 필요
+                                // 마나깎고, 쿨타임적용되게 하는 코드 필요.
                             Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.5f, 0);
                             var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
+                            // 나중에 오브젝트 풀링해서 미리 생성해놓은 오브젝트 활성화해서 사용하게 변경해야함
                             obj.transform.forward = player.transform.forward;
                             break;
                     }

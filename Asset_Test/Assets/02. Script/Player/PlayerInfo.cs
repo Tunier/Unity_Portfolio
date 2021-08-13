@@ -104,4 +104,8 @@ public class PlayerInfo : Creature
             state = STATE.Die;
         }
     }
+
+    public override void Die()
+    {
+    }
 }
