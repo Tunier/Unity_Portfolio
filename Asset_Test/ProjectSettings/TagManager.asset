@@ -10,6 +10,7 @@ TagManager:
   - RaycastTarget
   - Monster
   - Skill
+  - WayPoint
   layers:
   - Default
   - TransparentFX
