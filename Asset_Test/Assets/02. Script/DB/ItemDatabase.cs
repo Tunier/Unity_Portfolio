@@ -10,8 +10,16 @@ public class Item
 {
     public enum ItemType
     {
-        Weapon,
+        OneHandWeapon,
+        TwoHandWeapon,
+        Helmet,
+        Armor,
+        Shoes,
+        Gloves,
+        Ring,
+        Necklace,
         Used,
+        Material,
     }
 
     public enum ItemRarity
@@ -21,7 +29,7 @@ public class Item
         Epic,
     }
 
-    public int Index;
+    public int UID;
     [JsonConverter(typeof(StringEnumConverter))]
     public ItemType Type;
     public string Name;
@@ -118,7 +126,7 @@ public class ItemDatabase : MonoBehaviour
 
         for (int i = 0; i < AllItemList.Count; i++)
         {
-            AllItemDic.Add(AllItemList[i].Index, AllItemList[i]);
+            AllItemDic.Add(i, AllItemList[i]);
         }
         #endregion
     }
