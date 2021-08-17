@@ -8,43 +8,28 @@ using UnityEngine;
 [System.Serializable]
 public class Item
 {
-    public enum ItemType
-    {
-        OneHandWeapon,
-        TwoHandWeapon,
-        Helmet,
-        Armor,
-        Shoes,
-        Gloves,
-        Ring,
-        Necklace,
-        Used,
-        Material,
-    }
-
-    public enum ItemRarity
-    {
-        Common,
-        Rare,
-        Epic,
-    }
-
-    public int UID;
-    [JsonConverter(typeof(StringEnumConverter))]
-    public ItemType Type;
+    public string UIDCODE;
     public string Name;
-    [JsonConverter(typeof(StringEnumConverter))]
-    public ItemRarity Rarity;
-    public string ValueTypes;
-    public string Values;
-    public Dictionary<int, float> ItemEffect = new Dictionary<int, float>();
+    public int Type;
+    public int Rarity;
     public int BuyCost;
     public int SellCost;
-    public int Count;
-    public int SlotIndex;
-
     public string ItemImagePath;
-    public string ItemPrefabPath;
+
+    public int SlotIndex;
+    public int Count;
+
+    public ItemEffect itemEffect = new ItemEffect();
+}
+
+[System.Serializable]
+public class ItemEffect
+{
+    public string UIDCODE;
+    public string Value;
+    public string ValueType;
+    public List<float> f_Value = new List<float>();
+    public List<int> i_ValueType = new List<int>();
 }
 
 public class ItemDatabase : MonoBehaviour
@@ -54,12 +39,16 @@ public class ItemDatabase : MonoBehaviour
     public List<Item> AllItemList = new List<Item>();
     public List<Item> LoadItemList = new List<Item>();
 
-    public Dictionary<int, Item> AllItemDic = new Dictionary<int, Item>();
+    public List<ItemEffect> AllItemEffectList = new List<ItemEffect>();
+
+    public Dictionary<string, Item> AllItemDic = new Dictionary<string, Item>();
+    public Dictionary<string, ItemEffect> AllItemEffectDic = new Dictionary<string, ItemEffect>();
 
     [SerializeField]
     Inventory inven;
 
     const string itemDataPath = "/Resources/Data/All_Item_Data.text";
+    const string itemEffectDataPath = "/Resources/Data/All_Item_Effect_Data.text";
     const string invenSavePath = "/Resources/Data/MyInvenItems.text";
 
     private void Awake()
@@ -102,7 +91,7 @@ public class ItemDatabase : MonoBehaviour
         //}
         #endregion
 
-        #region Json 아이템 데이터 받아와서 리스트와 딕셔너리에 저장하기.
+        #region Json 아이템 데이터, 아이템효과 데이터 받아와서 딕셔너리 리스트에 저장하기.
         if (File.Exists(Application.dataPath + itemDataPath))
         {
             string Jdata = File.ReadAllText(Application.dataPath + itemDataPath);
@@ -110,23 +99,34 @@ public class ItemDatabase : MonoBehaviour
             Debug.Log("아이템데이터 로드성공.");
         }
         else
-            Debug.LogWarning("파일이 없습니다.");
+            Debug.LogWarning("아이템데이터파일이 없습니다.");
 
+        if (File.Exists(Application.dataPath + itemEffectDataPath))
+        {
+            string Jdata = File.ReadAllText(Application.dataPath + itemEffectDataPath);
+            AllItemEffectList = JsonConvert.DeserializeObject<List<ItemEffect>>(Jdata);
+            Debug.Log("아이템효과데이터 로드성공.");
+        }
+        else
+            Debug.LogWarning("아이템효과데이터파일이 없습니다.");
 
         for (int i = 0; i < AllItemList.Count; i++)
         {
-            string[] obj = AllItemList[i].ValueTypes.Split('/');
-            string[] obj2 = AllItemList[i].Values.Split('/');
-
-            for (int j = 0; j < obj.Length; j++)
-            {
-                AllItemList[i].ItemEffect.Add(int.Parse(obj[j]), float.Parse(obj2[j]));
-            }
+            AllItemDic.Add(AllItemList[i].UIDCODE, AllItemList[i]);
         }
 
-        for (int i = 0; i < AllItemList.Count; i++)
+        for (int i = 0; i < AllItemEffectList.Count; i++)
         {
-            AllItemDic.Add(i, AllItemList[i]);
+            AllItemEffectDic.Add(AllItemEffectList[i].UIDCODE, AllItemEffectList[i]);
+
+            string[] row = AllItemEffectDic[AllItemEffectList[i].UIDCODE].Value.Split('/');
+            string[] row2 = AllItemEffectDic[AllItemEffectList[i].UIDCODE].ValueType.Split('/');
+
+            for (int j = 0; j < row.Length; j++)
+            {
+                AllItemEffectDic[AllItemEffectList[i].UIDCODE].f_Value.Add(float.Parse(row[j]));
+                AllItemEffectDic[AllItemEffectList[i].UIDCODE].i_ValueType.Add(int.Parse(row2[j]));
+            }
         }
         #endregion
     }
@@ -141,7 +141,7 @@ public class ItemDatabase : MonoBehaviour
         if (File.Exists(Application.dataPath + invenSavePath))
         {
             string Jdata = File.ReadAllText(Application.dataPath + invenSavePath);
-            //LoadItemList = JsonConvert.DeserializeObject<List<Item>>(Jdata);
+            LoadItemList = JsonConvert.DeserializeObject<List<Item>>(Jdata);
             inven.LoadInven(LoadItemList);
 
             Debug.Log("인벤토리 로드성공");
@@ -150,47 +150,46 @@ public class ItemDatabase : MonoBehaviour
             Debug.Log("세이브파일없음");
     }
 
-    //public Item newItem(int i)
-    //{
-    //    int damage;
-
-    //    var randomItemQuality = UnityEngine.Random.Range(1, 1000);
-
-    //    if (AllItemDic[i].Type == Item.ItemType.Weapon)
-    //    {
-    //        if (randomItemQuality > 750)
-    //            damage = Mathf.RoundToInt(AllItemDic[i].Value * 1.1f);
-    //        else if (randomItemQuality > 250)
-    //            damage = AllItemDic[i].Value;
-    //        else
-    //            damage = Mathf.RoundToInt(AllItemDic[i].Value * 0.9f);
-    //    }
-    //    else
-    //    {
-    //        damage = AllItemDic[i].Value;
-    //    }
-
-
-    //    var item = new Item(AllItemDic[i].Index,
-    //                        AllItemDic[i].Type,
-    //                        AllItemDic[i].Name,
-    //                        AllItemDic[i].Rarity,
-    //                        damage,
-    //                        AllItemDic[i].BuyCost,
-    //                        AllItemDic[i].SellCost,
-    //                        AllItemDic[i].ItemImagePath);
-
-    //    return item;
-    //}
-
-    public void UseItem(Item _item)
+    public Item newItem(string _s)
     {
-        switch (_item.Type)
-        {
-            case Item.ItemType.Used:
-                //_item.
+        var item = new Item();
 
-                break;
+        item.UIDCODE = AllItemDic[_s].UIDCODE;
+        item.Type = AllItemDic[_s].Type;
+        item.Name = AllItemDic[_s].Name;
+        item.Rarity = AllItemDic[_s].Rarity;
+        item.BuyCost = AllItemDic[_s].BuyCost;
+        item.SellCost = AllItemDic[_s].SellCost;
+        item.ItemImagePath = AllItemDic[_s].ItemImagePath;
+
+        var randomItemQuality = UnityEngine.Random.Range(1, 1000);
+
+        if (AllItemDic[_s].Type != 9 && AllItemDic[_s].Type != 10)
+        {
+            //if (randomItemQuality > 750)
+            //{
+            //    for (int i = 0; i < AllItemEffectDic[_s].f_Value.Count; i++)
+            //        item.itemEffect.f_Value[i] = AllItemEffectDic[item.UIDCODE].f_Value[i] * 1.1f;
+            //}
+            //else if (randomItemQuality > 250)
+            //{
+            //    for (int i = 0; i < AllItemEffectDic[_s].f_Value.Count; i++)
+            //        item.itemEffect.f_Value[i] = AllItemEffectDic[item.UIDCODE].f_Value[i];
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < AllItemEffectDic[_s].f_Value.Count; i++)
+            //        item.itemEffect.f_Value[i] = AllItemEffectDic[item.UIDCODE].f_Value[i] * 0.9f;
+            //}
+            item.itemEffect.f_Value = AllItemEffectDic[item.UIDCODE].f_Value;
         }
+        else
+        {
+            item.itemEffect.f_Value = AllItemEffectDic[item.UIDCODE].f_Value;
+        }
+
+        item.itemEffect.i_ValueType = AllItemEffectDic[item.UIDCODE].i_ValueType;
+
+        return item;
     }
 }

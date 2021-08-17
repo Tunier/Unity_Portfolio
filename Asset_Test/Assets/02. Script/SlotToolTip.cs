@@ -54,7 +54,7 @@ public class SlotToolTip : MonoBehaviour
 
         if (RectTransformUtility.RectangleContainsScreenPoint(invenBase, Input.mousePosition))
         {
-            if (_item.Type == Item.ItemType.Used)
+            if (_item.Type != 9 && _item.Type != 10)
             {
                 itemHouToUseText.text = "우클릭 - 사용";
             }
@@ -69,7 +69,7 @@ public class SlotToolTip : MonoBehaviour
         }
         else if (RectTransformUtility.RectangleContainsScreenPoint(quickSlotBase, Input.mousePosition))
         {
-            if (_item.Type == Item.ItemType.Used)
+            if (_item.Type == 9 && _item.Type == 10)
             {
                 itemHouToUseText.text = "우클릭 - 사용";
             }
@@ -93,20 +93,23 @@ public class SlotToolTip : MonoBehaviour
     ///SetItemNameColor(아이템 레어리티)<br/>
     ///아이템의 레어리티에 따라 아이템 이름 텍스트의 컬러를 바꿔줌.
     ///</summary>
-    public void SetItemNameColor(Item.ItemRarity _itemRarelity)
+    public void SetItemNameColor(int _itemRarelity)
     {
         Color color;
 
         switch (_itemRarelity)
         {
-            case Item.ItemRarity.Common:
+            case 0:
                 itemNameText.color = Color.white;
                 break;
-            case Item.ItemRarity.Rare:
+            case 1:
                 ColorUtility.TryParseHtmlString("#0078FF", out color);
                 itemNameText.color = color;
                 break;
-            case Item.ItemRarity.Epic:
+            case 2:
+                itemNameText.color = Color.red;
+                break;
+            case 3:
                 itemNameText.color = Color.yellow;
                 break;
         }
