@@ -28,8 +28,10 @@ public class ItemEffect
     public string UIDCODE;
     public string Value;
     public string ValueType;
-    public List<float> f_Value = new List<float>();
-    public List<int> i_ValueType = new List<int>();
+    public Dictionary<int, float> ValueDic = new Dictionary<int, float>();
+    public string RequireValue;
+    public string RequireValueType;
+    public Dictionary<int, float> RequireValueDic = new Dictionary<int, float>();
 }
 
 public class ItemDatabase : MonoBehaviour
@@ -122,10 +124,17 @@ public class ItemDatabase : MonoBehaviour
             string[] row = AllItemEffectDic[AllItemEffectList[i].UIDCODE].Value.Split('/');
             string[] row2 = AllItemEffectDic[AllItemEffectList[i].UIDCODE].ValueType.Split('/');
 
-            for (int j = 0; j < row.Length; j++)
+            for (int j = 0; j < row2.Length; j++)
             {
-                AllItemEffectDic[AllItemEffectList[i].UIDCODE].f_Value.Add(float.Parse(row[j]));
-                AllItemEffectDic[AllItemEffectList[i].UIDCODE].i_ValueType.Add(int.Parse(row2[j]));
+                AllItemEffectDic[AllItemEffectList[i].UIDCODE].ValueDic.Add(int.Parse(row2[j]), float.Parse(row[j]));
+            }
+
+            string[] row3 = AllItemEffectDic[AllItemEffectList[i].UIDCODE].RequireValue.Split('/');
+            string[] row4 = AllItemEffectDic[AllItemEffectList[i].UIDCODE].RequireValueType.Split('/');
+
+            for (int j = 0; j < row4.Length; j++)
+            {
+                AllItemEffectDic[AllItemEffectList[i].UIDCODE].RequireValueDic.Add(int.Parse(row4[j]), float.Parse(row3[j]));
             }
         }
         #endregion
@@ -164,31 +173,8 @@ public class ItemDatabase : MonoBehaviour
 
         var randomItemQuality = UnityEngine.Random.Range(1, 1000);
 
-        if (AllItemDic[_s].Type != 9 && AllItemDic[_s].Type != 10)
-        {
-            //if (randomItemQuality > 750)
-            //{
-            //    for (int i = 0; i < AllItemEffectDic[_s].f_Value.Count; i++)
-            //        item.itemEffect.f_Value[i] = AllItemEffectDic[item.UIDCODE].f_Value[i] * 1.1f;
-            //}
-            //else if (randomItemQuality > 250)
-            //{
-            //    for (int i = 0; i < AllItemEffectDic[_s].f_Value.Count; i++)
-            //        item.itemEffect.f_Value[i] = AllItemEffectDic[item.UIDCODE].f_Value[i];
-            //}
-            //else
-            //{
-            //    for (int i = 0; i < AllItemEffectDic[_s].f_Value.Count; i++)
-            //        item.itemEffect.f_Value[i] = AllItemEffectDic[item.UIDCODE].f_Value[i] * 0.9f;
-            //}
-            item.itemEffect.f_Value = AllItemEffectDic[item.UIDCODE].f_Value;
-        }
-        else
-        {
-            item.itemEffect.f_Value = AllItemEffectDic[item.UIDCODE].f_Value;
-        }
-
-        item.itemEffect.i_ValueType = AllItemEffectDic[item.UIDCODE].i_ValueType;
+        item.itemEffect.ValueDic = AllItemEffectDic[item.UIDCODE].ValueDic;
+        item.itemEffect.RequireValueDic = AllItemEffectDic[item.UIDCODE].RequireValueDic;
 
         return item;
     }

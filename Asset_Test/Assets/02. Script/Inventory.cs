@@ -66,7 +66,7 @@ public class Inventory : MonoBehaviour
     /// <param name="count"></param>
     public void GetItem(Item _item, int count = 1)
     {
-        if (_item.Type == Item.ItemType.Used) // 소비탬일때
+        if (_item.Type == 9 || _item.Type == 10) // 소비탬이나 재료탬일때
         {
             foreach (Slot slot in slots) // 모든 슬롯중
             {
@@ -118,14 +118,6 @@ public class Inventory : MonoBehaviour
             if (itemList[i].Count != 0)
             {
                 slots[itemList[i].SlotIndex].AddItem(itemList[i]);
-                //if (itemList[i].Type == Item.ItemType.Weapon)
-                //{
-                //    Debug.Log(itemList[i].Name + "을 " + itemList[i].SlotIndex + "에 로드했음");
-                //}
-                //else
-                //{
-                //    Debug.Log(itemList[i].Name + "을 " + itemList[i].Count + "개 " + itemList[i].SlotIndex + "에 로드했음");
-                //}
             }
             else
             {

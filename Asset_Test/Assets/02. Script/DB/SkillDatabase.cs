@@ -82,11 +82,6 @@ public class SkillDatabase : MonoBehaviour
         for (int i = 0; i < AllSkillList.Count; i++)
         {
             AllSkillDic.Add(AllSkillList[i].Index, AllSkillList[i]);
-
-            if (i == AllSkillList.Count - 1)
-            {
-                Debug.Log("모두 등록 완료");
-            }
         }
     }
 
@@ -110,7 +105,7 @@ public class SkillDatabase : MonoBehaviour
     }
 
     /// <summary>
-    /// 스킬, 스킬타겟, 스킬사용자(기본은 null)를 받아서 스킬 타입에따라 스킬이 사용되게함.
+    /// 스킬, 스킬사용자, 스킬타겟(기본은 null)를 받아서 스킬 타입에따라 스킬이 사용되게함.
     /// </summary>
     /// <param name="_skill"></param>
     /// <param name="_user"></param>
@@ -156,10 +151,12 @@ public class SkillDatabase : MonoBehaviour
                 if (_user.CompareTag("Player"))
                 {
                     var player = _user.GetComponent<PlayerInfo>();
-                    //var target = _target.GetComponent<MonsterInfo>();
-                    switch (_skill.Index)
+                    if (_target.CompareTag("Monster"))
                     {
-                        //
+                        switch (_skill.Index)
+                        {
+                            //
+                        }
                     }
                 }
                 break;

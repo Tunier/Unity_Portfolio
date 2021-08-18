@@ -58,7 +58,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         SetColorAlpha(1);
         haveItem = true;
 
-        if (item.Type == Item.ItemType.Used)
+        if (item.Type == 9 || item.Type == 10)
         {
             countImage.SetActive(true);
             countText.text = itemCount.ToString();
