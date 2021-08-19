@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     RectTransform statusBase;
 
     [SerializeField]
-    SlotToolTip toolTip;
+    Tooltip toolTip;
 
     [SerializeField]
     GameObject quickSlotParent;
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
             inventoryUI.SetActive(!inventoryUI.activeSelf);
 
             if (!inventoryUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(invenBase, Input.mousePosition))
-                toolTip.HideToolTip();
+                toolTip.HideTooltip();
         }
         else if (Input.GetKeyDown(KeyCode.O))
         {

@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
         {
             foreach (Slot slot in slots) // 모든 슬롯중
             {
-                if (slot.haveItem) // 아이템이 있는 슬롯에
+                if (slot.itemCount != 0) // 아이템이 있는 슬롯에
                 {
                     if (slot.item.Name == _item.Name) // 같은 이름을 가진 item이 있으면
                     {
@@ -96,7 +96,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < slots.Count; i++)
         {
-            if (slots[i].haveItem)
+            if (slots[i].itemCount != 0)
             {
                 if (!myItems.Contains(slots[i].item))
                 {

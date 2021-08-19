@@ -331,4 +331,9 @@ public class Tooltip : MonoBehaviour
     {
 
     }
+
+    public void HideTooltip()
+    {
+        go_Tooltip.SetActive(false);
+    }
 }
