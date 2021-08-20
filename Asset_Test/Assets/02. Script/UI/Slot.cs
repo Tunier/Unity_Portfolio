@@ -6,14 +6,12 @@ using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public int index;
-    public Item item;
-    public Image itemImage;
+    public int index = 0;
+    public Item item = null;
+    public Image itemImage = null;
 
-    public int itemCount;
+    public int itemCount = 0;
 
-    [SerializeField]
-    GameObject countImage;
     [SerializeField]
     Text countText;
 
@@ -21,13 +19,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     InputNumberUI inputNumber;
     Inventory inven;
     Shop shop;
+    Tooltip tooltip;
 
     PlayerInfo player;
 
     [SerializeField]
     RectTransform invenBase;
-    [SerializeField]
-    RectTransform statusBase;
     [SerializeField]
     RectTransform quickSlotBase;
     [SerializeField]
@@ -39,6 +36,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         inputNumber = FindObjectOfType<InputNumberUI>();
         inven = FindObjectOfType<Inventory>();
         shop = FindObjectOfType<Shop>();
+        tooltip = FindObjectOfType<Tooltip>();
         player = FindObjectOfType<PlayerInfo>();
     }
 
@@ -59,18 +57,18 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
         if (item.Type == 9 || item.Type == 10)
         {
-            countImage.SetActive(true);
+            countText.gameObject.SetActive(true);
             countText.text = itemCount.ToString();
         }
         else
         {
             countText.text = "0";
-            countImage.SetActive(false);
+            countText.gameObject.SetActive(false);
         }
     }
 
     /// <summary>
-    /// 해당슬롯의 아이템 카운트를 인수값 만큼 더해줌. 아이템 카운트가 0이되면 ClearSlot 발동.
+    /// 해당슬롯의 아이템 카운트를 인수값 만큼 더해줌. 아이템 카운트가 0이되면 ClearSlot 함수 발동.
     /// </summary>
     /// <param name="count"></param>
     public void SetSlotCount(int count)
@@ -81,7 +79,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         if (itemCount <= 0)
         {
             ClearSlot();
-            //database.HideToolTip();
+            tooltip.HideTooltip();
         }
     }
 
@@ -96,7 +94,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         itemCount = 0;
 
         countText.text = "0";
-        countImage.SetActive(false);
+        countText.gameObject.SetActive(false);
     }
 
     // 슬롯 우클릭시 슬롯에 있는 아이템 타입을 보고 소모품이면 아이템 사용

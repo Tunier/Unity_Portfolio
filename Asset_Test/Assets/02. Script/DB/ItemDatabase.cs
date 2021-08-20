@@ -159,17 +159,17 @@ public class ItemDatabase : MonoBehaviour
             Debug.Log("세이브파일없음");
     }
 
-    public Item newItem(string _s)
+    public Item newItem(string _UIDCODE)
     {
         var item = new Item();
 
-        item.UIDCODE = AllItemDic[_s].UIDCODE;
-        item.Type = AllItemDic[_s].Type;
-        item.Name = AllItemDic[_s].Name;
-        item.Rarity = AllItemDic[_s].Rarity;
-        item.BuyCost = AllItemDic[_s].BuyCost;
-        item.SellCost = AllItemDic[_s].SellCost;
-        item.ItemImagePath = AllItemDic[_s].ItemImagePath;
+        item.UIDCODE = AllItemDic[_UIDCODE].UIDCODE;
+        item.Type = AllItemDic[_UIDCODE].Type;
+        item.Name = AllItemDic[_UIDCODE].Name;
+        item.Rarity = AllItemDic[_UIDCODE].Rarity;
+        item.BuyCost = AllItemDic[_UIDCODE].BuyCost;
+        item.SellCost = AllItemDic[_UIDCODE].SellCost;
+        item.ItemImagePath = AllItemDic[_UIDCODE].ItemImagePath;
 
         var randomItemQuality = UnityEngine.Random.Range(1, 1000);
 
