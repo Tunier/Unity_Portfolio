@@ -35,7 +35,7 @@ public class PlayerActionCtrl : MonoBehaviour
             if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
             {
                 skillIndicator.straightIndicator.SetActive(false);
-                //skillDB.UseSkill(player.skillDic[0], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
+                skillDB.UseSkill(skillDB.AllSkillDic["0300000"], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
             }
         }
     }
@@ -44,7 +44,7 @@ public class PlayerActionCtrl : MonoBehaviour
     {
         // z 키에 있는 스킬의 종류를 받아서 인디케이터를 킬지 정함.
         // 인디케이터를 킬 필요가 없으면 바로 UseSkill 발동
-        //if (quickSkillSlot[0].skill.SkillType == Skill.SkillType.NoneTarget)
+        //if (quickSkillSlot[0].skill.type == Skill.SkillType.NoneTarget)
         //{
         //    skillIndicator.straightIndicator.SetActive(true);
         //}
