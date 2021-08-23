@@ -35,7 +35,7 @@ public class PlayerActionCtrl : MonoBehaviour
             if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
             {
                 skillIndicator.straightIndicator.SetActive(false);
-                skillDB.UseSkill(player.skillDic[0], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
+                //skillDB.UseSkill(player.skillDic[0], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
             }
         }
     }

@@ -8,35 +8,14 @@ using System.IO;
 [System.Serializable]
 public class Skill
 {
-    public enum SkillType
-    {
-        Passive,
-        AoEAttack,
-        Target,
-        NoneTarget,
-        Buff,
-        Debuff,
-        Heal,
-    }
-
-    public enum CostType
-    {
-        None,
-        Hp,
-        Mp,
-    }
-
-    public int Index;
-    [JsonConverter(typeof(StringEnumConverter))]
-    public SkillType skillType;
+    public string UIDCODE;
     public string Name;
-    [JsonConverter(typeof(StringEnumConverter))]
-    public CostType costType;
+    public int Type;
+    public int CostType;
     public int Cost;
     public int Value;
     public float ValueFactor;
     public float CoolTime;
-    public int SkillLv;
     public int MaxSkillLv;
 
     [TextArea]
@@ -51,7 +30,7 @@ public class SkillDatabase : MonoBehaviour
     Player_SkillIndicator skillIndicator;
 
     public List<Skill> AllSkillList = new List<Skill>();
-    public Dictionary<int, Skill> AllSkillDic = new Dictionary<int, Skill>();
+    public Dictionary<string, Skill> AllSkillDic = new Dictionary<string, Skill>();
 
     const string skillDataPath = "/Resources/Data/All_Skill_Data.text";
 
@@ -81,25 +60,25 @@ public class SkillDatabase : MonoBehaviour
 
         for (int i = 0; i < AllSkillList.Count; i++)
         {
-            AllSkillDic.Add(AllSkillList[i].Index, AllSkillList[i]);
+            AllSkillDic.Add(AllSkillList[i].UIDCODE, AllSkillList[i]);
         }
     }
 
-    public Skill NewSkill(int i)
+    public Skill NewSkill(string _UIDCODE)
     {
         //최종 데미지 공식 : Mathf.RoundToInt(AllSkillDic[i].Value + (AllSkillDic[i].Skill_Level - 1) * AllSkillDic[i].ValueFactor);
 
         var skill = new Skill();
 
-        skill.Index = AllSkillDic[i].Index;
-        skill.skillType = AllSkillDic[i].skillType;
-        skill.Name = AllSkillDic[i].Name;
-        skill.costType = AllSkillDic[i].costType;
-        skill.Cost = AllSkillDic[i].Cost;
-        skill.Value = AllSkillDic[i].Value;
-        skill.ValueFactor = AllSkillDic[i].ValueFactor;
-        skill.SkillDescription = AllSkillDic[i].SkillDescription;
-        skill.SkillImagePath = AllSkillDic[i].SkillImagePath;
+        skill.UIDCODE = AllSkillDic[_UIDCODE].UIDCODE;
+        skill.Type = AllSkillDic[_UIDCODE].Type;
+        skill.Name = AllSkillDic[_UIDCODE].Name;
+        skill.CostType = AllSkillDic[_UIDCODE].CostType;
+        skill.Cost = AllSkillDic[_UIDCODE].Cost;
+        skill.Value = AllSkillDic[_UIDCODE].Value;
+        skill.ValueFactor = AllSkillDic[_UIDCODE].ValueFactor;
+        skill.SkillDescription = AllSkillDic[_UIDCODE].SkillDescription;
+        skill.SkillImagePath = AllSkillDic[_UIDCODE].SkillImagePath;
 
         return skill;
     }
@@ -112,100 +91,100 @@ public class SkillDatabase : MonoBehaviour
     /// <param name="_target"></param>
     public void UseSkill(Skill _skill, GameObject _user, GameObject _target = null)
     {
-        if (_skill.SkillLv == 0)
-        {
-            Debug.Log("아직 배우지 않은 스킬입니다.");
-            return;
-        }
+        //if (_skill.SkillLv == 0)
+        //{
+        //    Debug.Log("아직 배우지 않은 스킬입니다.");
+        //    return;
+        //}
 
-        switch (_skill.skillType)
-        {
-            case Skill.SkillType.Passive:
-                if (_user.CompareTag("Player"))
-                {
-                    var player = _user.GetComponent<PlayerInfo>();
-                    switch (_skill.Index)
-                    {
-                        case 1://"Hp증가"
-                            if (_skill.SkillLv > 1)
-                            {
-                                player.SkillEffectMaxHp += _skill.ValueFactor;
-                                player.RefeshFinalStats();
-                                Debug.Log(_skill.Name + " (패시브)스킬 레벨업");
-                            }
-                            else if (_skill.SkillLv == 1)
-                            {
-                                player.SkillEffectMaxHp += _skill.Value;
-                                player.RefeshFinalStats();
-                                Debug.Log(_skill.Name + " (패시브)스킬 습득");
-                            }
-                            break;
-                    }
-                }
-                // 나중에 사용자가 플레이어 이외일때 작성.
-                //else if (_user.GetComponent<>)
-                //{ 
-                //}
-                break;
-            case Skill.SkillType.Target:
-                if (_user.CompareTag("Player"))
-                {
-                    var player = _user.GetComponent<PlayerInfo>();
-                    if (_target.CompareTag("Monster"))
-                    {
-                        switch (_skill.Index)
-                        {
-                            //
-                        }
-                    }
-                }
-                break;
-            case Skill.SkillType.NoneTarget:
-                if (_user.CompareTag("Player"))
-                {
-                    var player = _user.GetComponent<PlayerInfo>();
-                    switch (_skill.Index)
-                    {
-                        case 0: // "파이어볼"
-                                // 스킬이 쿨타임인지, 마나가 사용에 필요한 마나이상 있는지 체크 코드 작성 필요
-                                // 마나깎고, 쿨타임적용되게 하는 코드 필요.
-                            Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.5f, 0);
-                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
-                            // 나중에 오브젝트 풀링해서 미리 생성해놓은 오브젝트 활성화해서 사용하게 변경해야함
-                            obj.transform.forward = player.transform.forward;
-                            break;
-                    }
-                }
-                break;
-            case Skill.SkillType.AoEAttack:
+        //switch (_skill.skillType)
+        //{
+        //    case Skill.SkillType.Passive:
+        //        if (_user.CompareTag("Player"))
+        //        {
+        //            var player = _user.GetComponent<PlayerInfo>();
+        //            switch (_skill.Index)
+        //            {
+        //                case 1://"Hp증가"
+        //                    if (_skill.SkillLv > 1)
+        //                    {
+        //                        player.SkillEffectMaxHp += _skill.ValueFactor;
+        //                        player.RefeshFinalStats();
+        //                        Debug.Log(_skill.Name + " (패시브)스킬 레벨업");
+        //                    }
+        //                    else if (_skill.SkillLv == 1)
+        //                    {
+        //                        player.SkillEffectMaxHp += _skill.Value;
+        //                        player.RefeshFinalStats();
+        //                        Debug.Log(_skill.Name + " (패시브)스킬 습득");
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //        // 나중에 사용자가 플레이어 이외일때 작성.
+        //        //else if (_user.GetComponent<>)
+        //        //{ 
+        //        //}
+        //        break;
+        //    case Skill.SkillType.Target:
+        //        if (_user.CompareTag("Player"))
+        //        {
+        //            var player = _user.GetComponent<PlayerInfo>();
+        //            if (_target.CompareTag("Monster"))
+        //            {
+        //                switch (_skill.Index)
+        //                {
+        //                    //
+        //                }
+        //            }
+        //        }
+        //        break;
+        //    case Skill.SkillType.NoneTarget:
+        //        if (_user.CompareTag("Player"))
+        //        {
+        //            var player = _user.GetComponent<PlayerInfo>();
+        //            switch (_skill.Index)
+        //            {
+        //                case 0: // "파이어볼"
+        //                        // 스킬이 쿨타임인지, 마나가 사용에 필요한 마나이상 있는지 체크 코드 작성 필요
+        //                        // 마나깎고, 쿨타임적용되게 하는 코드 필요.
+        //                    Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.5f, 0);
+        //                    var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
+        //                    // 나중에 오브젝트 풀링해서 미리 생성해놓은 오브젝트 활성화해서 사용하게 변경해야함
+        //                    obj.transform.forward = player.transform.forward;
+        //                    break;
+        //            }
+        //        }
+        //        break;
+        //    case Skill.SkillType.AoEAttack:
 
-                break;
-            case Skill.SkillType.Buff:
+        //        break;
+        //    case Skill.SkillType.Buff:
 
-                break;
-            case Skill.SkillType.Debuff:
+        //        break;
+        //    case Skill.SkillType.Debuff:
 
-                break;
-            case Skill.SkillType.Heal:
+        //        break;
+        //    case Skill.SkillType.Heal:
 
-                break;
-            default:
-                Debug.LogError("스킬타입에 없는 스킬입니다.");
-                break;
-        }
+        //        break;
+        //    default:
+        //        Debug.LogError("스킬타입에 없는 스킬입니다.");
+        //        break;
+        //}
     }
 
-    public void UsePassiveSkillOnLoad(Skill _skill, GameObject _user)
+    public void UsePassiveSkillOnLoad(Skill _skill, int _skillLv, GameObject _user)
     {
         if (_user.CompareTag("Player"))
         {
             var player = _user.GetComponent<PlayerInfo>();
-            switch (_skill.Index)
+            switch (_skill.UIDCODE)
             {
-                case 1://"Hp증가"
-                    if (_skill.SkillLv > 0)
+                case "0300001"://"Hp증가"
+                    if (_skillLv > 0)
                     {
-                        player.SkillEffectMaxHp += _skill.Value + (_skill.SkillLv - 1) * _skill.ValueFactor;
+                        player.SkillEffectMaxHp += _skill.Value + (_skillLv - 1) * _skill.ValueFactor;
                         player.RefeshFinalStats();
                         Debug.Log(_skill.Name + " (패시브)스킬 효과 발동");
                     }

@@ -12,19 +12,6 @@ interface IDie
     public void Die();
 }
 
-[System.Serializable]
-public class Stats
-{
-    public string s_Name;
-    public int Level;
-    public float MaxHp;
-    public float MaxMp;
-    public float Str;
-    public float Dex;
-    public float Int;
-    public int Gold;
-}
-
 public enum STATE
 {
     Idle,
@@ -37,8 +24,6 @@ public enum STATE
 
 public abstract class Creature : MonoBehaviour, IHit, IDie
 {
-    public Stats stats;
-
     public STATE state = STATE.Idle;
 
     public float finalMaxHp;

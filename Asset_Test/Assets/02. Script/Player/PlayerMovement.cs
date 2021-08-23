@@ -30,9 +30,10 @@ public class PlayerMovement : MonoBehaviour
     Animator ani;
 
     KeyCode runKeyCode = KeyCode.LeftShift;
-    [SerializeField]
+
+    bool isMove = false;
     bool isRun = false;
-    public bool isMove = false;
+    public bool wantMove = false;
 
     float pushTime = 0;
 
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponent<Animator>();
 
+        isMove = false;
         isRun = false;
     }
 
@@ -111,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (nav.enabled)
                 {
-                    isMove = false;
+                    wantMove = false;
                     ani.SetFloat(hashSpeed, 0f);
 
                     nav.isStopped = true;
@@ -131,13 +133,14 @@ public class PlayerMovement : MonoBehaviour
                 pushTime += Time.deltaTime;
 
                 if (pushTime >= 0.12f)
-                    isMove = false;
+                    wantMove = false;
                 else
-                    isMove = true;
+                    wantMove = true;
             }
             #endregion
 
             #region 네브메쉬 에이전트 제어구문
+
             if (isRun)
                 nav.speed = runMoveSpeed;
             else
@@ -146,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonUp(1))
             {
                 pushTime = 0;
-                if (isMove)
+                if (wantMove)
                 {
                     nav.enabled = true;
                     cController.enabled = false;
@@ -161,30 +164,36 @@ public class PlayerMovement : MonoBehaviour
 
                     StopAllCoroutines();
                     StartCoroutine(clickEffect.ClickEffectCtrl(new Vector3(hit.point.x, hit.point.y + 1.1f, hit.point.z)));
-                }
 
+                    isMove = true;
+                }
             }
 
-            if (Vector3.Distance(nav.destination, transform.position) <= 0.1f)
+            if (nav.enabled)
             {
-                nav.ResetPath();
-                ani.SetFloat(hashSpeed, 0f);
-
-                cController.enabled = true;
-                nav.enabled = false;
-
-                isMove = false;
-            }
-
-            if (isMove)
-            {
-                if (isRun)
+                if (Vector3.Distance(nav.destination, transform.position) <= 0.1f)
                 {
-                    ani.SetFloat(hashSpeed, 1f);
+                    nav.ResetPath();
+                    ani.SetFloat(hashSpeed, 0f);
+
+                    cController.enabled = true;
+                    nav.enabled = false;
+
+                    wantMove = false;
+
+                    isMove = false;
                 }
-                else
+
+                if (isMove)
                 {
-                    ani.SetFloat(hashSpeed, 0.5f);
+                    if (isRun)
+                    {
+                        ani.SetFloat(hashSpeed, 1f);
+                    }
+                    else
+                    {
+                        ani.SetFloat(hashSpeed, 0.5f);
+                    }
                 }
             }
             #endregion

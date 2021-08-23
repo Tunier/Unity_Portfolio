@@ -18,9 +18,9 @@ public class Inventory : MonoBehaviour
 
     RectTransform rect;
 
-    public List<Slot> slots;
+    public List<Slot> slots = new List<Slot>();
 
-    public List<Item> myItems;
+    public List<Item> myItems = new List<Item>();
 
     public bool isFull = false;
 

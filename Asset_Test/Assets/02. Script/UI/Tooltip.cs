@@ -38,7 +38,7 @@ public class Tooltip : MonoBehaviour
         CostText.gameObject.SetActive(false);
 
         #region 아이템 툴팁 체크 (디버그용)
-        Item _testItem = ItemDatabase.instance.newItem("0000007");
+        Item _testItem = ItemDatabase.instance.newItem("0000008");
         #region 아이템 딕셔너리 키 체크 (디버그용)
         //List<int> Keys = new List<int>();
         //Keys.AddRange(_testItem.itemEffect.ValueDic.Keys);

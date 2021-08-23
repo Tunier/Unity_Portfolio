@@ -18,13 +18,13 @@ public class FireBall : MonoBehaviour
         explosion_Effet.SetActive(false);
         rb = GetComponent<Rigidbody>();
 
-        moveSpeed = 20f;
+        moveSpeed = 30f;
     }
 
     void Start()
     {
         rb.velocity = transform.forward * moveSpeed;
-        Destroy(gameObject, 4f);
+        Destroy(gameObject, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)

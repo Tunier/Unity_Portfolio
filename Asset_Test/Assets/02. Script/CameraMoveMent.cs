@@ -20,6 +20,8 @@ public class CameraMoveMent : MonoBehaviour
         cController = FindObjectOfType<CharacterController>();
 
         camSpeed = 3.5f;
+
+        cameraArm.position = player.transform.position;
     }
 
     void CamMove()
