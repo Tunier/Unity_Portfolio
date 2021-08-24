@@ -54,17 +54,17 @@ public class GameManager : MonoBehaviour
 
         isPause = false;
 
+        Vector2 mousePos = new Vector2(-2f, 0);
+
 #if UNITY_EDITOR
 
 #else
-        Cursor.SetCursor(cursorImg[0], Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorImg[0], mousePos, CursorMode.ForceSoftware);
 #endif
     }
 
     private void Update()
     {
-        UIHotKey();
-
         //if (player.state == PlayerCtrl.State.DIE)
         //{
         //    dieText.SetActive(true);
@@ -94,69 +94,6 @@ public class GameManager : MonoBehaviour
             Cursor.SetCursor(GameManager.instance.cursorImg[0], Vector2.zero, CursorMode.ForceSoftware);
         }
 #endif
-    }
-
-    /// <summary>
-    /// 인벤토리, 스텟창, 퀵슬롯 아이템 사용 등의 키보드 입력을 처리함.
-    /// </summary>
-    void UIHotKey()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-
-            if (!inventoryUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(invenBase, Input.mousePosition))
-                toolTip.HideTooltip();
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            //statusUI.SetActive(!statusUI.activeSelf);
-
-            //if (!statusUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(statusBase, Input.mousePosition))
-            //    toolTip.HideToolTip();
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //if (!inventoryUI.activeSelf && !statusUI.activeSelf && !shopUI.activeSelf && !wayPointUI.activeSelf)
-            //{
-            //    isPause = !isPause;
-            //}
-            //else
-            //{
-            //    inventoryUI.SetActive(false);
-            //    statusUI.SetActive(false);
-            //    shopUI.SetActive(false);
-            //    wayPointUI.SetActive(false);
-
-            //    toolTip.HideToolTip();
-            //    DragSlot.instance.SetColorAlpha(0);
-            //    DragSlot.instance.dragSlot = null;
-            //}
-        }
-        //else if (Input.GetKeyDown(KeyCode.F10))
-        //{
-        //    isPause = !isPause;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    QuickSlotUseItem(0);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    QuickSlotUseItem(1);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    QuickSlotUseItem(2);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha4))
-        //{
-        //    QuickSlotUseItem(3);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha5))
-        //{
-        //    QuickSlotUseItem(4);
-        //}
     }
 
     public void OnPauseClick()

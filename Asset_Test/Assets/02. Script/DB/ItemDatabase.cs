@@ -17,7 +17,6 @@ public class Item
     public string ItemImagePath;
 
     public int SlotIndex;
-    public int Count;
 
     public ItemEffect itemEffect = new ItemEffect();
 }

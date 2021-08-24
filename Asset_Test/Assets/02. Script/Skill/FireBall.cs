@@ -24,7 +24,7 @@ public class FireBall : MonoBehaviour
     void Start()
     {
         rb.velocity = transform.forward * moveSpeed;
-        Destroy(gameObject, 1.5f);
+        Destroy(gameObject, 1.2f);
     }
 
     private void OnTriggerEnter(Collider other)

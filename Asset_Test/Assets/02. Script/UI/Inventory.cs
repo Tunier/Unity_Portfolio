@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    GameObject slotsParent;
+    GameObject inventory_Slot_Parent;
+    [SerializeField]
+    GameObject eqipment_Slot_Parent;
 
     [SerializeField]
     Text goldText;
@@ -16,9 +18,8 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     PlayerInfo player;
 
-    RectTransform rect;
-
-    public List<Slot> slots = new List<Slot>();
+    public List<Slot> inventory_Slots = new List<Slot>();
+    public List<Slot> eqipment_Slots = new List<Slot>();
 
     public List<Item> myItems = new List<Item>();
 
@@ -26,33 +27,37 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        rect = GetComponent<RectTransform>();
-        
-        slots = new List<Slot>();
-
-        slots.AddRange(slotsParent.GetComponentsInChildren<Slot>()); // 칠드런으로 받아오는 이유는 비활성화 되면 못받아오기때문에 비활성화된 상태도 찾아올수있는 칠드런으로 받아온다.
+        inventory_Slots.AddRange(inventory_Slot_Parent.GetComponentsInChildren<Slot>()); // 칠드런으로 받아오는 이유는 비활성화 되면 못받아오기때문에 비활성화된 상태도 찾아올수있는 칠드런으로 받아온다.
+        eqipment_Slots.AddRange(eqipment_Slot_Parent.GetComponentsInChildren<Slot>());
     }
 
     private void Start()
     {
         //rect.localPosition = new Vector3(190, -12); // 게임켜면 위치 초기화.
+
+        #region 테스트 코드
+        GetItem(ItemDatabase.instance.newItem("0000003"));
+        GetItem(ItemDatabase.instance.newItem("0000002"));
+        GetItem(ItemDatabase.instance.newItem("0000001"));
+        GetItem(ItemDatabase.instance.newItem("0000000"));
+        #endregion
     }
 
     private void Update()
     {
         DeleteNullSlot();
 
-        for (int i = 0; i < slots.Count; i++)
+        for (int i = 0; i < inventory_Slots.Count; i++)
         {
-            slots[i].index = i;
+            inventory_Slots[i].index = i;
 
-            if (slots[i].item == null)
+            if (inventory_Slots[i].itemCount == 0)
             {
                 isFull = false;
             }
 
-            if (i == (slots.Count - 1))
-                if (slots[i].item != null)
+            if (i == (inventory_Slots.Count - 1))
+                if (inventory_Slots[i].itemCount != 0)
                     isFull = true;
         }
 
@@ -68,7 +73,7 @@ public class Inventory : MonoBehaviour
     {
         if (_item.Type == 9 || _item.Type == 10) // 소비탬이나 재료탬일때
         {
-            foreach (Slot slot in slots) // 모든 슬롯중
+            foreach (Slot slot in inventory_Slots) // 모든 슬롯중
             {
                 if (slot.itemCount != 0) // 아이템이 있는 슬롯에
                 {
@@ -82,9 +87,9 @@ public class Inventory : MonoBehaviour
         }
 
         // 장비 종류에 상관없이
-        foreach (Slot slot in slots) // 모든 슬롯중
+        foreach (Slot slot in inventory_Slots) // 모든 슬롯중
         {
-            if (slot.item == null) // 비어 있는 슬롯에
+            if (slot.itemCount == 0) // 비어 있는 슬롯에
             {
                 slot.AddItem(_item, count); // 아이템추가
                 return;
@@ -94,13 +99,13 @@ public class Inventory : MonoBehaviour
 
     public void SaveInven()
     {
-        for (int i = 0; i < slots.Count; i++)
+        for (int i = 0; i < inventory_Slots.Count; i++)
         {
-            if (slots[i].itemCount != 0)
+            if (inventory_Slots[i].itemCount != 0)
             {
-                if (!myItems.Contains(slots[i].item))
+                if (!myItems.Contains(inventory_Slots[i].item))
                 {
-                    myItems.Add(slots[i].item);
+                    myItems.Add(inventory_Slots[i].item);
                 }
             }
         }
@@ -113,17 +118,17 @@ public class Inventory : MonoBehaviour
 
     public void LoadInven(List<Item> itemList)
     {
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            if (itemList[i].Count != 0)
-            {
-                slots[itemList[i].SlotIndex].AddItem(itemList[i]);
-            }
-            else
-            {
-                Debug.Log(i + "번째 아이템 리스트의 아이템은 비어있어서 로드안함");
-            }
-        }
+        //for (int i = 0; i < itemList.Count; i++)
+        //{
+        //    if (itemList[i].Count != 0)
+        //    {
+        //        slots[itemList[i].SlotIndex].AddItem(itemList[i]);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log(i + "번째 아이템 리스트의 아이템은 비어있어서 로드안함");
+        //    }
+        //}
     }
 
     /// <summary>
@@ -131,10 +136,10 @@ public class Inventory : MonoBehaviour
     /// </summary>
     void DeleteNullSlot()
     {
-        for (int i = 0; i < slots.Count; ++i)
+        for (int i = 0; i < inventory_Slots.Count; ++i)
         {
-            if (slots[i] == null)
-                slots.RemoveAt(i);
+            if (inventory_Slots[i] == null)
+                inventory_Slots.RemoveAt(i);
         }
     }
 }

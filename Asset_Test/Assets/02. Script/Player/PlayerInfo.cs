@@ -4,30 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-[System.Serializable]
-public class Stats
-{
-    public string s_Name;
-    public int Level;
-    public float CurExp;
-    public float MaxExp;
-    public float MaxHp;
-    public float MaxMp;
-    public float Str;
-    public float Dex;
-    public float Int;
-    public float Pos_x;
-    public float Pos_y;
-    public float Pos_z;
-
-    public int Gold;
-}
-
 public class PlayerInfo : Creature
 {
     public Dictionary<string, int> player_Skill_Dic = new Dictionary<string, int>();
-
-    public Stats stats = new Stats();
 
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
@@ -102,6 +81,38 @@ public class PlayerInfo : Creature
         finalStr = stats.Str + ItemEffectStr + SkillEffectStr;
         finalDex = stats.Dex + ItemEffectDex + SkillEffectDex;
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt;
+    }
+
+    public void LevelUp()
+    {
+        float ExpFactor = 1f;
+
+        stats.Level++;
+        stats.CurExp -= stats.MaxExp;
+
+        if (stats.Level == 1)
+            stats.MaxExp = 100f;
+        else
+        {
+            ExpFactor = 1f;
+
+            for (int i = 1; i < stats.Level; i++)
+            {
+                ExpFactor *= 1.1f;
+            }
+            stats.MaxExp = Mathf.RoundToInt(100f * (stats.Level - 1) + (100 * ExpFactor));
+        }
+
+        stats.MaxHp = 100f + (stats.Level - 1) * 15;
+        stats.MaxMp = 20f + (stats.Level - 1) * 5;
+        stats.Str = 5f + (stats.Level - 1);
+        stats.Dex = 5f + (stats.Level - 1);
+        stats.Int = 5f + (stats.Level - 1);
+
+        RefeshFinalStats();
+
+        curHp = finalMaxHp;
+        curMp = finalMaxMp;
     }
 
     /// <summary>

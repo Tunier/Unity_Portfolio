@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public int index = 0;
-    public Item item = null;
-    public Image itemImage = null;
+    public Item item;
+    public Image itemImage;
+    public Image slot_BG;
 
     public int itemCount = 0;
 
@@ -29,6 +30,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     RectTransform quickSlotBase;
     [SerializeField]
     RectTransform shopBase;
+
+    const string common_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_white";
+    const string rare_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_cyan";
+    const string unique_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_pink";
+    const string epic_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_yellow";
+    const string set_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_green";
 
     private void Start()
     {
@@ -53,7 +60,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         itemCount = count;
         item.SlotIndex = index;
         itemImage.sprite = Resources.Load<Sprite>(_item.ItemImagePath);
-        SetColorAlpha(1);
+        SetColorAlpha(0.82f);
 
         if (item.Type == 9 || item.Type == 10)
         {
@@ -64,6 +71,25 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         {
             countText.text = "0";
             countText.gameObject.SetActive(false);
+        }
+
+        switch (_item.Rarity)
+        {
+            case 0: // 일반
+                slot_BG.sprite = Resources.Load<Sprite>(common_SlotBG_Path);
+                break;
+            case 1: // 레어
+                slot_BG.sprite = Resources.Load<Sprite>(rare_SlotBG_Path);
+                break;
+            case 2: // 유니크
+                slot_BG.sprite = Resources.Load<Sprite>(unique_SlotBG_Path);
+                break;
+            case 3: // 에픽
+                slot_BG.sprite = Resources.Load<Sprite>(epic_SlotBG_Path);
+                break;
+            case 4: // 세트
+                slot_BG.sprite = Resources.Load<Sprite>(set_SlotBG_Path);
+                break;
         }
     }
 
@@ -97,10 +123,32 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         countText.gameObject.SetActive(false);
     }
 
-    // 슬롯 우클릭시 슬롯에 있는 아이템 타입을 보고 소모품이면 아이템 사용
-    // 장비면 스테이터스창의 해당 장비타입칸에 착용.
+    /// <summary>
+    /// 슬롯 우클릭시 슬롯에 있는 아이템 타입을 보고 소모품이면 아이템 사용,
+    /// 장비면 스테이터스창의 해당 장비타입칸에 착용.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (gameObject.CompareTag("Inventory"))
+            {
+                switch (item.Type)
+                {
+                    case 0:
+                        Item _item = item;
+                        SetSlotCount(-1);
+                        inven.eqipment_Slots[0].AddItem(_item);
+                        break;
+                    // 장비타입에 따라 스위치 캐이스로 장착하는 구문.
+                    default:
+                        break;
+                }
+            }
+        }
+
+
         //if (eventData.button == PointerEventData.InputButton.Right)
         //{
         //    if (shopBase.gameObject.activeSelf)
@@ -373,110 +421,107 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnDrop(PointerEventData eventData)
     {
-    //    if (transform.parent.CompareTag("INVENTORY"))
-    //        if (DragSlot.instance.dragSlot != null)
-    //            if (DragSlot.instance.dragSlot.transform.parent.CompareTag("STATUS"))
-    //            {   // 스텟창에서 인벤창으로 넘어올경우 같은 종류의 장비면 교체해주고, 아니면 아이템 획득.
-    //                Item _item = DragSlot.instance.dragSlot.item;
+        //    if (transform.parent.CompareTag("INVENTORY"))
+        //        if (DragSlot.instance.dragSlot != null)
+        //            if (DragSlot.instance.dragSlot.transform.parent.CompareTag("STATUS"))
+        //            {   // 스텟창에서 인벤창으로 넘어올경우 같은 종류의 장비면 교체해주고, 아니면 아이템 획득.
+        //                Item _item = DragSlot.instance.dragSlot.item;
 
-    //                ItemDB.UnEquipItem(DragSlot.instance.dragSlot.item);
-    //                DragSlot.instance.dragSlot.SetSlotCount(-1);
+        //                ItemDB.UnEquipItem(DragSlot.instance.dragSlot.item);
+        //                DragSlot.instance.dragSlot.SetSlotCount(-1);
 
-    //                if (item != null)
-    //                {
-    //                    if (item.EquipmentType == _item.EquipmentType)
-    //                    {
-    //                        EquipItem(item);
-    //                    }
-    //                }
+        //                if (item != null)
+        //                {
+        //                    if (item.EquipmentType == _item.EquipmentType)
+        //                    {
+        //                        EquipItem(item);
+        //                    }
+        //                }
 
-    //                inven.GetItem(_item);
-    //            }
-    //            else // 인벤 내에서는 교환해줌.
-    //            {
-    //                ChangeSlot();
-    //            }
+        //                inven.GetItem(_item);
+        //            }
+        //            else // 인벤 내에서는 교환해줌.
+        //            {
+        //                ChangeSlot();
+        //            }
 
-    //    if (transform.parent.CompareTag("STATUS"))
-    //        if (DragSlot.instance.dragSlot != null)
-    //            if (DragSlot.instance.dragSlot.transform.parent.CompareTag("INVENTORY"))
-    //            {   // 인벤창에서 스텟창으로 넘어갈경우 장비칸이 비어있으면 맞는 장비타입칸에 장착, 장비가 있으면 같은 장비타입일경우 교체.
-    //                if (DragSlot.instance.dragSlot.item.itemType == Item.ItemType.Equipment)
-    //                {
-    //                    Item _item = item;
+        //    if (transform.parent.CompareTag("STATUS"))
+        //        if (DragSlot.instance.dragSlot != null)
+        //            if (DragSlot.instance.dragSlot.transform.parent.CompareTag("INVENTORY"))
+        //            {   // 인벤창에서 스텟창으로 넘어갈경우 장비칸이 비어있으면 맞는 장비타입칸에 장착, 장비가 있으면 같은 장비타입일경우 교체.
+        //                if (DragSlot.instance.dragSlot.item.itemType == Item.ItemType.Equipment)
+        //                {
+        //                    Item _item = item;
 
-    //                    if (item != null)
-    //                    {
-    //                        if (item.EquipmentType == DragSlot.instance.dragSlot.item.EquipmentType)
-    //                        {
-    //                            ItemDB.UnEquipItem(_item);
-    //                            SetSlotCount(-1);
-    //                            ItemDB.EquipItem(DragSlot.instance.dragSlot.item);
-    //                            DragSlot.instance.dragSlot.SetSlotCount(-1);
-    //                            inven.GetItem(_item);
-    //                        }
-    //                    }
-    //                    else if (item == null)
-    //                    {
-    //                        ItemDB.EquipItem(DragSlot.instance.dragSlot.item);
-    //                        DragSlot.instance.dragSlot.SetSlotCount(-1);
-    //                    }
-    //                }
-    //            }
+        //                    if (item != null)
+        //                    {
+        //                        if (item.EquipmentType == DragSlot.instance.dragSlot.item.EquipmentType)
+        //                        {
+        //                            ItemDB.UnEquipItem(_item);
+        //                            SetSlotCount(-1);
+        //                            ItemDB.EquipItem(DragSlot.instance.dragSlot.item);
+        //                            DragSlot.instance.dragSlot.SetSlotCount(-1);
+        //                            inven.GetItem(_item);
+        //                        }
+        //                    }
+        //                    else if (item == null)
+        //                    {
+        //                        ItemDB.EquipItem(DragSlot.instance.dragSlot.item);
+        //                        DragSlot.instance.dragSlot.SetSlotCount(-1);
+        //                    }
+        //                }
+        //            }
 
-    //    if (transform.parent.CompareTag("QUICKSLOT"))
-    //        if (DragSlot.instance.dragSlot != null)
-    //            ChangeSlot();
+        //    if (transform.parent.CompareTag("QUICKSLOT"))
+        //        if (DragSlot.instance.dragSlot != null)
+        //            ChangeSlot();
 
-    //    if (item != null)
-    //    {
-    //        ItemDB.ShowToolTip(item);
-    //        ItemDB.SetItemCostText(item.sellCost);
-    //    }
-    //}
+        //    if (item != null)
+        //    {
+        //        ItemDB.ShowToolTip(item);
+        //        ItemDB.SetItemCostText(item.sellCost);
+        //    }
+        //}
 
-    //private void ChangeSlot()
-    //{
-    //    Item _item = item;
-    //    int _itemCount = itemCount;
+        //private void ChangeSlot()
+        //{
+        //    Item _item = item;
+        //    int _itemCount = itemCount;
 
-    //    if (_item != null)
-    //    {
-    //        if (_item.itemName == DragSlot.instance.dragSlot.item.itemName)
-    //        {
-    //            if (_item.itemType == Item.ItemType.Used)
-    //            {
-    //                SetSlotCount(DragSlot.instance.dragSlot.itemCount);
+        //    if (_item != null)
+        //    {
+        //        if (_item.itemName == DragSlot.instance.dragSlot.item.itemName)
+        //        {
+        //            if (_item.itemType == Item.ItemType.Used)
+        //            {
+        //                SetSlotCount(DragSlot.instance.dragSlot.itemCount);
 
-    //                DragSlot.instance.dragSlot.ClearSlot();
-    //            }
-    //        }
-    //        else
-    //        {
-    //            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+        //                DragSlot.instance.dragSlot.ClearSlot();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
 
-    //            DragSlot.instance.dragSlot.AddItem(_item, _itemCount);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+        //            DragSlot.instance.dragSlot.AddItem(_item, _itemCount);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
 
-    //        DragSlot.instance.dragSlot.ClearSlot();
-    //    }
+        //        DragSlot.instance.dragSlot.ClearSlot();
+        //    }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //if (item != null)
-        //{
-        //    ItemDB.ShowToolTip(item);
-        //    ItemDB.SetItemCostText(item.sellCost);
-        //}
+        if (itemCount != 0)
+            tooltip.ShowTooltip(item);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //ItemDB.HideToolTip();
+        tooltip.HideTooltip();
     }
 }

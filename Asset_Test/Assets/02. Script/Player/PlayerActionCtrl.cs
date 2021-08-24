@@ -16,6 +16,11 @@ public class PlayerActionCtrl : MonoBehaviour
 
     CharacterController cController;
 
+    [SerializeField]
+    GameObject inventoryUI;
+    [SerializeField]
+    GameObject skilltreeUI;
+
     void Awake()
     {
         player = FindObjectOfType<PlayerInfo>();
@@ -37,6 +42,15 @@ public class PlayerActionCtrl : MonoBehaviour
                 skillIndicator.straightIndicator.SetActive(false);
                 skillDB.UseSkill(skillDB.AllSkillDic["0300000"], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            skilltreeUI.SetActive(!skilltreeUI.activeSelf);
         }
     }
 

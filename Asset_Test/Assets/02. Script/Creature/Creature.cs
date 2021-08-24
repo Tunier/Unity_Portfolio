@@ -12,10 +12,32 @@ interface IDie
     public void Die();
 }
 
+[System.Serializable]
+public class Stats
+{
+    public string s_Name;
+    public int Level;
+    public float CurExp;
+    public float MaxExp;
+    public float MaxHp;
+    public float MaxMp;
+    public float Str;
+    public float Dex;
+    public float Int;
+    public float Pos_x;
+    public float Pos_y;
+    public float Pos_z;
+
+    public int Gold;
+}
+
 public enum STATE
 {
     Idle,
+    Patrol,
+    Chase,
     Attacking,
+    Backoff,
     Jump,
     JumpAndAttack,
     Rolling,
@@ -25,6 +47,7 @@ public enum STATE
 public abstract class Creature : MonoBehaviour, IHit, IDie
 {
     public STATE state = STATE.Idle;
+    public Stats stats = new Stats();
 
     public float finalMaxHp;
     public float curHp;

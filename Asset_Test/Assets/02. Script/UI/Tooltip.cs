@@ -24,33 +24,51 @@ public class Tooltip : MonoBehaviour
     [SerializeField]
     GameObject[] Divider;
 
+    [SerializeField]
     Vector3 RD_Offset;
     Vector3 RU_Offset;
 
+    [SerializeField]
+    RectTransform tooltip_Rect;
+
+    bool wantActive = false;
+    float activeOverTime = 0f;
+
     private void Awake()
     {
-        RD_Offset = new Vector3(go_Tooltip.GetComponent<RectTransform>().rect.width * 0.5f, -go_Tooltip.GetComponent<RectTransform>().rect.height * 0.5f); // 오른쪽 아래로 띄우는 오프셋
-        RU_Offset = new Vector3(go_Tooltip.GetComponent<RectTransform>().rect.width * 0.5f, go_Tooltip.GetComponent<RectTransform>().rect.height * 0.5f); // 오른쪽 위로 띄우는 오프셋
+
     }
 
     void Start()
     {
+        go_Tooltip.SetActive(false);
         CostText.gameObject.SetActive(false);
 
         #region 아이템 툴팁 체크 (디버그용)
-        Item _testItem = ItemDatabase.instance.newItem("0000008");
-        #region 아이템 딕셔너리 키 체크 (디버그용)
-        //List<int> Keys = new List<int>();
-        //Keys.AddRange(_testItem.itemEffect.ValueDic.Keys);
-        //Debug.Log(Keys[0]);
-        #endregion
-        ShowTooltip(_testItem);
+        //Item _testItem = ItemDatabase.instance.newItem("0000008");
+        //#region 아이템 딕셔너리 키 체크 (디버그용)
+        ////List<int> Keys = new List<int>();
+        ////Keys.AddRange(_testItem.itemEffect.ValueDic.Keys);
+        ////Debug.Log(Keys[0]);
+        //#endregion
+        //ShowTooltip(_testItem);
         #endregion
     }
 
     void Update()
     {
+        if (wantActive)
+        {
+            go_Tooltip.SetActive(true);
 
+            RD_Offset = new Vector3(tooltip_Rect.rect.width * 0.5f, -tooltip_Rect.rect.height * 0.5f); // 오른쪽 아래로 띄우는 오프셋
+            RU_Offset = new Vector3(tooltip_Rect.rect.width * 0.5f, tooltip_Rect.rect.height * 0.5f); // 오른쪽 위로 띄우는 오프셋
+
+            activeOverTime += Time.deltaTime;
+
+            if (activeOverTime >= 0.15f)
+                go_Tooltip.transform.position = Input.mousePosition + RD_Offset;
+        }
     }
 
     public void ShowTooltip(Item _item)
@@ -325,15 +343,23 @@ public class Tooltip : MonoBehaviour
                 EffectText.text = str2[i];
         }
         #endregion
+
+        activeOverTime = 0f;
+
+        wantActive = true;
     }
 
     public void ShowTooltip(Skill _skill)
     {
-
+        // 스킬창에 올렸을때 구문 작성.
     }
 
     public void HideTooltip()
     {
+        wantActive = false;
+
         go_Tooltip.SetActive(false);
+
+        tooltip_Rect.localPosition = new Vector3(1195, 388.75f);
     }
 }
