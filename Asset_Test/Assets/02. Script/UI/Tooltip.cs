@@ -274,6 +274,19 @@ public class Tooltip : MonoBehaviour
 
         if (_item.Type == 9 || _item.Type == 10)
             mainStart = 0;
+        else
+        {
+            if (_item.itemEffect.ValueDic.Count == 1)
+            {
+                EffectText.gameObject.SetActive(false);
+                Divider[1].SetActive(false);
+            }
+            else
+            {
+                EffectText.gameObject.SetActive(true);
+                Divider[1].SetActive(true);
+            }
+        }
 
         for (int i = mainStart; i < _item.itemEffect.ValueDic.Count; i++)
         {

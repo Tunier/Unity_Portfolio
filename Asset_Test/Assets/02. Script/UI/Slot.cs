@@ -10,6 +10,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public Item item;
     public Image itemImage;
     public Image slot_BG;
+    public GameObject go_Back_Image;
 
     public int itemCount = 0;
 
@@ -31,6 +32,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     [SerializeField]
     RectTransform shopBase;
 
+    const string defalt_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_alphaFront";
     const string common_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_white";
     const string rare_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_cyan";
     const string unique_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_pink";
@@ -116,6 +118,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         item = null;
         itemImage.sprite = null;
+        slot_BG.sprite = Resources.Load<Sprite>(defalt_SlotBG_Path);
         SetColorAlpha(0);
         itemCount = 0;
 
@@ -134,17 +137,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         {
             if (gameObject.CompareTag("Inventory"))
             {
-                switch (item.Type)
-                {
-                    case 0:
-                        Item _item = item;
-                        SetSlotCount(-1);
-                        inven.eqipment_Slots[0].AddItem(_item);
-                        break;
-                    // 장비타입에 따라 스위치 캐이스로 장착하는 구문.
-                    default:
-                        break;
-                }
+                if (item.Type != 9 && item.Type != 10)
+                    EquipItem(item);
+                else if (item.Type == 9)
+                    Debug.Log("소비탬 사용");
+                else if (item.Type == 10)
+                    Debug.Log("재료탬 우클릭 - 효과없음");
             }
         }
 
@@ -239,9 +237,51 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// <param name="_item"></param>
     public void EquipItem(Item _item)
     {
-        //ItemDB.EquipItem(_item);
+        SetSlotCount(-1);
 
-        //SetSlotCount(-1);
+        switch (_item.Type)
+        {
+            case 0:
+                inven.eqipment_Slots[0].AddItem(_item);
+                inven.eqipment_Slots[0].go_Back_Image.SetActive(false);
+                break;
+        }
+
+        List<int> keys = new List<int>();
+        keys.AddRange(_item.itemEffect.ValueDic.Keys);
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            switch (keys[i])
+            {
+                case 0:
+
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+                    player.ItemEffectAtk += _item.itemEffect.ValueDic[keys[i]];
+                    break;
+            }
+        }
+
+        player.RefeshFinalStats();
     }
 
     /// <summary>

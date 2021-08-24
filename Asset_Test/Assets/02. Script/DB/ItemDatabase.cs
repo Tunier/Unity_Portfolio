@@ -52,6 +52,8 @@ public class ItemDatabase : MonoBehaviour
     const string itemEffectDataPath = "/Resources/Data/All_Item_Effect_Data.text";
     const string invenSavePath = "/Resources/Data/MyInvenItems.text";
 
+    public const int numberOfItemeffects = 18;
+
     private void Awake()
     {
         if (instance == null)

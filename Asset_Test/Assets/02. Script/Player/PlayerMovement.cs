@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (playerInfo.state != STATE.Die)
+        if (playerInfo.state != STATE.Die && !EventSystem.current.IsPointerOverGameObject())
         {
             #region 키보드로 제어하는 움직임 부분
             runMoveSpeed = walkMoveSpeed * 2f;

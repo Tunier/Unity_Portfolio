@@ -11,26 +11,29 @@ public class PlayerInfo : Creature
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
 
-    public float finalMaxMp;
+    public float finalMaxMp { get; protected set; }
     public float curMp;
     public float mpRegen;
     public float ItemEffectMaxMp;
     public float SkillEffectMaxMp;
 
-    public float finalStr;
+    public float finalStr { get; protected set; }
     public float ItemEffectStr;
     public float SkillEffectStr;
 
-    public float finalDex;
+    public float finalDex { get; protected set; }
     public float ItemEffectDex;
     public float SkillEffectDex;
 
-    public float finalInt;
+    public float finalInt { get; protected set; }
     public float ItemEffectInt;
     public float SkillEffectInt;
 
     public float ItemEffectAtk;
     public float SkillEffectAtk;
+
+    public float ItemEffectDef;
+    public float SkillEffectDef;
 
     SkillDatabase skillDB;
 
@@ -77,7 +80,8 @@ public class PlayerInfo : Creature
     {
         finalMaxHp = stats.MaxHp + ItemEffectMaxHp + SkillEffectMaxHp;
         finalMaxMp = stats.MaxMp + ItemEffectMaxMp + SkillEffectMaxMp;
-        finalAtk = stats.Str + ItemEffectAtk + SkillEffectAtk;
+        finalAtk = ItemEffectAtk + SkillEffectAtk;
+        finalDef = ItemEffectDef + SkillEffectDef;
         finalStr = stats.Str + ItemEffectStr + SkillEffectStr;
         finalDex = stats.Dex + ItemEffectDex + SkillEffectDex;
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt;
@@ -94,8 +98,6 @@ public class PlayerInfo : Creature
             stats.MaxExp = 100f;
         else
         {
-            ExpFactor = 1f;
-
             for (int i = 1; i < stats.Level; i++)
             {
                 ExpFactor *= 1.1f;

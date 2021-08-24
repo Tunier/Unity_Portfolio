@@ -182,6 +182,7 @@ MonoBehaviour:
       RequireValueType: 
   itemImage: {fileID: 3346194433479787371}
   slot_BG: {fileID: 6961855952279196630}
+  go_Back_Image: {fileID: 6961855951909497406}
   itemCount: 0
   countText: {fileID: 5456754861966336749}
   invenBase: {fileID: 0}
@@ -282,7 +283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9106506610041117965
 RectTransform:
   m_ObjectHideFlags: 0
