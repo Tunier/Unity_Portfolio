@@ -73,6 +73,15 @@ public class Tooltip : MonoBehaviour
 
     public void ShowTooltip(Item _item)
     {
+        // 아이템 타입
+        // 0: 한손무기, 1: 두손무기, 2: 헬멧, 3: 갑옷 , 4: 벨트, 5:장갑
+        // 6: 신발, 7: 목걸이, 8: 반지, 9: 소비, 10: 재료
+
+        // 아이템 이펙트 타입
+        // 0: 없음, 1: 현재 Hp, 2: 현재 Mp, 3: 최대 Hp 고정값, 4: 최대 Hp %값, 5: 최대 Mp 고정값, 6: 최대 Mp %값
+        // 7: 공격력 고정값, 8: 공격력 %값, 9: 방어력 고정값, 10: 방어력 %값, 11: 힘 고정값, 12: 힘 %값
+        // 13: 민첩 고정값, 14: 민첩 %값, 15: 지능 고정값, 16: 지능 %값, 17: 공격시 생명령 회복 고정값, 18: 공격시 데미지의 %만큼 생명력 회복
+
         #region 아이템 이름
         NameText.text = _item.Name;
 
@@ -196,29 +205,28 @@ public class Tooltip : MonoBehaviour
                 BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
                 break;
             case 3:
-                //TypeText.text = "헬멧";
+                BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
                 break;
             case 4:
-                //TypeText.text = "벨트";
+                BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
                 break;
             case 5:
-                //TypeText.text = "장갑";
+                BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
                 break;
             case 6:
-                //TypeText.text = "신발";
+                BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
                 break;
             case 7:
-                //TypeText.text = "목걸이";
+                BaseValueText.text = string.Format("최대 생명력 <color=#ABA3FF><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[3]);
                 break;
             case 8:
-                //TypeText.text = "반지";
+                BaseValueText.text = string.Format("최대 마나 <color=#ABA3FF><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[5]);
                 break;
             case 9:
-                //TypeText.text = "소비";
                 BaseValueText.gameObject.SetActive(false);
                 break;
             case 10:
-                //TypeText.text = "재료";
+                BaseValueText.gameObject.SetActive(false);
                 break;
         }
         #endregion
@@ -357,8 +365,6 @@ public class Tooltip : MonoBehaviour
         }
         #endregion
 
-        activeOverTime = 0f;
-
         wantActive = true;
     }
 
@@ -370,9 +376,9 @@ public class Tooltip : MonoBehaviour
     public void HideTooltip()
     {
         wantActive = false;
+        activeOverTime = 0f;
 
         go_Tooltip.SetActive(false);
-
         tooltip_Rect.localPosition = new Vector3(1195, 388.75f);
     }
 }

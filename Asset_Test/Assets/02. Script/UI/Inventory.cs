@@ -19,27 +19,46 @@ public class Inventory : MonoBehaviour
     PlayerInfo player;
 
     public List<Slot> inventory_Slots = new List<Slot>();
-    public List<Slot> eqipment_Slots = new List<Slot>();
+    List<Slot> Equipment_Slots = new List<Slot>();
 
     public List<Item> myItems = new List<Item>();
 
     public bool isFull = false;
 
+    public Slot WeaponSlot { get; private set; }
+    public Slot HelmetSlot { get; private set; }
+    public Slot ArmorSlot { get; private set; }
+    public Slot BeltSlot { get; private set; }
+    public Slot BootsSlot { get; private set; }
+    public Slot GlovesSlot { get; private set; }
+    public Slot NecklaceSlot { get; private set; }
+    public Slot RingSlot { get; private set; }
+
+
     private void Awake()
     {
         inventory_Slots.AddRange(inventory_Slot_Parent.GetComponentsInChildren<Slot>()); // 칠드런으로 받아오는 이유는 비활성화 되면 못받아오기때문에 비활성화된 상태도 찾아올수있는 칠드런으로 받아온다.
-        eqipment_Slots.AddRange(eqipment_Slot_Parent.GetComponentsInChildren<Slot>());
+        Equipment_Slots.AddRange(eqipment_Slot_Parent.GetComponentsInChildren<Slot>());
     }
 
     private void Start()
     {
         //rect.localPosition = new Vector3(190, -12); // 게임켜면 위치 초기화.
 
+        WeaponSlot = Equipment_Slots[0];
+        HelmetSlot = Equipment_Slots[1];
+        ArmorSlot = Equipment_Slots[2];
+        BeltSlot = Equipment_Slots[3];
+        BootsSlot = Equipment_Slots[4];
+        GlovesSlot = Equipment_Slots[5];
+        NecklaceSlot = Equipment_Slots[6];
+        RingSlot = Equipment_Slots[7];
+
         #region 테스트 코드
         GetItem(ItemDatabase.instance.newItem("0000003"));
         GetItem(ItemDatabase.instance.newItem("0000002"));
-        GetItem(ItemDatabase.instance.newItem("0000001"));
-        GetItem(ItemDatabase.instance.newItem("0000000"));
+        GetItem(ItemDatabase.instance.newItem("0000004"));
+        GetItem(ItemDatabase.instance.newItem("0000005"));
         #endregion
     }
 

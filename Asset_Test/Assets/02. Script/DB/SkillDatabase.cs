@@ -183,6 +183,7 @@ public class SkillDatabase : MonoBehaviour
                         {
                             player.SkillEffectMaxHp += _skill.Value + (_skillLv - 1) * _skill.ValueFactor;
                             player.RefeshFinalStats();
+                            player.curHp = player.finalMaxHp;
                             Debug.Log(_skill.Name + " (패시브)스킬 효과 발동");
                         }
                         else

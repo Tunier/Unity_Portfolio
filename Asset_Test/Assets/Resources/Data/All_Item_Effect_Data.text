@@ -110,5 +110,13 @@
     "Value": "100",
     "RequireValueType": "0",
     "RequireValue": "0"
+  },
+  {
+    "UIDCODE": "0000014",
+    "Name": "녹슨 목걸이",
+    "ValueType": "3",
+    "Value": "15",
+    "RequireValueType": "1",
+    "RequireValue": "1"
   }
 ]

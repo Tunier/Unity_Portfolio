@@ -38,38 +38,38 @@
   {
     "UIDCODE": "0000004",
     "Name": "녹슨갑옷",
-    "Type": 2,
+    "Type": 3,
     "Rarity": 0,
     "BuyCost": 20,
     "SellCost": 4,
-    "ItemImagePath": ""
+    "ItemImagePath": "UI/Item/Transparent/Armor/Militiaman"
   },
   {
     "UIDCODE": "0000005",
     "Name": "갑옷",
-    "Type": 2,
+    "Type": 3,
     "Rarity": 1,
     "BuyCost": 100,
     "SellCost": 20,
-    "ItemImagePath": ""
+    "ItemImagePath": "UI/Item/Transparent/Armor/Militiaman"
   },
   {
     "UIDCODE": "0000006",
     "Name": "빛나는 갑옷",
-    "Type": 2,
+    "Type": 3,
     "Rarity": 2,
     "BuyCost": 200,
     "SellCost": 40,
-    "ItemImagePath": ""
+    "ItemImagePath": "UI/Item/Transparent/Armor/Militiaman"
   },
   {
     "UIDCODE": "0000007",
     "Name": "화려한 갑옷",
-    "Type": 2,
+    "Type": 3,
     "Rarity": 3,
     "BuyCost": 0,
     "SellCost": 100,
-    "ItemImagePath": ""
+    "ItemImagePath": "UI/Item/Transparent/Armor/Militiaman"
   },
   {
     "UIDCODE": "0000008",
@@ -124,5 +124,14 @@
     "BuyCost": 10,
     "SellCost": 3,
     "ItemImagePath": "UI/Icon/Potion/MpPotion"
+  },
+  {
+    "UIDCODE": "0000014",
+    "Name": "녹슨 목걸이",
+    "Type": 7,
+    "Rarity": 0,
+    "BuyCost": 30,
+    "SellCost": 5,
+    "ItemImagePath": "UI/Item/Transparent/Neckless/0"
   }
 ]

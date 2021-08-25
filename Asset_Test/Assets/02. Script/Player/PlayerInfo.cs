@@ -10,12 +10,16 @@ public class PlayerInfo : Creature
 
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
+    public float ItemEffectMaxHpMultiplier;
+    public float SkillEffectMaxHpMultiplier;
 
     public float finalMaxMp { get; protected set; }
     public float curMp;
     public float mpRegen;
     public float ItemEffectMaxMp;
     public float SkillEffectMaxMp;
+    public float ItemEffectMaxMpMultiplier;
+    public float SkillEffectMaxMpMultiplier;
 
     public float finalStr { get; protected set; }
     public float ItemEffectStr;
@@ -31,9 +35,13 @@ public class PlayerInfo : Creature
 
     public float ItemEffectAtk;
     public float SkillEffectAtk;
+    public float ItemEffectAtkMultiplier;
+    public float SkillEffectAtkMultiplier;
 
     public float ItemEffectDef;
     public float SkillEffectDef;
+    public float ItemEffectDefMultiplier;
+    public float SkillEffectDefMultiplier;
 
     SkillDatabase skillDB;
 
@@ -78,10 +86,10 @@ public class PlayerInfo : Creature
     /// </summary>
     public void RefeshFinalStats()
     {
-        finalMaxHp = stats.MaxHp + ItemEffectMaxHp + SkillEffectMaxHp;
-        finalMaxMp = stats.MaxMp + ItemEffectMaxMp + SkillEffectMaxMp;
-        finalAtk = ItemEffectAtk + SkillEffectAtk;
-        finalDef = ItemEffectDef + SkillEffectDef;
+        finalMaxHp = stats.MaxHp + (ItemEffectMaxHp + SkillEffectMaxHp) * (1 + ItemEffectMaxHpMultiplier + SkillEffectMaxHpMultiplier);
+        finalMaxMp = stats.MaxMp + (ItemEffectMaxMp + SkillEffectMaxMp) * (1 + ItemEffectMaxMpMultiplier + SkillEffectMaxMpMultiplier);
+        finalAtk = stats.Str + (ItemEffectAtk + SkillEffectAtk) * (1 + ItemEffectAtkMultiplier + SkillEffectAtkMultiplier);
+        finalDef = stats.Dex * 0.5f + (ItemEffectDef + SkillEffectDef) * (1+ ItemEffectDefMultiplier + SkillEffectDefMultiplier);
         finalStr = stats.Str + ItemEffectStr + SkillEffectStr;
         finalDex = stats.Dex + ItemEffectDex + SkillEffectDex;
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt;

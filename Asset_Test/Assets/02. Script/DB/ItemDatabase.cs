@@ -11,7 +11,12 @@ public class Item
     public string UIDCODE;
     public string Name;
     public int Type;
+    // 0: 한손무기, 1: 두손무기, 2: 헬멧, 3: 갑옷 , 4: 벨트, 5:장갑
+    // 6: 신발, 7: 목걸이, 8: 반지, 9: 소비, 10: 재료
+
     public int Rarity;
+    // 0: 일반, 1: 레어, 2: 유니크, 3: 에픽, 4: 세트
+
     public int BuyCost;
     public int SellCost;
     public string ItemImagePath;
@@ -27,9 +32,15 @@ public class ItemEffect
     public string UIDCODE;
     public string Value;
     public string ValueType;
+    // 0: 없음, 1: 현재 Hp, 2: 현재 Mp, 3: 최대 Hp 고정값, 4: 최대 Hp %값, 5: 최대 Mp 고정값, 6: 최대 Mp %값
+    // 7: 공격력 고정값, 8: 공격력 %값, 9: 방어력 고정값, 10: 방어력 %값, 11: 힘 고정값, 12: 힘 %값
+    // 13: 민첩 고정값, 14: 민첩 %값, 15: 지능 고정값, 16: 지능 %값, 17: 공격시 생명령 회복 고정값, 18: 공격시 데미지의 %만큼 생명력 회복
+
     public Dictionary<int, float> ValueDic = new Dictionary<int, float>();
     public string RequireValue;
     public string RequireValueType;
+    // ValueType과 동일함.
+
     public Dictionary<int, float> RequireValueDic = new Dictionary<int, float>();
 }
 
@@ -172,10 +183,13 @@ public class ItemDatabase : MonoBehaviour
         item.SellCost = AllItemDic[_UIDCODE].SellCost;
         item.ItemImagePath = AllItemDic[_UIDCODE].ItemImagePath;
 
-        var randomItemQuality = UnityEngine.Random.Range(1, 1000);
+        //var randomItemQuality = UnityEngine.Random.Range(1, 10000);
 
         item.itemEffect.ValueDic = AllItemEffectDic[item.UIDCODE].ValueDic;
         item.itemEffect.RequireValueDic = AllItemEffectDic[item.UIDCODE].RequireValueDic;
+
+        // 나중에 아이템 효과 같은경우 아이템 종류에따라 랜덤 옵션 풀을 가지고, 퀄리티에 따라 옵션 갯수와
+        // 옵션의 수치가 결정되도록 코드를 고쳐야함.
 
         return item;
     }

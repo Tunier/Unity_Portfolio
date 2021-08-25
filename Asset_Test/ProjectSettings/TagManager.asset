@@ -12,6 +12,7 @@ TagManager:
   - Skill
   - WayPoint
   - Inventory
+  - Equipment
   layers:
   - Default
   - TransparentFX
