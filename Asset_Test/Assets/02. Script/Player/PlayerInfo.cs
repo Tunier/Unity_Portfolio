@@ -24,14 +24,20 @@ public class PlayerInfo : Creature
     public float finalStr { get; protected set; }
     public float ItemEffectStr;
     public float SkillEffectStr;
+    public float ItemEffectStrMultiplier;
+    public float SkillEffectStrMultiplier;
 
     public float finalDex { get; protected set; }
     public float ItemEffectDex;
     public float SkillEffectDex;
+    public float ItemEffectDexMultiplier;
+    public float SkillEffectDexMultiplier;
 
     public float finalInt { get; protected set; }
     public float ItemEffectInt;
     public float SkillEffectInt;
+    public float ItemEffectIntMultiplier;
+    public float SkillEffectIntMultiplier;
 
     public float ItemEffectAtk;
     public float SkillEffectAtk;
@@ -42,6 +48,14 @@ public class PlayerInfo : Creature
     public float SkillEffectDef;
     public float ItemEffectDefMultiplier;
     public float SkillEffectDefMultiplier;
+
+    public float finalLifeSteal { get; protected set; }
+    public float ItemEffectLifeSteal;
+    public float SkillEffectLifeSteal;
+    
+    public float finalLifeStealPercent { get; protected set; }
+    public float ItemEffectLifeStealPercent;
+    public float SkillEffectLifeStealPercent;
 
     SkillDatabase skillDB;
 
@@ -90,9 +104,10 @@ public class PlayerInfo : Creature
         finalMaxMp = stats.MaxMp + (ItemEffectMaxMp + SkillEffectMaxMp) * (1 + ItemEffectMaxMpMultiplier + SkillEffectMaxMpMultiplier);
         finalAtk = stats.Str + (ItemEffectAtk + SkillEffectAtk) * (1 + ItemEffectAtkMultiplier + SkillEffectAtkMultiplier);
         finalDef = stats.Dex * 0.5f + (ItemEffectDef + SkillEffectDef) * (1+ ItemEffectDefMultiplier + SkillEffectDefMultiplier);
-        finalStr = stats.Str + ItemEffectStr + SkillEffectStr;
-        finalDex = stats.Dex + ItemEffectDex + SkillEffectDex;
-        finalInt = stats.Int + ItemEffectInt + SkillEffectInt;
+        finalStr = stats.Str + ItemEffectStr + SkillEffectStr * (1 + ItemEffectStrMultiplier + SkillEffectStrMultiplier);
+        finalDex = stats.Dex + ItemEffectDex + SkillEffectDex * (1 + ItemEffectDexMultiplier + SkillEffectDexMultiplier);
+        finalInt = stats.Int + ItemEffectInt + SkillEffectInt * (1 + ItemEffectIntMultiplier + SkillEffectIntMultiplier);
+
     }
 
     public void LevelUp()

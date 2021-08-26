@@ -445,6 +445,24 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 case 10:
                     player.ItemEffectDefMultiplier += (_item.itemEffect.ValueDic[keys[i]]) * 0.01f;
                     break;
+                case 11:
+                    player.ItemEffectStr += _item.itemEffect.ValueDic[keys[i]];
+                    break;
+                case 12:
+                    player.ItemEffectStrMultiplier += (_item.itemEffect.ValueDic[keys[i]]) * 0.01f;
+                    break;
+                case 13:
+                    player.ItemEffectDex += _item.itemEffect.ValueDic[keys[i]];
+                    break;
+                case 14:
+                    player.ItemEffectDexMultiplier += (_item.itemEffect.ValueDic[keys[i]]) * 0.01f;
+                    break;
+                case 15:
+                    player.ItemEffectInt += _item.itemEffect.ValueDic[keys[i]];
+                    break;
+                case 16:
+                    player.ItemEffectIntMultiplier += (_item.itemEffect.ValueDic[keys[i]]) * 0.01f;
+                    break;
                 default:
                     break;
             }
@@ -495,6 +513,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                     break;
                 case 10:
                     player.ItemEffectDefMultiplier -= (_item.itemEffect.ValueDic[keys[i]]) * 0.01f;
+                    break;
+                case 11:
+                    player.ItemEffectStr -= _item.itemEffect.ValueDic[keys[i]];
                     break;
                 default:
                     break;
@@ -734,36 +755,37 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         //        ItemDB.SetItemCostText(item.sellCost);
         //    }
         //}
+    }
 
-        //private void ChangeSlot()
-        //{
-        //    Item _item = item;
-        //    int _itemCount = itemCount;
+    private void ChangeSlot()
+    {
+        Item _item = item;
+        int _itemCount = itemCount;
 
-        //    if (_item != null)
-        //    {
-        //        if (_item.itemName == DragSlot.instance.dragSlot.item.itemName)
-        //        {
-        //            if (_item.itemType == Item.ItemType.Used)
-        //            {
-        //                SetSlotCount(DragSlot.instance.dragSlot.itemCount);
+        if (_item != null)
+        {
+            if (_item.Name == DragSlot.instance.dragSlot.item.Name)
+            {
+                if (_item.Type == 8 || item.Type == 9)
+                {
+                    SetSlotCount(DragSlot.instance.dragSlot.itemCount);
 
-        //                DragSlot.instance.dragSlot.ClearSlot();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+                    DragSlot.instance.dragSlot.ClearSlot();
+                }
+            }
+            else
+            {
+                AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
 
-        //            DragSlot.instance.dragSlot.AddItem(_item, _itemCount);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+                DragSlot.instance.dragSlot.AddItem(_item, _itemCount);
+            }
+        }
+        else
+        {
+            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
 
-        //        DragSlot.instance.dragSlot.ClearSlot();
-        //    }
+            DragSlot.instance.dragSlot.ClearSlot();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -34,6 +34,8 @@ public class Stats
 public enum STATE
 {
     Idle,
+    Walk,
+    Run,
     Patrol,
     Chase,
     Attacking,
@@ -46,15 +48,15 @@ public enum STATE
 
 public abstract class Creature : MonoBehaviour, IHit, IDie
 {
-    public STATE state = STATE.Idle;
-    public Stats stats = new Stats();
+    public STATE state { get; set; } = STATE.Idle;
+    public Stats stats { get; set; } = new Stats();
 
-    public float finalMaxHp;
+    public float finalMaxHp { get; protected set; }
     public float curHp;
     public float hpRegen;
 
-    public float finalAtk;
-    public float finalDef;
+    public float finalAtk { get; protected set; }
+    public float finalDef { get; protected set; }
 
     public abstract void Hit(float _damage);
 

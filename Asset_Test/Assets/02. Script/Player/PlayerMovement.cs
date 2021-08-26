@@ -86,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 moveDirection.y = jumpForce;
                 ani.SetBool(hashJump, true);
+                playerInfo.state = STATE.Jump;
             }
 
             if (!pSkillIndicator.straightIndicator.activeSelf)
@@ -133,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 pushTime += Time.deltaTime;
 
-                if (pushTime >= 0.12f)
+                if (pushTime >= 0.15f)
                     wantMove = false;
                 else
                     wantMove = true;
@@ -167,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
                     StartCoroutine(clickEffect.ClickEffectCtrl(new Vector3(hit.point.x, hit.point.y + 1.1f, hit.point.z)));
 
                     isMove = true;
+                    playerInfo.state = STATE.Walk;
                 }
             }
 
@@ -176,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     nav.ResetPath();
                     ani.SetFloat(hashSpeed, 0f);
+                    playerInfo.state = STATE.Idle;
 
                     cController.enabled = true;
                     nav.enabled = false;
@@ -190,10 +193,12 @@ public class PlayerMovement : MonoBehaviour
                     if (isRun)
                     {
                         ani.SetFloat(hashSpeed, 1f);
+                        playerInfo.state = STATE.Run;
                     }
                     else
                     {
                         ani.SetFloat(hashSpeed, 0.5f);
+                        playerInfo.state = STATE.Walk;
                     }
                 }
             }
@@ -239,12 +244,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (speed == runMoveSpeed)
+        {
             ani.SetFloat(hashSpeed, 1f);
+            playerInfo.state = STATE.Run;
+        }
         else if (speed == walkMoveSpeed)
+        {
             ani.SetFloat(hashSpeed, 0.5f);
+            playerInfo.state = STATE.Walk;
+        }
         else if (speed == backMoveSpeed)
+        {
             ani.SetFloat(hashSpeed, 0.5f);
+            playerInfo.state = STATE.Walk;
+        }
         else
+        {
             ani.SetFloat(hashSpeed, 0);
+        }
     }
 }
