@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     PlayerInfo player;
 
     public List<Slot> inventory_Slots = new List<Slot>();
-    List<Slot> Equipment_Slots = new List<Slot>();
+    public List<Slot> Equipment_Slots = new List<Slot>();
 
     public List<Item> myItems = new List<Item>();
 
@@ -59,6 +59,8 @@ public class Inventory : MonoBehaviour
         GetItem(ItemDatabase.instance.newItem("0000002"));
         GetItem(ItemDatabase.instance.newItem("0000004"));
         GetItem(ItemDatabase.instance.newItem("0000005"));
+        GetItem(ItemDatabase.instance.newItem("0000008"));
+        GetItem(ItemDatabase.instance.newItem("0000009"));
         #endregion
     }
 

@@ -78,7 +78,7 @@
     "Rarity": 0,
     "BuyCost": 2,
     "SellCost": 1,
-    "ItemImagePath": "UI/Icon/Potion/HpPotion"
+    "ItemImagePath": "UI/Item/Transparent/Potion/Red_Potion"
   },
   {
     "UIDCODE": "0000009",
@@ -87,7 +87,7 @@
     "Rarity": 1,
     "BuyCost": 5,
     "SellCost": 2,
-    "ItemImagePath": "UI/Icon/Potion/HpPotion"
+    "ItemImagePath": "UI/Item/Transparent/Potion/Red_Potion"
   },
   {
     "UIDCODE": "0000010",
@@ -96,7 +96,7 @@
     "Rarity": 2,
     "BuyCost": 10,
     "SellCost": 3,
-    "ItemImagePath": "UI/Icon/Potion/HpPotion"
+    "ItemImagePath": "UI/Item/Transparent/Potion/Red_Potion"
   },
   {
     "UIDCODE": "0000011",
@@ -105,7 +105,7 @@
     "Rarity": 0,
     "BuyCost": 2,
     "SellCost": 1,
-    "ItemImagePath": "UI/Icon/Potion/MpPotion"
+    "ItemImagePath": "UI/Item/Transparent/Potion/Blue_Potion"
   },
   {
     "UIDCODE": "0000012",
@@ -114,7 +114,7 @@
     "Rarity": 1,
     "BuyCost": 5,
     "SellCost": 2,
-    "ItemImagePath": "UI/Icon/Potion/MpPotion"
+    "ItemImagePath": "UI/Item/Transparent/Potion/Blue_Potion"
   },
   {
     "UIDCODE": "0000013",
@@ -123,7 +123,7 @@
     "Rarity": 2,
     "BuyCost": 10,
     "SellCost": 3,
-    "ItemImagePath": "UI/Icon/Potion/MpPotion"
+    "ItemImagePath": "UI/Item/Transparent/Potion/Blue_Potion"
   },
   {
     "UIDCODE": "0000014",

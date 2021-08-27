@@ -71,6 +71,10 @@ public class Tooltip : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 아이템의 정보를 받아서 툴팁이 바뀌고, 툴팁 UI를 보여줌.
+    /// </summary>
+    /// <param name="_item"></param>
     public void ShowTooltip(Item _item)
     {
         // 아이템 타입
@@ -197,30 +201,39 @@ public class Tooltip : MonoBehaviour
         {
             case 0:
                 BaseValueText.text = string.Format("공격력 : <color=#ABA3FF><b>{0} ~ {1}</b></color>", _item.itemEffect.ValueDic[7], _item.itemEffect.ValueDic[7] + 1);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 1:
                 BaseValueText.text = string.Format("공격력 : <color=#ABA3FF><b>{0} ~ {1}</b></color>", _item.itemEffect.ValueDic[7], _item.itemEffect.ValueDic[7] + 1);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 2:
                 BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 3:
                 BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 4:
                 BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 5:
                 BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 6:
                 BaseValueText.text = string.Format("방어력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[9]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 7:
                 BaseValueText.text = string.Format("최대 생명력 <color=#ABA3FF><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[3]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 8:
                 BaseValueText.text = string.Format("최대 마나 <color=#ABA3FF><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[5]);
+                BaseValueText.gameObject.SetActive(true);
                 break;
             case 9:
                 BaseValueText.gameObject.SetActive(false);
@@ -236,15 +249,23 @@ public class Tooltip : MonoBehaviour
         List<int> keys = new List<int>();
         keys.AddRange(_item.itemEffect.RequireValueDic.Keys);
 
+        if (keys.Count == 1 && keys[0] == 0)
+        {
+            RequireText.gameObject.SetActive(false);
+            foreach (GameObject obj in Divider)
+                obj.SetActive(false);
+        }
+        else
+        {
+            RequireText.gameObject.SetActive(true);
+            foreach (GameObject obj in Divider)
+                obj.SetActive(true);
+        }
+
         for (int i = 0; i < _item.itemEffect.RequireValueDic.Count; i++)
         {
             switch (keys[i])
             {
-                case 0:
-                    RequireText.gameObject.SetActive(false);
-                    foreach (GameObject obj in Divider)
-                        obj.SetActive(false);
-                    break;
                 case 1:
                     str[i] = string.Format("레벨 <color><b>{0}</b></color>", _item.itemEffect.RequireValueDic[1]);
                     break;
@@ -368,6 +389,10 @@ public class Tooltip : MonoBehaviour
         wantActive = true;
     }
 
+    /// <summary>
+    /// 스킬의 정보를 받아서 툴팁이 바뀌고, 툴팁 UI를 보여줌.
+    /// </summary>
+    /// <param name="_skill"></param>
     public void ShowTooltip(Skill _skill)
     {
         // 스킬창에 올렸을때 구문 작성.

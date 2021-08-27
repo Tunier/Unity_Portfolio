@@ -89,9 +89,9 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             if (item != null)
             {
-                DragSlot.instance.shopSlot = this;
-                DragSlot.instance.DragSetImage(itemImage);
-                DragSlot.instance.transform.position = eventData.position;
+                //DragSlot.instance.shopSlot = this;
+                //DragSlot.instance.DragSetImage(itemImage);
+                //DragSlot.instance.transform.position = eventData.position;
             }
         }
     }
@@ -109,7 +109,7 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (RectTransformUtility.RectangleContainsScreenPoint(invenBase, Input.mousePosition))
             {
                 DragSlot.instance.SetColorAlpha(0);
-                DragSlot.instance.shopSlot = null;
+                //DragSlot.instance.shopSlot = null;
 
                 SellItem(item);
             }
