@@ -59,7 +59,7 @@ public class PlayerInfo : Creature
 
     SkillDatabase skillDB;
 
-    readonly string PlayerInfoPath = "/Resources/Data/PlayerInfo.text";
+    const string PlayerInfoPath = "/Resources/Data/PlayerInfo.text";
 
     CharacterController cController;
 
