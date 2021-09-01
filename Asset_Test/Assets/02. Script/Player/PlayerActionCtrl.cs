@@ -6,6 +6,10 @@ public class PlayerActionCtrl : MonoBehaviour
 {
     PlayerInfo player;
     SkillDatabase skillDB;
+    Tooltip tooltip;
+
+    public RectTransform inventoryRect;
+    public RectTransform skillTreeRect;
 
     [SerializeField]
     Player_SkillIndicator skillIndicator;
@@ -29,6 +33,7 @@ public class PlayerActionCtrl : MonoBehaviour
         player = FindObjectOfType<PlayerInfo>();
         skillDB = FindObjectOfType<SkillDatabase>();
         cController = FindObjectOfType<CharacterController>();
+        tooltip = FindObjectOfType<Tooltip>();
 
         skillSlot.AddRange(QuickSkillSlotParents.GetComponentsInChildren<SkillSlot>());
     }
@@ -81,10 +86,18 @@ public class PlayerActionCtrl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
+            if (!inventoryUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(inventoryRect, Input.mousePosition))
+            {
+                tooltip.HideTooltip();
+            }
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
             skilltreeUI.SetActive(!skilltreeUI.activeSelf);
+            if (!skilltreeUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(skillTreeRect, Input.mousePosition))
+            { 
+                tooltip.HideTooltip();
+            }
         }
     }
 

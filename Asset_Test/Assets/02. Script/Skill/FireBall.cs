@@ -9,6 +9,8 @@ public class FireBall : MonoBehaviour
     [SerializeField]
     GameObject explosion_Effet;
 
+    public PlayerInfo player;
+
     Rigidbody rb;
 
     float moveSpeed;
@@ -36,6 +38,14 @@ public class FireBall : MonoBehaviour
             explosion_Effet.SetActive(true);
 
             // 몬스터 히트판정
+            if (other.CompareTag("Monster"))
+            {
+                var mob = other.GetComponent<MonsterBase>();
+
+                var _skill = SkillDatabase.instance.AllSkillDic["0300000"];
+
+                mob.Hit(_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor);
+            }
 
             Destroy(gameObject, 1f);
         }
@@ -45,6 +55,6 @@ public class FireBall : MonoBehaviour
     IEnumerator EndSkill()
     {
         yield return new WaitForSeconds(6f);
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
     }
 }

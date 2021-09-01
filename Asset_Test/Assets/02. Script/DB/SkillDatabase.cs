@@ -148,6 +148,7 @@ public class SkillDatabase : MonoBehaviour
                             var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
                             // 나중에 오브젝트 풀링해서 미리 생성해놓은 오브젝트 활성화해서 사용하게 변경해야함
                             obj.transform.forward = player.transform.forward;
+                            obj.GetComponent<FireBall>().player = player;
                             break;
                     }
                     break;

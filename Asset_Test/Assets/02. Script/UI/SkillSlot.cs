@@ -12,19 +12,21 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public float curCooltime;
     public GameObject cooldownImage;
     public Text cooldownText;
-    public bool haveSkill { get; private set; } = false;
-
+    public bool haveSkill = false;
 
     Tooltip tooltip;
     Skill_Tree_UI skillTreeUI;
 
     PlayerInfo player;
+    PlayerActionCtrl playerActl;
 
     private void Awake()
     {
         tooltip = FindObjectOfType<Tooltip>();
-        player = FindObjectOfType<PlayerInfo>();
         skillTreeUI = FindObjectOfType<Skill_Tree_UI>();
+
+        player = FindObjectOfType<PlayerInfo>();
+        playerActl = FindObjectOfType<PlayerActionCtrl>();
     }
 
     private void Start()
@@ -34,18 +36,36 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Update()
     {
-        if (curCooltime > 0)
+        if (CompareTag("QuickSkillSlot"))
         {
-            cooldownImage.SetActive(true);
-            curCooltime -= Time.deltaTime;
-            cooldownImage.GetComponent<Image>().fillAmount = curCooltime / skill.CoolTime;
-            cooldownText.text = (Mathf.FloorToInt(curCooltime)).ToString();
-        }
-        else if (curCooltime < 0)
-        {
-            cooldownImage.SetActive(false);
-            curCooltime = 0;
-            cooldownText.text = "0";
+            if (skill != null)
+            {
+                if (curCooltime > 0)
+                {
+                    cooldownImage.SetActive(true);
+                    curCooltime -= Time.deltaTime;
+                    cooldownImage.GetComponent<Image>().fillAmount = curCooltime / skill.CoolTime;
+                    cooldownText.text = (Mathf.FloorToInt(curCooltime)).ToString();
+                }
+                else if (curCooltime <= 0)
+                {
+                    if (cooldownImage.activeSelf)
+                    {
+                        cooldownImage.SetActive(false);
+                        curCooltime = 0;
+                        cooldownText.text = "0";
+                    }
+                }
+            }
+            else
+            {
+                if (cooldownImage.activeSelf)
+                {
+                    cooldownImage.SetActive(false);
+                    curCooltime = 0;
+                    cooldownText.text = "0";
+                }
+            }
         }
 
         if (skillTreeLvText != null)
@@ -72,12 +92,13 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         haveSkill = true;
     }
 
-    public void ClearSlot()
+    private void ClearSlot()
     {
         skill = null;
         skillImage.sprite = null;
         SetColorAlpha(0);
         haveSkill = false;
+        curCooltime = 0;
     }
 
     /// <summary>
@@ -114,7 +135,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             else
             {
                 DragSlot.instance.SetColorAlpha(0);
-                DragSlot.instance.dragSlot = null;
+                DragSlot.instance.dragSkillSlot = null;
             }
         }
     }
@@ -139,11 +160,11 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             tooltip.ShowTooltip(skill);
 
         DragSlot.instance.SetColorAlpha(0);
-        DragSlot.instance.dragSlot = null;
+        DragSlot.instance.dragSkillSlot = null;
     }
 
     /// <summary>
-    /// 아이템 있으면 툴팁출력.
+    /// 스킬 있으면 툴팁출력.
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
@@ -166,7 +187,55 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (gameObject.CompareTag("QuickSkillSlot"))
         {
             if (DragSlot.instance.dragSkillSlot != null)
+            {
+                if (DragSlot.instance.dragSkillSlot.CompareTag("SkillTreeSlot"))
+                {
+                    for (int i = 0; i < playerActl.skillSlot.Count; i++)
+                    {
+                        if (playerActl.skillSlot[i].skill.UIDCODE == DragSlot.instance.dragSkillSlot.skill.UIDCODE)
+                        {
+                            AddSkill(playerActl.skillSlot[i].skill);
+                            curCooltime = playerActl.skillSlot[i].curCooltime;
+
+                            playerActl.skillSlot[i].ClearSlot();
+                            playerActl.skillSlot[i].curCooltime = 0;
+
+                            return;
+                        }
+                    }
+
+                    AddSkill(DragSlot.instance.dragSkillSlot.skill);
+                }
+                else if (DragSlot.instance.dragSkillSlot.CompareTag("QuickSkillSlot"))
+                {
+                    ChangeSlot();
+                }
+            }
+        }
+    }
+
+    private void ChangeSlot()
+    {
+        if (!haveSkill)
+        {
+            if (DragSlot.instance.dragSkillSlot.haveSkill)
+            {
                 AddSkill(DragSlot.instance.dragSkillSlot.skill);
+                curCooltime = DragSlot.instance.dragSkillSlot.curCooltime;
+                DragSlot.instance.dragSkillSlot.ClearSlot();
+                DragSlot.instance.dragSkillSlot = null;
+            }
+        }
+        else
+        {
+            Skill _skill = skill;
+            float _curCooltime = curCooltime;
+
+            AddSkill(DragSlot.instance.dragSkillSlot.skill);
+            curCooltime = DragSlot.instance.dragSkillSlot.curCooltime;
+
+            DragSlot.instance.dragSkillSlot.AddSkill(_skill);
+            DragSlot.instance.dragSkillSlot.curCooltime = _curCooltime;
         }
     }
 }

@@ -14,6 +14,8 @@ public class Tooltip : MonoBehaviour
     [SerializeField]
     Text LevelText;
     [SerializeField]
+    Text SkillCostText;
+    [SerializeField]
     Text BaseValueText;
     [SerializeField]
     Text RequireText;
@@ -24,9 +26,7 @@ public class Tooltip : MonoBehaviour
     [SerializeField]
     GameObject[] Divider;
 
-    [SerializeField]
-    Vector3 RD_Offset;
-    Vector3 RU_Offset;
+    Vector3 Offset;
 
     [SerializeField]
     RectTransform tooltip_Rect;
@@ -63,13 +63,30 @@ public class Tooltip : MonoBehaviour
         {
             go_Tooltip.SetActive(true);
 
-            RD_Offset = new Vector3(tooltip_Rect.rect.width * 0.5f, -tooltip_Rect.rect.height * 0.5f); // 오른쪽 아래로 띄우는 오프셋
-            RU_Offset = new Vector3(tooltip_Rect.rect.width * 0.5f, tooltip_Rect.rect.height * 0.5f); // 오른쪽 위로 띄우는 오프셋
+            if (Input.mousePosition.x + tooltip_Rect.rect.width >= 1920)
+            {
+                Offset.x = 1920 - Input.mousePosition.x - tooltip_Rect.rect.width * 0.5f;
+            }
+            else
+            {
+                Offset.x = tooltip_Rect.rect.width * 0.5f;
+            }
+
+            if (Input.mousePosition.y - tooltip_Rect.rect.height <= 0)
+            {
+                //Offset.y = -(Input.mousePosition.y - tooltip_Rect.rect.height * 0.5f);
+                Offset.y = tooltip_Rect.rect.height * 0.5f;
+                //Offset.y = 0;
+            }
+            else
+            {
+                Offset.y = -tooltip_Rect.rect.height * 0.5f;
+            }
 
             activeOverTime += Time.deltaTime;
 
             if (activeOverTime >= 0.15f)
-                go_Tooltip.transform.position = Input.mousePosition + RD_Offset;
+                go_Tooltip.transform.position = Input.mousePosition + Offset;
         }
     }
 
@@ -411,6 +428,21 @@ public class Tooltip : MonoBehaviour
 
         LevelText.text = "Lv : " + player.player_Skill_Dic[_skill.UIDCODE];
 
+        if (_skill.CostType != 0)
+            SkillCostText.gameObject.SetActive(true);
+        else
+            SkillCostText.gameObject.SetActive(false);
+
+        switch (_skill.CostType)
+        {
+            case 1:
+                SkillCostText.text = string.Format("Hp소모 : <color><b>{0}</b></color>", _skill.Cost);
+                break;
+            case 2:
+                SkillCostText.text = string.Format("Mp소모 : <color><b>{0}</b></color>", _skill.Cost);
+                break;
+        }
+
         switch (_skill.Type)
         {
             case 0:
@@ -432,7 +464,7 @@ public class Tooltip : MonoBehaviour
 
         BaseValueText.gameObject.SetActive(false);
 
-        RequireText.text = string.Format("요구 <color>{0}</color> 레벨", _skill.NeedLv);
+        RequireText.text = string.Format("요구 <color><b>{0}</b></color> 레벨", _skill.NeedLv + (player.player_Skill_Dic[_skill.UIDCODE] - 1));
 
         if (player.player_Skill_Dic[_skill.UIDCODE] > 0)
             switch (_skill.UIDCODE)

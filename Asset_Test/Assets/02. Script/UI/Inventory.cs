@@ -87,11 +87,6 @@ public class Inventory : MonoBehaviour
         }
 
         goldText.text = string.Format("{0:N0} <color=#FFF900>G</color>", player.stats.Gold);
-
-        if (!inventory_Base.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(gameObject.GetComponent<RectTransform>(), Input.mousePosition))
-        {
-            tooltip.HideTooltip();
-        }
     }
 
     /// <summary>
