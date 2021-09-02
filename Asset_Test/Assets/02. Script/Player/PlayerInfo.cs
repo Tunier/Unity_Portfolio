@@ -21,6 +21,8 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
     public GameObject targetMonster;
 
+    public GameObject cameraArm;
+
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
     public float ItemEffectMaxHpMultiplier;
@@ -90,7 +92,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
     SkillDatabase skillDB;
 
-    const string PlayerInfoPath = "/Resources/Data/PlayerInfo.text";
+    const string PlayerDataPath = "/Resources/Data/PlayerData.text";
 
     CharacterController cController;
 
@@ -140,12 +142,12 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         finalMaxHp = stats.MaxHp + (ItemEffectMaxHp + SkillEffectMaxHp) * (1 + ItemEffectMaxHpMultiplier + SkillEffectMaxHpMultiplier);
         finalMaxMp = stats.MaxMp + (ItemEffectMaxMp + SkillEffectMaxMp) * (1 + ItemEffectMaxMpMultiplier + SkillEffectMaxMpMultiplier);
         finalAtk = stats.Str + (ItemEffectAtk + SkillEffectAtk) * (1 + ItemEffectAtkMultiplier + SkillEffectAtkMultiplier);
-        finalDef = stats.Dex * 0.5f + (ItemEffectDef + SkillEffectDef) * (1 + ItemEffectDefMultiplier + SkillEffectDefMultiplier);
+        finalDef = stats.Dex * 0.2f + (ItemEffectDef + SkillEffectDef) * (1 + ItemEffectDefMultiplier + SkillEffectDefMultiplier);
         finalStr = stats.Str + ItemEffectStr + SkillEffectStr * (1 + ItemEffectStrMultiplier + SkillEffectStrMultiplier);
         finalDex = stats.Dex + ItemEffectDex + SkillEffectDex * (1 + ItemEffectDexMultiplier + SkillEffectDexMultiplier);
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt * (1 + ItemEffectIntMultiplier + SkillEffectIntMultiplier);
 
-        finalCriticalChance = Mathf.RoundToInt(finalDex * 50) + ItemEffectCriticalChance + SkillEffectCriticalChace;
+        finalCriticalChance = 1000 + Mathf.RoundToInt(finalDex * 50) + ItemEffectCriticalChance + SkillEffectCriticalChace;
         finalCriticalDamageMuliplie = 1.5f + ItemEffectCriticalDamageMultiple + SkillEffectCriticalDamageMultiple;
 
         finalHpRegen = 0.4f + finalStr * 0.1f + ItemEffectHpRegen + SkillEffectHpRegen;
@@ -172,9 +174,9 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
         stats.MaxHp = 100f + (stats.Level - 1) * 15;
         stats.MaxMp = 20f + (stats.Level - 1) * 5;
-        stats.Str = 5f + (stats.Level - 1);
-        stats.Dex = 5f + (stats.Level - 1);
-        stats.Int = 5f + (stats.Level - 1);
+        stats.Str = 5f + (stats.Level - 1 + stats.Str_UsePoint);
+        stats.Dex = 5f + (stats.Level - 1 + stats.Dex_UsePoint);
+        stats.Int = 5f + (stats.Level - 1 + stats.Int_UsePoint);
 
         RefeshFinalStats();
 
@@ -224,21 +226,25 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         stats.Pos_x = transform.position.x;
         stats.Pos_y = transform.position.y;
         stats.Pos_z = transform.position.z;
+        stats.Rot_y = transform.eulerAngles.y;
 
         string Jdata = JsonConvert.SerializeObject(stats, Formatting.Indented);
-        File.WriteAllText(Application.dataPath + PlayerInfoPath, Jdata);
+        File.WriteAllText(Application.dataPath + PlayerDataPath, Jdata);
 
         Debug.Log("플레이어데이터 세이브 완료");
     }
 
     public virtual void LoadPlayerInfo()
     {
-        if (File.Exists(Application.dataPath + PlayerInfoPath))
+        if (File.Exists(Application.dataPath + PlayerDataPath))
         {
-            string Jdata = File.ReadAllText(Application.dataPath + PlayerInfoPath);
+            string Jdata = File.ReadAllText(Application.dataPath + PlayerDataPath);
             stats = JsonConvert.DeserializeObject<Stats>(Jdata);
             cController.enabled = false;
             transform.position = new Vector3(stats.Pos_x, stats.Pos_y, stats.Pos_z);
+            transform.eulerAngles = new Vector3(0, stats.Rot_y, 0);
+            cameraArm.transform.eulerAngles = new Vector3(0, stats.Rot_y, 0);
+
             cController.enabled = true;
 
             Debug.Log("플레이어데이터 로드성공.");

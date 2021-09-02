@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerWeaponCtrl : MonoBehaviour
 {
     public PlayerInfo player;
-    public GameObject curHitMob;
-    public List<GameObject> mobList = new List<GameObject>();
 
     Collider col;
+
+    public GameObject curHitMob;
+    public List<GameObject> mobList = new List<GameObject>();
 
     void Awake()
     {
@@ -26,13 +27,11 @@ public class PlayerWeaponCtrl : MonoBehaviour
         {
             curHitMob = other.gameObject;
 
-            player.targetMonster = curHitMob; // 맞은 몬스터 정보를 플레이어에게 전달
-
-            if (!mobList.Contains(other.gameObject)) // 맞은 몬스터가 리스트에 없으면
+            if (!mobList.Contains(curHitMob)) // 맞은 몬스터가 리스트에 없으면
             {
-                mobList.Add(other.gameObject); // 맞은 몬스터를 리스트에 저장하고
+                mobList.Add(curHitMob); // 맞은 몬스터를 리스트에 저장하고
 
-                if (CritcalCal()) // 크리티컬이 떴는지 계산해서 Hit를 호출
+                if (CritcalCalculate()) // 크리티컬이 떴는지 계산해서 Hit를 호출
                 {
                     curHitMob.GetComponent<MonsterBase>().Hit(player.finalAtk * 1.5f);
                     // 데미지 UI 출력하는 구문 작성해야함. 크리티컬이 뜨면 해당 UI Text의 컬러를 바꿔주는 기능도 추가해야함.
@@ -46,7 +45,7 @@ public class PlayerWeaponCtrl : MonoBehaviour
         }
     }
 
-    public bool CritcalCal()
+    public bool CritcalCalculate()
     {
         bool isCrit = false;
         int crit;

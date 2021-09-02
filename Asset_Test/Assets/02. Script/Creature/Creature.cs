@@ -16,7 +16,10 @@ interface IDie
 public class Stats
 {
     public string s_Name;
+
     public int Level;
+    public int Skill_Point;
+    public int Stats_Point;
     public float CurExp;
     public float MaxExp;
     public float MaxHp;
@@ -24,9 +27,14 @@ public class Stats
     public float Str;
     public float Dex;
     public float Int;
+    public int Str_UsePoint;
+    public int Dex_UsePoint;
+    public int Int_UsePoint;
+
     public float Pos_x;
     public float Pos_y;
     public float Pos_z;
+    public float Rot_y;
 
     public int Gold;
 }
@@ -53,7 +61,7 @@ public abstract class Creature : MonoBehaviour, IHit, IDie
 
     public float finalMaxHp { get; protected set; }
     public float curHp;
-    
+
     public float finalHpRegen;
 
     public float finalAtk { get; protected set; }

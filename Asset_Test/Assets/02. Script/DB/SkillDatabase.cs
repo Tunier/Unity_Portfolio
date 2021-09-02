@@ -103,6 +103,9 @@ public class SkillDatabase : MonoBehaviour
     /// <param name="_target"></param>
     public void UseSkill(Skill _skill, GameObject _user, GameObject _target = null, SkillSlot _skillslot = null)
     {
+        // 스킬타입
+        // 0: 패시브, 1: 논타겟팅, 2: 타겟팅, 3: 버프, 4: 즉시시전
+
         PlayerInfo player;
 
         if (_user.CompareTag("Player"))
@@ -164,16 +167,17 @@ public class SkillDatabase : MonoBehaviour
 
                     //}
                     break;
-                //case Skill.SkillType.AoEAttack:
+                case 4:
+                    switch (_skill.UIDCODE)
+                    {
+                        case "0300005":
+                            player.curMp -= _skill.Cost;
+                            _skillslot.curCooltime = _skill.CoolTime;
+                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.identity);
+                            break;
+                    }
 
-                //    break;
-
-                //case Skill.SkillType.Debuff:
-
-                //    break;
-                //case Skill.SkillType.Heal:
-
-                //    break;
+                    break;
                 default:
                     Debug.LogError("스킬타입에 없는 스킬입니다.");
                     break;

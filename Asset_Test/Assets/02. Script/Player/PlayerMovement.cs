@@ -25,7 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
+    public Transform[] Rot;
+
     PlayerInfo playerInfo;
+    PlayerActionCtrl playerActionCtrl;
     CharacterController cController;
     NavMeshAgent nav;
     Animator ani;
@@ -50,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         clickEffect = FindObjectOfType<ClickEffect>();
 
         playerInfo = GetComponent<PlayerInfo>();
+        playerActionCtrl = GetComponent<PlayerActionCtrl>();
         cController = GetComponent<CharacterController>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponent<Animator>();
@@ -82,14 +86,14 @@ public class PlayerMovement : MonoBehaviour
             else
                 ani.SetBool(hashJump, false);
 
-            if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded && cController.enabled)
+            if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded && cController.enabled && !playerActionCtrl.isWhirlwind)
             {
                 moveDirection.y = jumpForce;
                 ani.SetBool(hashJump, true);
                 playerInfo.state = STATE.Jump;
             }
 
-            if (!pSkillIndicator.straightIndicator.activeSelf)
+            if (!pSkillIndicator.straightIndicator.activeSelf && !playerActionCtrl.isWhirlwind)
             {
                 if (x != 0 || z != 0)
                 {
@@ -216,35 +220,58 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="_z"></param>
     void setMoveDir(float _x, float _z)
     {
-        if (_z == 1f)
+        if (playerActionCtrl.isWhirlwind)
+        {
+            speed = walkMoveSpeed;
+        }
+        else if (_z == 1f)
         {
             if (!isRun)
                 speed = walkMoveSpeed;
             else
                 speed = runMoveSpeed;
 
-            moveDirection = new Vector3(transform.forward.x * speed, moveDirection.y, transform.forward.z * speed);
+            //moveDirection = new Vector3(transform.forward.x * speed, moveDirection.y, transform.forward.z * speed);
         }
         else if (_z == -1)
         {
             speed = backMoveSpeed;
-            moveDirection = new Vector3(-transform.forward.x * speed, moveDirection.y, -transform.forward.z * speed);
+            //moveDirection = new Vector3(-transform.forward.x * speed, moveDirection.y, -transform.forward.z * speed);
         }
         else if (_x == 1)
         {
             speed = walkMoveSpeed;
-            moveDirection = new Vector3(transform.right.x * speed, moveDirection.y, transform.right.z * speed);
+            //moveDirection = new Vector3(transform.right.x * speed, moveDirection.y, transform.right.z * speed);
         }
         else if (_x == -1f)
         {
             speed = walkMoveSpeed;
-            moveDirection = new Vector3(-transform.right.x * speed, moveDirection.y, -transform.right.z * speed);
+            //moveDirection = new Vector3(-transform.right.x * speed, moveDirection.y, -transform.right.z * speed);
         }
         else if (_x == 0 && _z == 0)
         {
             speed = 0;
-            moveDirection = new Vector3(0, moveDirection.y, 0);
+            //moveDirection = new Vector3(0, moveDirection.y, 0);
         }
+
+        if (_z == 0 && _x == 0)
+            moveDirection = new Vector3(0, moveDirection.y, 0);
+        else if (_z == 1 && _x == -1)
+            moveDirection = new Vector3((Rot[0].position.x - transform.position.x) * speed, moveDirection.y, (Rot[0].position.z - transform.position.z) * speed);
+        else if (_z == 1 && _x == 0)
+            moveDirection = new Vector3((Rot[1].position.x - transform.position.x) * speed, moveDirection.y, (Rot[1].position.z - transform.position.z) * speed);
+        else if (_z == 1 && _x == 1)
+            moveDirection = new Vector3((Rot[2].position.x - transform.position.x) * speed, moveDirection.y, (Rot[2].position.z - transform.position.z) * speed);
+        else if (_z == 0 && _x == -1)
+            moveDirection = new Vector3((Rot[3].position.x - transform.position.x) * speed, moveDirection.y, (Rot[3].position.z - transform.position.z) * speed);
+        else if (_z == 0 && _x == 1)
+            moveDirection = new Vector3((Rot[4].position.x - transform.position.x) * speed, moveDirection.y, (Rot[4].position.z - transform.position.z) * speed);
+        else if (_z == -1 && _x == -1)
+            moveDirection = new Vector3((Rot[5].position.x - transform.position.x) * speed, moveDirection.y, (Rot[5].position.z - transform.position.z) * speed);
+        else if (_z == -1 && _x == 0)
+            moveDirection = new Vector3((Rot[6].position.x - transform.position.x) * speed, moveDirection.y, (Rot[6].position.z - transform.position.z) * speed);
+        else if (_z == -1 && _x == 1)
+            moveDirection = new Vector3((Rot[7].position.x - transform.position.x) * speed, moveDirection.y, (Rot[7].position.z - transform.position.z) * speed);
 
         if (speed == runMoveSpeed)
         {

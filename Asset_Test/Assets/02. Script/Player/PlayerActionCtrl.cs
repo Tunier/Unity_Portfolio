@@ -22,18 +22,25 @@ public class PlayerActionCtrl : MonoBehaviour
     public GameObject QuickSkillSlotParents;
 
     CharacterController cController;
+    Animator ani;
 
     public List<SkillSlot> skillSlot = new List<SkillSlot>();
 
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
 
+    public bool isWhirlwind = false;
+
+    readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");
+
     void Awake()
     {
         player = FindObjectOfType<PlayerInfo>();
         skillDB = FindObjectOfType<SkillDatabase>();
-        cController = FindObjectOfType<CharacterController>();
         tooltip = FindObjectOfType<Tooltip>();
+
+        cController = FindObjectOfType<CharacterController>();
+        ani = GetComponent<Animator>();
 
         skillSlot.AddRange(QuickSkillSlotParents.GetComponentsInChildren<SkillSlot>());
     }
@@ -95,10 +102,12 @@ public class PlayerActionCtrl : MonoBehaviour
         {
             skilltreeUI.SetActive(!skilltreeUI.activeSelf);
             if (!skilltreeUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(skillTreeRect, Input.mousePosition))
-            { 
+            {
                 tooltip.HideTooltip();
             }
         }
+
+        ani.SetBool(hashWhirlwind, isWhirlwind);
     }
 
     void UseQuickSlotSkill(int _slotIndex) // ³ªÁß¿¡ ½ºÅ³Äü½½·ÔÀ¸·Î ¿È±è.
