@@ -69,7 +69,7 @@ public class SkillDatabase : MonoBehaviour
         playerAC = FindObjectOfType<PlayerActionCtrl>();
 
         player.player_Skill_Dic.Add(AllSkillDic["0300000"].UIDCODE, 1); // 임시로 플레이어의 스킬리스트에 스킬을 넣어줌.
-        player.player_Skill_Dic.Add(AllSkillDic["0300001"].UIDCODE, 1);
+        player.player_Skill_Dic.Add(AllSkillDic["0300001"].UIDCODE, 0);
         player.player_Skill_Dic.Add(AllSkillDic["0300002"].UIDCODE, 0);
         player.player_Skill_Dic.Add(AllSkillDic["0300003"].UIDCODE, 0);
         player.player_Skill_Dic.Add(AllSkillDic["0300004"].UIDCODE, 0);

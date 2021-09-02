@@ -4,22 +4,45 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class PlayerInfo : Creature
+interface iPlayerMustHaveFuc
+{
+    public abstract void LevelUp();
+
+    public abstract void RefeshFinalStats();
+
+    public abstract void SavePlayerInfo();
+
+    public abstract void LoadPlayerInfo();
+}
+
+public class PlayerInfo : Creature, iPlayerMustHaveFuc
 {
     public Dictionary<string, int> player_Skill_Dic = new Dictionary<string, int>();
+
+    public GameObject targetMonster;
 
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
     public float ItemEffectMaxHpMultiplier;
     public float SkillEffectMaxHpMultiplier;
 
+    public float ItemEffectHpRegen;
+    public float SkillEffectHpRegen;
+    public float ItemEffectHpRegenMultiplier;
+    public float SkillEffectHpRegenMultiplier;
+
     public float finalMaxMp { get; protected set; }
     public float curMp;
-    public float mpRegen;
     public float ItemEffectMaxMp;
     public float SkillEffectMaxMp;
     public float ItemEffectMaxMpMultiplier;
     public float SkillEffectMaxMpMultiplier;
+
+    public float fianlMpRegen { get; protected set; }
+    public float ItemEffectMpRegen;
+    public float SkillEffectMpRegen;
+    public float ItemEffectMpRegenMultiplier;
+    public float SkillEffectMpRegenMultiplier;
 
     public float finalStr { get; protected set; }
     public float ItemEffectStr;
@@ -57,6 +80,14 @@ public class PlayerInfo : Creature
     public float ItemEffectLifeStealPercent;
     public float SkillEffectLifeStealPercent;
 
+    public int finalCriticalChance { get; protected set; }
+    public int ItemEffectCriticalChance;
+    public int SkillEffectCriticalChace;
+
+    public float finalCriticalDamageMuliplie { get; protected set; }
+    public float ItemEffectCriticalDamageMultiple;
+    public float SkillEffectCriticalDamageMultiple;
+
     SkillDatabase skillDB;
 
     const string PlayerInfoPath = "/Resources/Data/PlayerInfo.text";
@@ -92,10 +123,19 @@ public class PlayerInfo : Creature
         curMp = finalMaxMp;
     }
 
+    private void Update()
+    {
+        if (curHp < finalMaxHp)
+            curHp += finalHpRegen * Time.deltaTime;
+
+        if (curMp < finalMaxMp)
+            curMp += fianlMpRegen * Time.deltaTime;
+    }
+
     /// <summary>
     /// 최종적으로 사용할 스텟들 정리함.
     /// </summary>
-    public void RefeshFinalStats()
+    public virtual void RefeshFinalStats()
     {
         finalMaxHp = stats.MaxHp + (ItemEffectMaxHp + SkillEffectMaxHp) * (1 + ItemEffectMaxHpMultiplier + SkillEffectMaxHpMultiplier);
         finalMaxMp = stats.MaxMp + (ItemEffectMaxMp + SkillEffectMaxMp) * (1 + ItemEffectMaxMpMultiplier + SkillEffectMaxMpMultiplier);
@@ -105,9 +145,14 @@ public class PlayerInfo : Creature
         finalDex = stats.Dex + ItemEffectDex + SkillEffectDex * (1 + ItemEffectDexMultiplier + SkillEffectDexMultiplier);
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt * (1 + ItemEffectIntMultiplier + SkillEffectIntMultiplier);
 
+        finalCriticalChance = Mathf.RoundToInt(finalDex * 50) + ItemEffectCriticalChance + SkillEffectCriticalChace;
+        finalCriticalDamageMuliplie = 1.5f + ItemEffectCriticalDamageMultiple + SkillEffectCriticalDamageMultiple;
+
+        finalHpRegen = 0.4f + finalStr * 0.1f + ItemEffectHpRegen + SkillEffectHpRegen;
+        fianlMpRegen = 0.4f + finalInt * 0.1f + ItemEffectMpRegen + SkillEffectMpRegen;
     }
 
-    public void LevelUp()
+    public virtual void LevelUp()
     {
         float ExpFactor = 1f;
 
@@ -165,15 +210,16 @@ public class PlayerInfo : Creature
         if (curHp <= 0)
         {
             state = STATE.Die;
+            Die();
         }
     }
 
     public override void Die()
     {
-
+        print("사망");
     }
 
-    public void SavePlayerInfo()
+    public virtual void SavePlayerInfo()
     {
         stats.Pos_x = transform.position.x;
         stats.Pos_y = transform.position.y;
@@ -185,7 +231,7 @@ public class PlayerInfo : Creature
         Debug.Log("플레이어데이터 세이브 완료");
     }
 
-    public void LoadPlayerInfo()
+    public virtual void LoadPlayerInfo()
     {
         if (File.Exists(Application.dataPath + PlayerInfoPath))
         {

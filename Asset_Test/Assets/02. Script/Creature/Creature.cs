@@ -53,7 +53,8 @@ public abstract class Creature : MonoBehaviour, IHit, IDie
 
     public float finalMaxHp { get; protected set; }
     public float curHp;
-    public float hpRegen;
+    
+    public float finalHpRegen;
 
     public float finalAtk { get; protected set; }
     public float finalDef { get; protected set; }

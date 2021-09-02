@@ -464,7 +464,7 @@ public class Tooltip : MonoBehaviour
 
         BaseValueText.gameObject.SetActive(false);
 
-        RequireText.text = string.Format("요구 <color><b>{0}</b></color> 레벨", _skill.NeedLv + (player.player_Skill_Dic[_skill.UIDCODE] - 1));
+        RequireText.text = string.Format("요구 레벨 <color><b>{0}</b></color>", _skill.NeedLv + player.player_Skill_Dic[_skill.UIDCODE]);
 
         if (player.player_Skill_Dic[_skill.UIDCODE] > 0)
             switch (_skill.UIDCODE)
