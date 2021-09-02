@@ -1,0 +1,725 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.13f1 (71691879b7f5) revision 7432472'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19042.1165; Version 2009; 64bit' Language: 'ko' Physical Memory: 8146 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Users\admin\Downloads\2020.3.13f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/admin/Desktop/Asset Preview
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+63564
+Successfully changed project path to: C:/Users/admin/Desktop/Asset Preview
+C:/Users/admin/Desktop/Asset Preview
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 41.23 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.13f1 (71691879b7f5)
+[Subsystems] Discovering subsystems at path C:/Users/admin/Downloads/2020.3.13f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/admin/Desktop/Asset Preview/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 Ti (ID=0x1c82)
+    Vendor:   
+    VRAM:     4018 MB
+    Driver:   30.0.14.7111
+Initialize mono
+Mono path[0] = 'C:/Users/admin/Downloads/2020.3.13f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Users/admin/Downloads/2020.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Users/admin/Downloads/2020.3.13f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56596
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Users/admin/Downloads/2020.3.13f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002165 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 31.76 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.516 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.004495 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.45 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.249 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.30 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1390 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 67.5 MB.
+System memory in use after: 67.5 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 1823.
+Total: 2.742600 ms (FindLiveObjects: 0.313700 ms CreateObjectMapping: 0.078100 ms MarkObjects: 2.204000 ms  DeleteObjects: 0.145300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/Dead_Army/Dead_Shaman
+  artifactKey: Guid(d15cfda54674f704bb86acc7d8799f34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman using Guid(d15cfda54674f704bb86acc7d8799f34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18582b97bccd33ab09ae962d8d0bfe98') in 0.015180 seconds 
+  Import took 0.018076 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000474 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Prefabs
+  artifactKey: Guid(733ec2399f8bf3b49b4a1fc05c3ca4bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Prefabs using Guid(733ec2399f8bf3b49b4a1fc05c3ca4bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '02c17af6d5bee201c81a4a0bd1a6c951') in 0.007468 seconds 
+  Import took 0.011273 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.654974 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Scene
+  artifactKey: Guid(f3a6f9b4a9e6e114cac1b7f077445c99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Scene using Guid(f3a6f9b4a9e6e114cac1b7f077445c99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'efc47642ba0d9f8f100a0e953513892f') in 0.011131 seconds 
+  Import took 0.014836 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001069 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Scene
+  artifactKey: Guid(f3a6f9b4a9e6e114cac1b7f077445c99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Scene using Guid(f3a6f9b4a9e6e114cac1b7f077445c99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'efc47642ba0d9f8f100a0e953513892f') in 0.003390 seconds 
+  Import took 0.019417 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.100266 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Scene/Dead_Shaman.unity
+  artifactKey: Guid(100c5072a4ed79944b70887d777ac9ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Scene/Dead_Shaman.unity using Guid(100c5072a4ed79944b70887d777ac9ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91937e7f3ecdb24ac658de92ada14139') in 0.017969 seconds 
+  Import took 0.020968 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.423975 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Prefabs/DeadShaman_LOD Prefab.prefab
+  artifactKey: Guid(bc9648a44d985bc4ea133a70a015c783) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Prefabs/DeadShaman_LOD Prefab.prefab using Guid(bc9648a44d985bc4ea133a70a015c783) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea40c7c857b714a4de762eb6e603598d') in 2.116635 seconds 
+  Import took 2.159668 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 34.562601 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/MAX
+  artifactKey: Guid(05ab3c92c192ed048834bd5637160957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/MAX using Guid(05ab3c92c192ed048834bd5637160957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe689e27b102904d228fb24883e2450f') in 0.006639 seconds 
+  Import took 0.010114 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.111016 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/MAX/DeadShaman_RiggedOnly.rar
+  artifactKey: Guid(726a036ca0895d1469aee9bf0bb89111) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/MAX/DeadShaman_RiggedOnly.rar using Guid(726a036ca0895d1469aee9bf0bb89111) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c37de79a20217e4b1048447081ffe63e') in 0.022176 seconds 
+  Import took 0.024842 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.273443 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Scene/Dead_ShamanSettings.lighting
+  artifactKey: Guid(1fca29e8d1e85fd409ef18c2b4d2746c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Scene/Dead_ShamanSettings.lighting using Guid(1fca29e8d1e85fd409ef18c2b4d2746c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) LightingSettings: switching bake backend from 1 to 0.
+ -> (artifact id: 'b80f650a30a1543cb7a33b51d6a9fc98') in 0.015312 seconds 
+  Import took 0.018218 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006424 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Scene/Dead_ShamanSettings.lighting
+  artifactKey: Guid(1fca29e8d1e85fd409ef18c2b4d2746c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Scene/Dead_ShamanSettings.lighting using Guid(1fca29e8d1e85fd409ef18c2b4d2746c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) LightingSettings: switching bake backend from 1 to 0.
+ -> (artifact id: 'b80f650a30a1543cb7a33b51d6a9fc98') in 0.004351 seconds 
+  Import took 0.007336 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.562768 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Models/DeadShaman_LOD.FBX
+  artifactKey: Guid(72ec9b20ca2c2e54bb8d6d79549926d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Models/DeadShaman_LOD.FBX using Guid(72ec9b20ca2c2e54bb8d6d79549926d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5fa50a71e8dfc91984a06cb12efb173') in 1.651047 seconds 
+  Import took 1.708811 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.012214 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.42 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.337 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.46 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1385 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 84.8 MB.
+System memory in use after: 84.9 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1838.
+Total: 2.527700 ms (FindLiveObjects: 0.141500 ms CreateObjectMapping: 0.044300 ms MarkObjects: 2.256000 ms  DeleteObjects: 0.085000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 71.468756 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman@Wizard.FBX
+  artifactKey: Guid(4c53846219b165948b8ced23b3622fd0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman@Wizard.FBX using Guid(4c53846219b165948b8ced23b3622fd0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbcfbf0d6d94af6bb02cf4068cc072ed') in 0.138083 seconds 
+  Import took 0.146924 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.692863 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman@General.FBX
+  artifactKey: Guid(11331475b80d837408fdf7c09f63b4cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman@General.FBX using Guid(11331475b80d837408fdf7c09f63b4cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b52a911d8de3d7a802e6377b02a9403') in 0.089412 seconds 
+  Import took 0.101580 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.806803 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman_Wizard Controller.controller
+  artifactKey: Guid(68383c2bafa67e243833c424d1601f00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman_Wizard Controller.controller using Guid(68383c2bafa67e243833c424d1601f00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee40350a30247059d5489c73a78f7331') in 0.013718 seconds 
+  Import took 0.017391 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000861 seconds.
+  path: Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman_Wizard Controller.controller
+  artifactKey: Guid(68383c2bafa67e243833c424d1601f00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dead_Army/Dead_Shaman/Animations/DeadShaman_Wizard Controller.controller using Guid(68383c2bafa67e243833c424d1601f00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee40350a30247059d5489c73a78f7331') in 0.018136 seconds 
+  Import took 0.021151 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004788 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.32 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.081 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.31 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1395 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.6 MB.
+System memory in use after: 85.6 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 1846.
+Total: 4.254900 ms (FindLiveObjects: 0.166100 ms CreateObjectMapping: 0.050900 ms MarkObjects: 3.834800 ms  DeleteObjects: 0.201600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 836.567297 seconds.
+  path: Assets/PortalsPackage/MatAndText
+  artifactKey: Guid(e9c6e5d334b24e34984582a61494affe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PortalsPackage/MatAndText using Guid(e9c6e5d334b24e34984582a61494affe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9a949ac744eddaffd28f7f5431bfe01') in 0.010808 seconds 
+  Import took 0.014049 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.058830 seconds.
+  path: Assets/PortalsPackage/MatAndText/Portal#1
+  artifactKey: Guid(376d987cac6f7be4f88bcff06efe03e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PortalsPackage/MatAndText/Portal#1 using Guid(376d987cac6f7be4f88bcff06efe03e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d666202ef70fed90966b3a910106ed5') in 0.007882 seconds 
+  Import took 0.010860 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.084804 seconds.
+  path: Assets/PortalsPackage/Plane
+  artifactKey: Guid(4ebea38f446a41b4c8c16ad9fcf8edbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PortalsPackage/Plane using Guid(4ebea38f446a41b4c8c16ad9fcf8edbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1ecfcfa2c7ec6e88bde0fcbc69fa710') in 0.016653 seconds 
+  Import took 0.019000 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.124714 seconds.
+  path: Assets/PortalsPackage/Prefubs
+  artifactKey: Guid(249f10f7c1a58fd43a2e3539bd6db297) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PortalsPackage/Prefubs using Guid(249f10f7c1a58fd43a2e3539bd6db297) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2def040c5c8e8da986905b31b44713f') in 0.013577 seconds 
+  Import took 0.016338 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 177.961884 seconds.
+  path: Assets/PortalsPackage/MatAndText/Shared/Cubemap1.png
+  artifactKey: Guid(da267f74aa82fe642b336c9d2fed9ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PortalsPackage/MatAndText/Shared/Cubemap1.png using Guid(da267f74aa82fe642b336c9d2fed9ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a599268361769668275eff1ee038067') in 0.122568 seconds 
+  Import took 0.125387 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001865 seconds.
+  path: Assets/PortalsPackage/MatAndText/Shared/Cubemap1.png
+  artifactKey: Guid(da267f74aa82fe642b336c9d2fed9ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PortalsPackage/MatAndText/Shared/Cubemap1.png using Guid(da267f74aa82fe642b336c9d2fed9ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a599268361769668275eff1ee038067') in 0.026644 seconds 
+  Import took 0.030490 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004360 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.30 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.208 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.34 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1385 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.1 MB.
+System memory in use after: 85.2 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 1870.
+Total: 1.991300 ms (FindLiveObjects: 0.150400 ms CreateObjectMapping: 0.048100 ms MarkObjects: 1.735000 ms  DeleteObjects: 0.056600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006939 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.30 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.273 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.33 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1385 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.1 MB.
+System memory in use after: 85.2 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1873.
+Total: 2.173400 ms (FindLiveObjects: 0.140700 ms CreateObjectMapping: 0.039900 ms MarkObjects: 1.914000 ms  DeleteObjects: 0.077500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 312.758383 seconds.
+  path: Assets/Medieval Cartoon UI kit
+  artifactKey: Guid(82ad817ed77f0014582a686e8feefeb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Medieval Cartoon UI kit using Guid(82ad817ed77f0014582a686e8feefeb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00b8feb3ce11a50adfa43a07077fae5f') in 0.013493 seconds 
+  Import took 0.018897 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.398957 seconds.
+  path: Assets/Medieval Cartoon UI kit/Demo Scenes
+  artifactKey: Guid(482321a77124b4a09b1562f9f72861c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Medieval Cartoon UI kit/Demo Scenes using Guid(482321a77124b4a09b1562f9f72861c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b8e0f9a3f14b1739a0129a264f331c9') in 0.008910 seconds 
+  Import took 0.012012 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.019256 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.52 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.384 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.47 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1398 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 86.4 MB.
+System memory in use after: 86.5 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1889.
+Total: 3.221400 ms (FindLiveObjects: 0.196700 ms CreateObjectMapping: 0.055800 ms MarkObjects: 2.561100 ms  DeleteObjects: 0.406100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 149.169578 seconds.
+  path: Assets/Epic Toon FX
+  artifactKey: Guid(384a316e0abe0814c97b27ed6fe8932e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX using Guid(384a316e0abe0814c97b27ed6fe8932e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1afc6082c353796d07f570b0cd5abbac') in 0.008894 seconds 
+  Import took 0.011675 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006163 seconds.
+  path: Assets/Epic Toon FX
+  artifactKey: Guid(384a316e0abe0814c97b27ed6fe8932e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX using Guid(384a316e0abe0814c97b27ed6fe8932e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1afc6082c353796d07f570b0cd5abbac') in 0.005184 seconds 
+  Import took 0.012255 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.299839 seconds.
+  path: Assets/Epic Toon FX/Prefabs
+  artifactKey: Guid(6542b3763b8eb5045989be480649636b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Prefabs using Guid(6542b3763b8eb5045989be480649636b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ddc17bac171d2fa9daa63fe2faee6f8') in 0.013236 seconds 
+  Import took 0.018121 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.599096 seconds.
+  path: Assets/Epic Toon FX/Prefabs/Combat
+  artifactKey: Guid(f1114f7879a34a342b616b575eb5ce0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Prefabs/Combat using Guid(f1114f7879a34a342b616b575eb5ce0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e8a1f4067a7ee5d6cb09f6953c2f499') in 0.008567 seconds 
+  Import took 0.011364 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.514993 seconds.
+  path: Assets/Epic Toon FX/Prefabs/Combat/Blood
+  artifactKey: Guid(18507a08ddee8694a80ddd61f73323bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Prefabs/Combat/Blood using Guid(18507a08ddee8694a80ddd61f73323bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c671c31a18c673b4b4cb57262d8dacd8') in 0.012447 seconds 
+  Import took 0.019602 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.925004 seconds.
+  path: Assets/Epic Toon FX/Demo
+  artifactKey: Guid(fa8d254bca8dc964e97a2cf3ccb98dcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo using Guid(fa8d254bca8dc964e97a2cf3ccb98dcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '833c89e6c43ed2644caee2ad00903c48') in 0.016453 seconds 
+  Import took 0.019225 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.338333 seconds.
+  path: Assets/Epic Toon FX/Demo/Animation
+  artifactKey: Guid(7cf0ffaf8d60fd04c93b41bd505cc695) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Animation using Guid(7cf0ffaf8d60fd04c93b41bd505cc695) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '669352ca04d78c52fde851e914c87338') in 0.011169 seconds 
+  Import took 0.015706 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.278056 seconds.
+  path: Assets/Epic Toon FX/Demo/Animation/TrgtMove01.anim
+  artifactKey: Guid(f0eaad39a8aca314da6ec292f5315b25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Animation/TrgtMove01.anim using Guid(f0eaad39a8aca314da6ec292f5315b25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5614bb34dbe9da2b29d9c157ef72eae8') in 0.019952 seconds 
+  Import took 0.023820 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.986449 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes
+  artifactKey: Guid(ed778f5da234f754799a14d29278b200) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes using Guid(ed778f5da234f754799a14d29278b200) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c09ff580ffb662343bbc1281723e7786') in 0.009782 seconds 
+  Import took 0.013133 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.332226 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_2ddemo.unity
+  artifactKey: Guid(0ef9b490e5d6bad4ea1935d07d1c2ea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_2ddemo.unity using Guid(0ef9b490e5d6bad4ea1935d07d1c2ea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6a343ea7ff3c24ad702bc1aa7dec34f') in 0.006693 seconds 
+  Import took 0.011618 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.944698 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_cards.unity
+  artifactKey: Guid(855bb038b5077e74082152830a86f4fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_cards.unity using Guid(855bb038b5077e74082152830a86f4fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85f818060e3a425d8e39f3f9592ca528') in 0.012177 seconds 
+  Import took 0.018853 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.493913 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_combat.unity
+  artifactKey: Guid(49c44520099ebe541a86e958bb498f24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_combat.unity using Guid(49c44520099ebe541a86e958bb498f24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04401fd350db6ef4b0108be892d68f79') in 0.079187 seconds 
+  Import took 0.084778 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.542620 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_decals.unity
+  artifactKey: Guid(5b495297bbe0d2549aa87a2ef68dd6f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_decals.unity using Guid(5b495297bbe0d2549aa87a2ef68dd6f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1b82380736b811f3e0059fb9eecbdc9') in 0.062180 seconds 
+  Import took 0.097640 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.934302 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_decals2.unity
+  artifactKey: Guid(beb66570ff0561047abfb8082eaa8e70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_decals2.unity using Guid(beb66570ff0561047abfb8082eaa8e70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d94e86c2a4c3f909b704f6e3b6d6bac') in 0.022374 seconds 
+  Import took 0.028687 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.059935 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_emojis.unity
+  artifactKey: Guid(b0de468b5dc93da4d8ee716d4782d2ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_emojis.unity using Guid(b0de468b5dc93da4d8ee716d4782d2ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56eac1f99f0169c4c3c717131edbb5ca') in 0.008890 seconds 
+  Import took 0.011987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000883 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_emojis.unity
+  artifactKey: Guid(b0de468b5dc93da4d8ee716d4782d2ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_emojis.unity using Guid(b0de468b5dc93da4d8ee716d4782d2ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56eac1f99f0169c4c3c717131edbb5ca') in 0.010351 seconds 
+  Import took 0.017418 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.092488 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_emojis2.unity
+  artifactKey: Guid(974d088231a9ea440bca66d339389cbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_emojis2.unity using Guid(974d088231a9ea440bca66d339389cbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22cbf5147bb684060ba1938c2198b7b0') in 0.017982 seconds 
+  Import took 0.024271 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.459096 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_explosions.unity
+  artifactKey: Guid(f91c322868183cc4a96eb6242e73deac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_explosions.unity using Guid(f91c322868183cc4a96eb6242e73deac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44265e81253e95f5e4e6e1ca6c9ecf60') in 0.012729 seconds 
+  Import took 0.017526 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 173.780594 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_explosions2.unity
+  artifactKey: Guid(23b30f55479243746a484e7a7ba74b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_explosions2.unity using Guid(23b30f55479243746a484e7a7ba74b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd074f3027b519bf18856bbcfccee605') in 0.018479 seconds 
+  Import took 0.025279 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 21.469174 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_fire.unity
+  artifactKey: Guid(88a9ddda0ca72bb488c72771c26caba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_fire.unity using Guid(88a9ddda0ca72bb488c72771c26caba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b14e9f91c4749f537d9a1bb966ae960') in 0.008192 seconds 
+  Import took 0.011588 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003505 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_fire.unity
+  artifactKey: Guid(88a9ddda0ca72bb488c72771c26caba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_fire.unity using Guid(88a9ddda0ca72bb488c72771c26caba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b14e9f91c4749f537d9a1bb966ae960') in 0.008495 seconds 
+  Import took 0.018612 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.741240 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_fire2.unity
+  artifactKey: Guid(cf6c88659dbe5ea41951465b278d4578) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_fire2.unity using Guid(cf6c88659dbe5ea41951465b278d4578) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac312c2c5b8426457f0dcd54a6ff8930') in 0.009013 seconds 
+  Import took 0.012712 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.570148 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_fire3.unity
+  artifactKey: Guid(237fa454a1c11d24d8a92ad2acf18735) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_fire3.unity using Guid(237fa454a1c11d24d8a92ad2acf18735) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '721585f13c5d7684b499261d1739a884') in 0.007744 seconds 
+  Import took 0.011134 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.065078 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_fireworks.unity
+  artifactKey: Guid(32ddbd81248ad9c43a2fc3edfba6e326) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_fireworks.unity using Guid(32ddbd81248ad9c43a2fc3edfba6e326) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ab8f08c9946492dff3ea22899d6e04c') in 0.008171 seconds 
+  Import took 0.012621 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006329 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_fireworks.unity
+  artifactKey: Guid(32ddbd81248ad9c43a2fc3edfba6e326) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_fireworks.unity using Guid(32ddbd81248ad9c43a2fc3edfba6e326) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ab8f08c9946492dff3ea22899d6e04c') in 0.003313 seconds 
+  Import took 0.011452 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.882366 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_flares.unity
+  artifactKey: Guid(e2bb5f0193a596246b4de5a53732a695) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_flares.unity using Guid(e2bb5f0193a596246b4de5a53732a695) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c72953fae8882e2d5a5157286c2604bc') in 0.009549 seconds 
+  Import took 0.021522 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.461552 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_healing.unity
+  artifactKey: Guid(5dc0fb5f1c3c34d47baefa2a3c5f19e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_healing.unity using Guid(5dc0fb5f1c3c34d47baefa2a3c5f19e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bf8ed9fbef3d6af621ac78d38c8007a') in 0.008134 seconds 
+  Import took 0.011341 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003452 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_healing.unity
+  artifactKey: Guid(5dc0fb5f1c3c34d47baefa2a3c5f19e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_healing.unity using Guid(5dc0fb5f1c3c34d47baefa2a3c5f19e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bf8ed9fbef3d6af621ac78d38c8007a') in 0.014900 seconds 
+  Import took 0.018149 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.488559 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_magic.unity
+  artifactKey: Guid(1e1bb871721d63e4f92474359db37b3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_magic.unity using Guid(1e1bb871721d63e4f92474359db37b3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9bcc663757730899bb2a4c158b6c859') in 0.021020 seconds 
+  Import took 0.023942 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.387920 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_magic2.unity
+  artifactKey: Guid(c5094e256f2a7a04b913a7b17313517a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_magic2.unity using Guid(c5094e256f2a7a04b913a7b17313517a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00eeebd1db1d55e94b7eaf688f38fcca') in 0.007833 seconds 
+  Import took 0.010928 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002452 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_magic2.unity
+  artifactKey: Guid(c5094e256f2a7a04b913a7b17313517a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_magic2.unity using Guid(c5094e256f2a7a04b913a7b17313517a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00eeebd1db1d55e94b7eaf688f38fcca') in 0.015296 seconds 
+  Import took 0.019373 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.782000 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_magic3.unity
+  artifactKey: Guid(d70a7dcb427d83b48bd82c3e982e09b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_magic3.unity using Guid(d70a7dcb427d83b48bd82c3e982e09b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c408f4cf219b2a0ef5ac42e47987948c') in 0.008595 seconds 
+  Import took 0.011834 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.004729 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_magic3.unity
+  artifactKey: Guid(d70a7dcb427d83b48bd82c3e982e09b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_magic3.unity using Guid(d70a7dcb427d83b48bd82c3e982e09b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c408f4cf219b2a0ef5ac42e47987948c') in 0.011104 seconds 
+  Import took 0.021326 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.094522 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_maindemo.unity
+  artifactKey: Guid(8bd1bda334a6f2440817b9493f9d7703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_maindemo.unity using Guid(8bd1bda334a6f2440817b9493f9d7703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c04080aef7ecefa70fb4c4c3c0ab0676') in 0.008001 seconds 
+  Import took 0.011308 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.323379 seconds.
+  path: Assets/Epic Toon FX/Demo/Scenes/etfx_missiles.unity
+  artifactKey: Guid(b1d44d13576492049bc14b200e0d90cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX/Demo/Scenes/etfx_missiles.unity using Guid(b1d44d13576492049bc14b200e0d90cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4a8262b7ab97a9c3f611f987aa0eb79') in 0.020730 seconds 
+  Import took 0.024563 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004808 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.45 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.255 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.50 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1398 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 86.6 MB.
+System memory in use after: 86.7 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1892.
+Total: 4.544000 ms (FindLiveObjects: 0.171300 ms CreateObjectMapping: 0.046300 ms MarkObjects: 4.191400 ms  DeleteObjects: 0.133000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

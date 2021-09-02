@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Epic Toon FX/Demo/Scenes/etfx_maindemo.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
