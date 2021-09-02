@@ -10,14 +10,17 @@ public class MonsterAnim : MonoBehaviour
     readonly int hashDie = Animator.StringToHash("IsDie");
     readonly int hashHit = Animator.StringToHash("IsHit");
     readonly int hashAttack = Animator.StringToHash("IsAttack");
+    readonly int hashIdleIdx = Animator.StringToHash("IdleIdx");
+    readonly int hashWalk = Animator.StringToHash("IsWalk");
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-    public void OnMove(bool _true)
+    public void OnMove(bool _true,float _speed)
     {
         animator.SetBool(hashMove, _true);
+        animator.SetInteger(hashWalk, (int)_speed);
     }
     public void OnDie()
     {
@@ -32,6 +35,11 @@ public class MonsterAnim : MonoBehaviour
     public void OnHit()
     {
         animator.SetTrigger(hashHit);
+    }
+
+    public void OnIdle()
+    {
+        animator.SetInteger(hashIdleIdx, Random.Range(0, 3));
     }
 }
 

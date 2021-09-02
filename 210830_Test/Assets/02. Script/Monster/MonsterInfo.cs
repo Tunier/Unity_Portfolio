@@ -45,37 +45,34 @@ public class MonsterInfo : MonsterBase
         }
     }
 
-    public void StartMove()
-    {
-        StartCoroutine(MovePoint());
-    }
 
     /// <summary>
     /// ·£´ýÀ¸·Î ÀÌµ¿ & ·£´ý ÈÞ½Ä½Ã°£
     /// </summary>
-    public IEnumerator MovePoint()
+    public void MovePoint()
     {
         isAttack = false;
 
         if (agent.isPathStale)
-            yield return null;
-
-        monsterAnim.OnMove(true);
-        agent.speed = patrolSpeed;
+            return;
+           
         agent.destination = movePoints[nextIdx].position;
+        agent.speed = patrolSpeed;
+        monsterAnim.OnMove(true,agent.speed);
         agent.isStopped = false;
+    }
 
+    public void ArrivePoint()
+    {
         if (agent.velocity.sqrMagnitude < 0.2f * 0.2f)
         {
             if (agent.remainingDistance <= 0.5f)
             {
-                monsterAnim.OnMove(false);
+                monsterAnim.OnMove(false, agent.speed);
                 agent.isStopped = true;
                 nextIdx = Random.Range(0, movePoints.Count);
             }
         }
-        yield return new WaitForSeconds(Random.Range(0, 2.5f));
-
     }
 
     public void Chase(Vector3 _target)
@@ -85,7 +82,7 @@ public class MonsterInfo : MonsterBase
         if (agent.isPathStale)
             return;
 
-        monsterAnim.OnMove(true);
+        monsterAnim.OnMove(true, agent.speed);
         agent.speed = traceSpeed;
         agent.destination = _target;
         agent.isStopped = false;
@@ -115,7 +112,7 @@ public class MonsterInfo : MonsterBase
             }
             else
             {
-                monsterAnim.OnMove(true);
+                monsterAnim.OnMove(true, agent.speed);
                 agent.SetDestination(_target);
                 agent.speed = backSpeed;
                 //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
@@ -127,7 +124,7 @@ public class MonsterInfo : MonsterBase
     {
         agent.isStopped = false;
         isAttack = false;
-        monsterAnim.OnMove(true);
+        monsterAnim.OnMove(true, agent.speed);
         Vector3 dir = (transform.position - _target).normalized;
         if (Physics.Raycast(monsterTr, -transform.forward, 5f, 1 << obstacleLayer))
         {
@@ -154,7 +151,7 @@ public class MonsterInfo : MonsterBase
     /// </summary>
     public void Stop()
     {
-        monsterAnim.OnMove(false);
+        monsterAnim.OnMove(false, agent.speed);
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
         agent.ResetPath();

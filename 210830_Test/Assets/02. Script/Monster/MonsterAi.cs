@@ -54,7 +54,7 @@ public class MonsterAi : MonoBehaviour
             {
                 creature.state = STATE.Backing;
             }
-            else if (dist <= monsterInfo.attackDist && dist > monsterInfo.meleeDist)
+            else if (dist <= monsterInfo.attackDist && dist > monsterInfo.meleeDist+3)
             {
                 creature.state = STATE.Attacking;
             }
@@ -84,7 +84,7 @@ public class MonsterAi : MonoBehaviour
             {
                 case STATE.Patrol:
                     agent.enabled = true;
-                    monsterInfo.StartMove();
+                    monsterInfo.MovePoint();
                     break;
                 case STATE.Chase:
                     agent.enabled = true;
