@@ -32,9 +32,10 @@ public class ItemEffect
     public string UIDCODE;
     public string Value;
     public string ValueType;
-    // 0: 없음, 1: 현재 Hp, 2: 현재 Mp, 3: 최대 Hp 고정값, 4: 최대 Hp %값, 5: 최대 Mp 고정값, 6: 최대 Mp %값
-    // 7: 공격력 고정값, 8: 공격력 %값, 9: 방어력 고정값, 10: 방어력 %값, 11: 힘 고정값, 12: 힘 %값
-    // 13: 민첩 고정값, 14: 민첩 %값, 15: 지능 고정값, 16: 지능 %값, 17: 공격시 생명령 회복 고정값, 18: 공격시 데미지의 %만큼 생명력 회복
+    // 0: 없음, 1: 현재 Hp, 2: 현재 Mp, 3: 최대 Hp 고정값, 4: 최대 Hp %값, 5: 최대 Mp 고정값, 6: 최대 Mp %값,
+    // 7: 물리 공격력 고정값, 8: 물리 공격력 %값, 9: 물리 방어력 고정값, 10: 물리 방어력 %값, 11: 힘 고정값, 12: 힘 %값,
+    // 13: 지능 고정값, 14: 지능 %값, 15: 공격시 생명령 회복 고정값, 16: 공격시 데미지의 %만큼 생명력 회복,
+    // 17: 마법 공격력 고정값, 18: 마법 공격력 %값, 19: 마법 방어력 고정값, 20: 마법 방어력 %값
 
     public Dictionary<int, float> ValueDic = new Dictionary<int, float>();
     public string RequireValue;

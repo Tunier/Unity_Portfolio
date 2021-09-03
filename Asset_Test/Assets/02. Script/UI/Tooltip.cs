@@ -74,9 +74,9 @@ public class Tooltip : MonoBehaviour
 
             if (Input.mousePosition.y - tooltip_Rect.rect.height <= 0)
             {
-                //Offset.y = -(Input.mousePosition.y - tooltip_Rect.rect.height * 0.5f);
-                Offset.y = tooltip_Rect.rect.height * 0.5f;
-                //Offset.y = 0;
+                //Offset.y = -(Input.mousePosition.y - tooltip_Rect.rect.height * 0.5f); // 아래쪽으로 딱 맞게
+                Offset.y = tooltip_Rect.rect.height * 0.5f; // 위쪽으로 전환
+                //Offset.y = 0; // 중간으로 뜨게
             }
             else
             {
@@ -97,13 +97,14 @@ public class Tooltip : MonoBehaviour
     public void ShowTooltip(Item _item)
     {
         // 아이템 타입
-        // 0: 한손무기, 1: 두손무기, 2: 헬멧, 3: 갑옷 , 4: 벨트, 5:장갑
+        // 0: 물리공격무기, 1: 두손무기, 2: 헬멧, 3: 갑옷 , 4: 벨트, 5:장갑
         // 6: 신발, 7: 목걸이, 8: 반지, 9: 소비, 10: 재료
 
         // 아이템 이펙트 타입
-        // 0: 없음, 1: 현재 Hp, 2: 현재 Mp, 3: 최대 Hp 고정값, 4: 최대 Hp %값, 5: 최대 Mp 고정값, 6: 최대 Mp %값
-        // 7: 공격력 고정값, 8: 공격력 %값, 9: 방어력 고정값, 10: 방어력 %값, 11: 힘 고정값, 12: 힘 %값
-        // 13: 민첩 고정값, 14: 민첩 %값, 15: 지능 고정값, 16: 지능 %값, 17: 공격시 생명령 회복 고정값, 18: 공격시 데미지의 %만큼 생명력 회복
+        // 0: 없음, 1: 현재 Hp, 2: 현재 Mp, 3: 최대 Hp 고정값, 4: 최대 Hp %값, 5: 최대 Mp 고정값, 6: 최대 Mp %값,
+        // 7: 물리 공격력 고정값, 8: 물리 공격력 %값, 9: 물리 방어력 고정값, 10: 물리 방어력 %값, 11: 힘 고정값, 12: 힘 %값,
+        // 13: 지능 고정값, 14: 지능 %값, 15: 공격시 생명령 회복 고정값, 16: 공격시 데미지의 %만큼 생명력 회복,
+        // 17: 마법 공격력 고정값, 18: 마법 공격력 %값, 19: 마법 방어력 고정값, 20: 마법 방어력 %값
 
         LevelText.gameObject.SetActive(false);
 
@@ -221,11 +222,11 @@ public class Tooltip : MonoBehaviour
         switch (_item.Type)
         {
             case 0:
-                BaseValueText.text = string.Format("공격력 : <color=#ABA3FF><b>{0} ~ {1}</b></color>", _item.itemEffect.ValueDic[7], _item.itemEffect.ValueDic[7] + 1);
+                BaseValueText.text = string.Format("물리 공격력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[7]);
                 BaseValueText.gameObject.SetActive(true);
                 break;
             case 1:
-                BaseValueText.text = string.Format("공격력 : <color=#ABA3FF><b>{0} ~ {1}</b></color>", _item.itemEffect.ValueDic[7], _item.itemEffect.ValueDic[7] + 1);
+                BaseValueText.text = string.Format("마법 공격력 : <color=#ABA3FF><b>{0}</b></color>", _item.itemEffect.ValueDic[7]);
                 BaseValueText.gameObject.SetActive(true);
                 break;
             case 2:
@@ -379,22 +380,16 @@ public class Tooltip : MonoBehaviour
                     str2[i] = string.Format("힘 <color><b>{0}</b>%</color> 증가", _item.itemEffect.ValueDic[12]);
                     break;
                 case 13:
-                    str2[i] = string.Format("민첩 <color><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[13]);
+                    str2[i] = string.Format("지능 <color><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[13]);
                     break;
                 case 14:
-                    str2[i] = string.Format("민첩 <color><b>{0}%</b></color> 증가", _item.itemEffect.ValueDic[14]);
+                    str2[i] = string.Format("지능 <color><b>{0}%</b></color> 증가", _item.itemEffect.ValueDic[14]);
                     break;
                 case 15:
-                    str2[i] = string.Format("지능 <color><b>{0}</b></color> 증가", _item.itemEffect.ValueDic[15]);
+                    str2[i] = string.Format("공격시 생명력 <color><b>{0}</b></color> Hp회복", _item.itemEffect.ValueDic[15]);
                     break;
                 case 16:
-                    str2[i] = string.Format("지능 <color><b>{0}%</b></color> 증가", _item.itemEffect.ValueDic[16]);
-                    break;
-                case 17:
-                    str2[i] = string.Format("공격시 생명력 <color><b>{0}</b></color> Hp회복", _item.itemEffect.ValueDic[17]);
-                    break;
-                case 18:
-                    str2[i] = string.Format("공격시 데미지의 <color><b>{0}%</b></color> Hp회복", _item.itemEffect.ValueDic[18]);
+                    str2[i] = string.Format("공격시 데미지의 <color><b>{0}%</b></color> Hp회복", _item.itemEffect.ValueDic[16]);
                     break;
                 default:
                     break;

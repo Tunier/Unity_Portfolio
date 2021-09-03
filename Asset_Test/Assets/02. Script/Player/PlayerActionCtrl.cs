@@ -18,6 +18,8 @@ public class PlayerActionCtrl : MonoBehaviour
     GameObject inventoryUI;
     [SerializeField]
     GameObject skilltreeUI;
+    [SerializeField]
+    GameObject statsUI;
 
     public GameObject QuickSkillSlotParents;
 
@@ -29,6 +31,7 @@ public class PlayerActionCtrl : MonoBehaviour
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
 
+    [HideInInspector]
     public bool isWhirlwind = false;
 
     readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");
@@ -101,10 +104,25 @@ public class PlayerActionCtrl : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.K))
         {
             skilltreeUI.SetActive(!skilltreeUI.activeSelf);
+            if (statsUI.activeSelf)
+                statsUI.SetActive(false);
+
             if (!skilltreeUI.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(skillTreeRect, Input.mousePosition))
             {
                 tooltip.HideTooltip();
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            statsUI.SetActive(!statsUI.activeSelf);
+            if (skilltreeUI.activeSelf)
+                skilltreeUI.SetActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            inventoryUI.SetActive(false);
+            skilltreeUI.SetActive(false);
+            statsUI.SetActive(false);
         }
 
         ani.SetBool(hashWhirlwind, isWhirlwind);
@@ -175,7 +193,6 @@ public class PlayerActionCtrl : MonoBehaviour
                         }
                         break;
                 }
-
             }
             else
             {

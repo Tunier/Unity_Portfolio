@@ -40,7 +40,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public float ItemEffectMaxMpMultiplier;
     public float SkillEffectMaxMpMultiplier;
 
-    public float fianlMpRegen { get; protected set; }
+    public float finalMpRegen { get; protected set; }
     public float ItemEffectMpRegen;
     public float SkillEffectMpRegen;
     public float ItemEffectMpRegenMultiplier;
@@ -51,12 +51,6 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public float SkillEffectStr;
     public float ItemEffectStrMultiplier;
     public float SkillEffectStrMultiplier;
-
-    public float finalDex { get; protected set; }
-    public float ItemEffectDex;
-    public float SkillEffectDex;
-    public float ItemEffectDexMultiplier;
-    public float SkillEffectDexMultiplier;
 
     public float finalInt { get; protected set; }
     public float ItemEffectInt;
@@ -131,7 +125,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             curHp += finalHpRegen * Time.deltaTime;
 
         if (curMp < finalMaxMp)
-            curMp += fianlMpRegen * Time.deltaTime;
+            curMp += finalMpRegen * Time.deltaTime;
     }
 
     /// <summary>
@@ -141,17 +135,16 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     {
         finalMaxHp = stats.MaxHp + (ItemEffectMaxHp + SkillEffectMaxHp) * (1 + ItemEffectMaxHpMultiplier + SkillEffectMaxHpMultiplier);
         finalMaxMp = stats.MaxMp + (ItemEffectMaxMp + SkillEffectMaxMp) * (1 + ItemEffectMaxMpMultiplier + SkillEffectMaxMpMultiplier);
-        finalAtk = stats.Str + (ItemEffectAtk + SkillEffectAtk) * (1 + ItemEffectAtkMultiplier + SkillEffectAtkMultiplier);
-        finalDef = stats.Dex * 0.2f + (ItemEffectDef + SkillEffectDef) * (1 + ItemEffectDefMultiplier + SkillEffectDefMultiplier);
+        finalNormalAtk = stats.Str + (ItemEffectAtk + SkillEffectAtk) * (1 + ItemEffectAtkMultiplier + SkillEffectAtkMultiplier);
+        finalNormalDef = (ItemEffectDef + SkillEffectDef) * (1 + ItemEffectDefMultiplier + SkillEffectDefMultiplier);
         finalStr = stats.Str + ItemEffectStr + SkillEffectStr * (1 + ItemEffectStrMultiplier + SkillEffectStrMultiplier);
-        finalDex = stats.Dex + ItemEffectDex + SkillEffectDex * (1 + ItemEffectDexMultiplier + SkillEffectDexMultiplier);
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt * (1 + ItemEffectIntMultiplier + SkillEffectIntMultiplier);
 
-        finalCriticalChance = 1000 + Mathf.RoundToInt(finalDex * 50) + ItemEffectCriticalChance + SkillEffectCriticalChace;
+        finalCriticalChance = 1000 + ItemEffectCriticalChance + SkillEffectCriticalChace;
         finalCriticalDamageMuliplie = 1.5f + ItemEffectCriticalDamageMultiple + SkillEffectCriticalDamageMultiple;
 
         finalHpRegen = 0.4f + finalStr * 0.1f + ItemEffectHpRegen + SkillEffectHpRegen;
-        fianlMpRegen = 0.4f + finalInt * 0.1f + ItemEffectMpRegen + SkillEffectMpRegen;
+        finalMpRegen = 0.4f + finalInt * 0.1f + ItemEffectMpRegen + SkillEffectMpRegen;
     }
 
     public virtual void LevelUp()
@@ -172,11 +165,12 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             stats.MaxExp = Mathf.RoundToInt(100f * (stats.Level - 1) + (100 * ExpFactor));
         }
 
-        stats.MaxHp = 100f + (stats.Level - 1) * 15;
-        stats.MaxMp = 20f + (stats.Level - 1) * 5;
-        stats.Str = 5f + (stats.Level - 1 + stats.Str_UsePoint);
-        stats.Dex = 5f + (stats.Level - 1 + stats.Dex_UsePoint);
-        stats.Int = 5f + (stats.Level - 1 + stats.Int_UsePoint);
+        stats.MaxHp = 100f + (stats.Level - 1) * 10;
+        stats.MaxMp = 20f + (stats.Level - 1) * 2f;
+        stats.Str = 5f + (stats.Level - 1);
+        stats.Int = 5f + (stats.Level - 1);
+
+        stats.Skill_Point++;
 
         RefeshFinalStats();
 
@@ -192,7 +186,18 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     {
         if (player_Skill_Dic.ContainsKey(_skill.UIDCODE))
         {
+            if (_i > 0)
+            {
+                if (stats.Skill_Point < _i)
+                {
+                    Debug.Log("스킬포인트가 모자랍니다.");
+                    return;
+                }
+            }
+
             player_Skill_Dic[_skill.UIDCODE] += _i;
+            stats.Skill_Point -= _i;
+
             //Debug.Log(_skill.Name + " 스킬의 스킬레벨이 " + player_Skill_Dic[_skill.UIDCODE] + "가 되었습니다.");
 
             if (_skill.Type == 0)//패시브스킬이면
@@ -203,11 +208,15 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
                     skillDB.PassiveSkillLvDown(_skill, gameObject);
             }
         }
+        else
+        {
+            Debug.Log("없는 스킬을 레벨 변경하려고 하고 있습니다.");
+        }
     }
 
     public override void Hit(float _damage)
     {
-        curHp -= _damage - finalDef;
+        curHp -= _damage - finalNormalDef;
 
         if (curHp <= 0)
         {
@@ -260,7 +269,6 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             stats.MaxHp = 100f + (stats.Level - 1) * 20;
             stats.MaxMp = 20f + (stats.Level - 1) * 5;
             stats.Str = 5f + (stats.Level - 1);
-            stats.Dex = 5f + (stats.Level - 1);
             stats.Int = 5f + (stats.Level - 1);
             #endregion
         }

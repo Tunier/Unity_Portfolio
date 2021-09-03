@@ -19,17 +19,12 @@ public class Stats
 
     public int Level;
     public int Skill_Point;
-    public int Stats_Point;
     public float CurExp;
     public float MaxExp;
     public float MaxHp;
     public float MaxMp;
     public float Str;
-    public float Dex;
     public float Int;
-    public int Str_UsePoint;
-    public int Dex_UsePoint;
-    public int Int_UsePoint;
 
     public float Pos_x;
     public float Pos_y;
@@ -64,8 +59,10 @@ public abstract class Creature : MonoBehaviour, IHit, IDie
 
     public float finalHpRegen;
 
-    public float finalAtk { get; protected set; }
-    public float finalDef { get; protected set; }
+    public float finalNormalAtk { get; protected set; }
+    public float finalMagicAtk { get; protected set; }
+    public float finalNormalDef { get; protected set; }
+    public float finalMagicDef { get; protected set; }
 
     public abstract void Hit(float _damage);
 
