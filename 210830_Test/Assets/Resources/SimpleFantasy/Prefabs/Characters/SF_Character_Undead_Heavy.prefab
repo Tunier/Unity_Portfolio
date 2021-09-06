@@ -2896,8 +2896,6 @@ GameObject:
   m_Component:
   - component: {fileID: 482300}
   - component: {fileID: 9510036}
-  - component: {fileID: -575494028034013642}
-  - component: {fileID: -5378923599520009101}
   m_Layer: 0
   m_Name: SF_Character_Undead_Heavy
   m_TagString: Untagged
@@ -2978,32 +2976,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!64 &-575494028034013642
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!114 &-5378923599520009101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1929af9b94692d4439c424d6f3d4dda4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &148512
 GameObject:
   m_ObjectHideFlags: 0

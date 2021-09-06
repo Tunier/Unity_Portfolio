@@ -16,6 +16,8 @@ public class PlayerActionCtrl : MonoBehaviour
 
     CharacterController cController;
 
+
+    public GameObject monster;
     void Awake()
     {
         player = FindObjectOfType<PlayerInfo>();
@@ -38,6 +40,7 @@ public class PlayerActionCtrl : MonoBehaviour
                 skillDB.UseSkill(player.skillDic[0], gameObject); // 나중에 스킬 슬롯에 있는 스킬로 변경해야함.
             }
         }
+        TestAttack();
     }
 
     void UseQuickSlotSkill(int _slotIndex) // 나중에 스킬퀵슬롯으로 옴김.
@@ -55,5 +58,14 @@ public class PlayerActionCtrl : MonoBehaviour
         #region 테스트 코드
         skillIndicator.straightIndicator.SetActive(true);
         #endregion
+    }
+
+    void TestAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            monster.GetComponent<MonsterAction>().Hit(10);
+            Debug.Log("데미지10");
+        }
     }
 }

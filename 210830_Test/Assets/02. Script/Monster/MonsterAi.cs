@@ -12,7 +12,7 @@ public class MonsterAi : MonoBehaviour
     public bool isAttack = false;
 
     MonsterAnim monsterAnim;
-    MonsterInfo monsterInfo;
+    MonsterAction monsterAction;
     Creature creature;
 
     NavMeshAgent agent;
@@ -24,9 +24,10 @@ public class MonsterAi : MonoBehaviour
     private void Awake()
     {
         monsterAnim = GetComponent<MonsterAnim>();
-        monsterInfo = GetComponent<MonsterInfo>();
+        monsterAction = GetComponent<MonsterAction>();
         creature = GetComponent<Creature>();
         agent = GetComponent<NavMeshAgent>();
+        creature.state = STATE.Patrol;
 
         if (player != null)
         {
@@ -46,19 +47,23 @@ public class MonsterAi : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        while (!isDie)
+        while (!isDie && monsterAction.isAnger == true) //죽지않고 Anger가 true일때 상태변화
         {
+            //체력이 일정이하면 backing상태로 강제 이동 조건 걸어주기
             if (creature.state == STATE.Die)
                 yield break;
-            else if (dist <= monsterInfo.meleeDist)
+            else if (dist <= monsterAction.maxDist)
             {
-                creature.state = STATE.Backing;
+                if (dist < monsterAction.minDist)
+                {
+                    creature.state = STATE.Backing;
+                }
             }
-            else if (dist <= monsterInfo.attackDist && dist > monsterInfo.meleeDist+3)
+            else if (dist <= monsterAction.attackDist && dist > monsterAction.maxDist)
             {
                 creature.state = STATE.Attacking;
             }
-            else if (dist <= monsterInfo.traceDist && dist > monsterInfo.attackDist)
+            else if (dist <= monsterAction.traceDist && dist > monsterAction.attackDist)
             {
                 creature.state = STATE.Chase;
             }
@@ -83,26 +88,23 @@ public class MonsterAi : MonoBehaviour
             switch (creature.state)
             {
                 case STATE.Patrol:
-                    agent.enabled = true;
-                    monsterInfo.MovePoint();
+                    monsterAction.MovePoint();
                     break;
                 case STATE.Chase:
-                    agent.enabled = true;
-                    monsterInfo.Chase(playerTr.position);
+                    monsterAction.Chase(playerTr.position);
                     break;
                 case STATE.Attacking:
                     //agent.enabled = false;
                     //agent.isStopped = true;
                     //agent.speed = 0;
                     agent.velocity = Vector3.zero;
-                    monsterInfo.Attack(playerTr.position);
+                    monsterAction.Attack(playerTr.position);
                     break;
                 case STATE.Backing:
-                    agent.enabled = true;
-                    monsterInfo.BackMove(playerTr.position);
+                    monsterAction.BackMove(playerTr.position);
                     break;
                 case STATE.Die:
-                    monsterInfo.Die();
+                    monsterAction.Die();
                     break;
             }
         }
