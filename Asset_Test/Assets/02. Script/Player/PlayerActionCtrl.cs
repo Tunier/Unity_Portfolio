@@ -31,7 +31,6 @@ public class PlayerActionCtrl : MonoBehaviour
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
 
-    [HideInInspector]
     public bool isWhirlwind = false;
 
     readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");

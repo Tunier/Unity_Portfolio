@@ -174,6 +174,7 @@ public class SkillDatabase : MonoBehaviour
                             player.curMp -= _skill.Cost;
                             _skillslot.curCooltime = _skill.CoolTime;
                             var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.identity);
+                            playerAC.isWhirlwind = true;
                             break;
                     }
 
