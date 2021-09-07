@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
         //if (quickSlots[i].item != null)
         //{
         //    if (quickSlots[i].item.itemType == Item.ItemType.Equipment)
-        //    {
+        //    { 
         //        quickSlots[i].EquipItem(quickSlots[0].item);
         //        return;
         //    }

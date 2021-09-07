@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     GameObject player;
 
     float recognitionRange;
+
     private void Awake()
     {
         if (instance == null)
@@ -37,12 +38,14 @@ public class UIManager : MonoBehaviour
 
         hotKeyGuid.SetActive(false);
     }
+
     private void Start()
     {
         wayPoints.AddRange(GameObject.FindGameObjectsWithTag("WAYPOINT"));
         merchants.AddRange(GameObject.FindGameObjectsWithTag("MERCHANT"));
         recognitionRange = 2.5f;
     }
+
     private void Update()
     {
         ShowExplainTxt();
@@ -83,6 +86,7 @@ public class UIManager : MonoBehaviour
                 hotKeyGuid.SetActive(false);
             }
         }
+
         foreach (GameObject _merchant in merchants) //상점 or NPC 상호작용 키 활성화
         {
             if (Vector3.Distance(player.transform.position, _merchant.transform.position) <= recognitionRange)
