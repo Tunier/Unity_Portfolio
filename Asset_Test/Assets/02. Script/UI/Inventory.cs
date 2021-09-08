@@ -63,8 +63,8 @@ public class Inventory : MonoBehaviour
         GetItem(ItemDatabase.instance.newItem("0000002"));
         GetItem(ItemDatabase.instance.newItem("0000004"));
         GetItem(ItemDatabase.instance.newItem("0000005"));
-        GetItem(ItemDatabase.instance.newItem("0000008"));
-        GetItem(ItemDatabase.instance.newItem("0000009"));
+        GetItem(ItemDatabase.instance.newItem("0000008"), 5);
+        GetItem(ItemDatabase.instance.newItem("0000009"), 10);
         #endregion
     }
 

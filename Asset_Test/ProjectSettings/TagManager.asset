@@ -15,6 +15,7 @@ TagManager:
   - Equipment
   - SkillTreeSlot
   - QuickSkillSlot
+  - QuickPotionSlot
   layers:
   - Default
   - TransparentFX

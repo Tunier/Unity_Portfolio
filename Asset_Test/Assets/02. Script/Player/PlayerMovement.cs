@@ -180,8 +180,9 @@ public class PlayerMovement : MonoBehaviour
 
                 if (nav.enabled)
                 {
-                    if (Vector3.Distance(nav.destination, transform.position) <= 0.1f)
+                    if (Vector3.Distance(nav.destination, transform.position) <= 0.2f)
                     {
+                        nav.SetDestination(transform.position);
                         nav.ResetPath();
                         ani.SetFloat(hashSpeed, 0f);
                         playerInfo.state = STATE.Idle;
@@ -273,24 +274,28 @@ public class PlayerMovement : MonoBehaviour
         else if (_z == -1 && _x == 1)
             moveDirection = new Vector3((Rot[7].position.x - transform.position.x) * speed, moveDirection.y, (Rot[7].position.z - transform.position.z) * speed);
 
-        if (speed == runMoveSpeed)
+
+        if (!playerActionCtrl.isWhirlwind)
         {
-            ani.SetFloat(hashSpeed, 1f);
-            playerInfo.state = STATE.Run;
-        }
-        else if (speed == walkMoveSpeed)
-        {
-            ani.SetFloat(hashSpeed, 0.5f);
-            playerInfo.state = STATE.Walk;
-        }
-        else if (speed == backMoveSpeed)
-        {
-            ani.SetFloat(hashSpeed, 0.5f);
-            playerInfo.state = STATE.Walk;
-        }
-        else
-        {
-            ani.SetFloat(hashSpeed, 0);
+            if (speed == runMoveSpeed)
+            {
+                ani.SetFloat(hashSpeed, 1f);
+                playerInfo.state = STATE.Run;
+            }
+            else if (speed == walkMoveSpeed)
+            {
+                ani.SetFloat(hashSpeed, 0.5f);
+                playerInfo.state = STATE.Walk;
+            }
+            else if (speed == backMoveSpeed)
+            {
+                ani.SetFloat(hashSpeed, 0.5f);
+                playerInfo.state = STATE.Walk;
+            }
+            else
+            {
+                ani.SetFloat(hashSpeed, 0);
+            }
         }
     }
 }

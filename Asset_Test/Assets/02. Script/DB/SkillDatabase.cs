@@ -146,7 +146,7 @@ public class SkillDatabase : MonoBehaviour
                     {
                         case "0300000":
                             player.curMp -= _skill.Cost;
-                            _skillslot.curCooltime = _skill.CoolTime;
+                            playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
                             Vector3 skillPos = player.transform.position + player.transform.forward * 2 + new Vector3(0, 1.9f, 0);
                             var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/FireBall"), skillPos, Quaternion.identity);
                             // 나중에 오브젝트 풀링해서 미리 생성해놓은 오브젝트 활성화해서 사용하게 변경해야함
@@ -172,9 +172,9 @@ public class SkillDatabase : MonoBehaviour
                     {
                         case "0300005":
                             player.curMp -= _skill.Cost;
-                            _skillslot.curCooltime = _skill.CoolTime;
-                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.identity);
+                            //playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
                             playerAC.isWhirlwind = true;
+                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
                             break;
                     }
 

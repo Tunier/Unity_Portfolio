@@ -421,7 +421,7 @@ public class Tooltip : MonoBehaviour
 
         LevelText.gameObject.SetActive(true);
 
-        LevelText.text = "Lv : " + player.player_Skill_Dic[_skill.UIDCODE];
+        LevelText.text = "Lv : " + player.player_Skill_Dic[_skill.UIDCODE] + " / √÷¥Î Lv : " + SkillDatabase.instance.AllSkillDic[_skill.UIDCODE].MaxSkillLv;
 
         if (_skill.CostType != 0)
             SkillCostText.gameObject.SetActive(true);

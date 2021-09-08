@@ -145,6 +145,12 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
         finalHpRegen = 0.4f + finalStr * 0.1f + ItemEffectHpRegen + SkillEffectHpRegen;
         finalMpRegen = 0.4f + finalInt * 0.1f + ItemEffectMpRegen + SkillEffectMpRegen;
+
+        if (curHp >= finalMaxHp)
+            curHp = finalMaxHp;
+
+        if (curMp >= finalMaxMp)
+            curMp = finalMaxMp;
     }
 
     public virtual void LevelUp()
@@ -263,13 +269,16 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             Debug.LogWarning("플레이어데이터파일이 없습니다.\n플레이어정보 강제 초기화 진행합니다.");
 
             #region 플레이어 정보 강제 초기화
-            stats.Level = 1;
+            stats.Level = 15;
             stats.CurExp = 0;
             stats.MaxExp = stats.Level * 100;
             stats.MaxHp = 100f + (stats.Level - 1) * 20;
             stats.MaxMp = 20f + (stats.Level - 1) * 5;
             stats.Str = 5f + (stats.Level - 1);
             stats.Int = 5f + (stats.Level - 1);
+
+            stats.Skill_Point = stats.Level - 1;
+
             #endregion
         }
     }

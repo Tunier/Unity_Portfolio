@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,16 @@ public class PlayerActionCtrl : MonoBehaviour
     GameObject statsUI;
 
     public GameObject QuickSkillSlotParents;
+    public GameObject QuickPotionSlotParents;
 
     CharacterController cController;
     Animator ani;
 
     public List<SkillSlot> skillSlot = new List<SkillSlot>();
+    public Dictionary<string, float> curSkillCooltime = new Dictionary<string, float>();
+    List<string> keys = new List<string>();
+
+    public List<Slot> potionSlot = new List<Slot>();
 
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
@@ -45,6 +51,17 @@ public class PlayerActionCtrl : MonoBehaviour
         ani = GetComponent<Animator>();
 
         skillSlot.AddRange(QuickSkillSlotParents.GetComponentsInChildren<SkillSlot>());
+        potionSlot.AddRange(QuickPotionSlotParents.GetComponentsInChildren<Slot>());
+    }
+
+    private void Start()
+    {
+        keys.AddRange(player.player_Skill_Dic.Keys);
+
+        foreach (var key in keys)
+        {
+            curSkillCooltime.Add(key, 0f);
+        }
     }
 
     void Update()
@@ -82,6 +99,22 @@ public class PlayerActionCtrl : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.V))
             {
                 UseQuickSlotSkill(7);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                potionSlot[0].UseItem(potionSlot[0].item);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                potionSlot[1].UseItem(potionSlot[1].item);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                potionSlot[2].UseItem(potionSlot[2].item);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                potionSlot[3].UseItem(potionSlot[3].item);
             }
             else if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
             {
@@ -125,6 +158,16 @@ public class PlayerActionCtrl : MonoBehaviour
         }
 
         ani.SetBool(hashWhirlwind, isWhirlwind);
+        if (isWhirlwind)
+            ani.SetFloat("Speed_f", 0);
+
+        for (int i = 0; i < curSkillCooltime.Count; i++)
+        {
+            if (curSkillCooltime[keys[i]] > 0)
+                curSkillCooltime[keys[i]] -= Time.deltaTime;
+            else
+                curSkillCooltime[keys[i]] = 0;
+        }
     }
 
     void UseQuickSlotSkill(int _slotIndex) // ³ªÁß¿¡ ½ºÅ³Äü½½·ÔÀ¸·Î ¿È±è.

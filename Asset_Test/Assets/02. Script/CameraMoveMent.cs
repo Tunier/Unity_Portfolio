@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraMoveMent : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class CameraMoveMent : MonoBehaviour
 
     void CamMove()
     {
-        if (Input.GetMouseButton(1) && !playerMvt.wantMove)
+        if (Input.GetMouseButton(1) && !playerMvt.wantMove && !EventSystem.current.IsPointerOverGameObject())
         {
             mouseX = Input.GetAxis("Mouse X") * camSpeed;
             mouseY = Input.GetAxis("Mouse Y") * camSpeed;

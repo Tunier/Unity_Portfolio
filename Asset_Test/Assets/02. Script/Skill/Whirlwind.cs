@@ -5,14 +5,19 @@ using UnityEngine;
 public class Whirlwind : MonoBehaviour
 {
     GameObject Player;
-    GameObject PlayerBody;
+
+    PlayerActionCtrl playerAC;
 
     Vector3 pos;
 
     private void OnEnable()
     {
         Player = GameObject.Find("Player");
-        PlayerBody = GameObject.Find("Hips_jnt");
+        playerAC = FindObjectOfType<PlayerActionCtrl>();
+
+        StartCoroutine(StopMotion());
+
+        Destroy(gameObject, 5.2f);
     }
     void Start()
     {
@@ -23,5 +28,12 @@ public class Whirlwind : MonoBehaviour
         pos = new Vector3(Player.transform.position.x, 1.5f, Player.transform.position.z);
 
         transform.position = pos;
+    }
+
+    IEnumerator StopMotion()
+    {
+        yield return new WaitForSeconds(5f);
+
+        playerAC.isWhirlwind = false;
     }
 }

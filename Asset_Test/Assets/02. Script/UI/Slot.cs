@@ -68,7 +68,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         itemCount = count;
         item.SlotIndex = index;
         itemImage.sprite = Resources.Load<Sprite>(_item.ItemImagePath);
-        SetColorAlpha(0.82f);
+        SetColorAlpha(0.85f);
 
         if (item.Type == 9 || item.Type == 10)
         {
@@ -164,92 +164,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 {
                     UnEquipItem(item);
                 }
+                else if (gameObject.CompareTag("QuickPotionSlot"))
+                {
+                    UseItem(item);
+                }
             }
         }
-
-
-        //if (eventData.button == PointerEventData.InputButton.Right)
-        //{
-        //    if (shopBase.gameObject.activeSelf)
-        //    {
-        //        if (transform.CompareTag("INVENTORY")) // 인벤토리에 있는 슬롯.
-        //            if (item != null)
-        //            {
-        //                SellItem(item);
-        //            }
-        //    }
-        //    else
-        //    {
-        //        if (transform.CompareTag("INVENTORY")) // 인벤토리에 있는 슬롯.
-        //            if (item != null)
-        //            {
-        //                if (item.Type == Item.ItemType.Used)
-        //                {
-        //                    ItemDB.UseItem(item);
-        //                    SetSlotCount(-1);
-        //                }
-        //                else if (item.Type == Item.ItemType.Equipment)
-        //                {
-        //                    Item _item = item;
-        //                    SetSlotCount(-1);
-        //                    ItemDB.EquipItem(_item);
-        //                }
-        //            }
-
-        //        if (transform.CompareTag("STATUS")) // 스테이터스 창에 있는 슬롯.
-        //            if (item != null)
-        //            {
-        //                UnEquipItem(item);
-        //            }
-
-        //        if (transform.CompareTag("QUICKSLOT"))
-        //        {
-        //            if (item != null)
-        //            {
-        //                if (item.itemType == Item.ItemType.Equipment)
-        //                {
-        //                    if (item.EquipmentType == "Weapon")
-        //                    {
-        //                        if (status.weaponSlot.item == null)
-        //                        {
-        //                            EquipItem(item);
-        //                            return;
-        //                        }
-        //                        else
-        //                            return;
-        //                    }
-        //                }
-
-        //                ItemDB.UseItem(item);
-
-        //                if (item.itemType == Item.ItemType.Used)
-        //                    SetSlotCount(-1);
-        //            }
-        //        }
-        //    }
-        //}
-        //else if (eventData.button == PointerEventData.InputButton.Left)
-        //{
-        //    if (shopBase.gameObject.activeSelf)
-        //    {
-        //        if (shop.isSelling)
-        //        {
-        //            if (transform.CompareTag("INVENTORY")) // 인벤토리에 있는 슬롯.
-        //            {
-        //                if (item != null)
-        //                {
-        //                    SellItem(item);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        //if (item != null)
-        //{
-        //    ItemDB.ShowToolTip(item);
-        //    ItemDB.SetItemCostText(item.sellCost);
-        //}
     }
 
     /// <summary>
@@ -286,25 +206,28 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (invenBase.gameObject.activeSelf)
-        {
-            if (RectTransformUtility.RectangleContainsScreenPoint(invenBase, DragSlot.instance.transform.position))
-            {
-                DragSlot.instance.SetColorAlpha(0);
-                DragSlot.instance.dragSlot = null;
-            }
-            else
-            {
-                //if (DragSlot.instance.dragSlot != null)
-                //    if (DragSlot.instance.dragSlot.itemCount <= 1)
-                //    {
-                //        DragSlot.instance.SetColorAlpha(0);
-                //        StartCoroutine(inputNumber.DropItemCoruntine(1));
-                //    }
-                //    else
-                //        inputNumber.Call();
-            }
-        }
+        //if (invenBase.gameObject.activeSelf)
+        //{
+        //    if (RectTransformUtility.RectangleContainsScreenPoint(invenBase, DragSlot.instance.transform.position))
+        //    {
+        //        DragSlot.instance.SetColorAlpha(0);
+        //        DragSlot.instance.dragSlot = null;
+        //    }
+        //    else
+        //    {
+        //        //if (DragSlot.instance.dragSlot != null)
+        //        //    if (DragSlot.instance.dragSlot.itemCount <= 1)
+        //        //    {
+        //        //        DragSlot.instance.SetColorAlpha(0);
+        //        //        StartCoroutine(inputNumber.DropItemCoruntine(1));
+        //        //    }
+        //        //    else
+        //        //        inputNumber.Call();
+        //    }
+        //}
+
+        DragSlot.instance.SetColorAlpha(0);
+        DragSlot.instance.dragSlot = null;
     }
 
     /// <summary>
@@ -326,6 +249,28 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 {
                     UnEquipItem(DragSlot.instance.dragSlot.item);
                 }
+                else if (DragSlot.instance.dragSlot.CompareTag("QuickPotionSlot"))
+                {
+                    if (itemCount != 0)
+                    {
+                        if (item.Type == 9 && DragSlot.instance.dragSlot.item.Type == 9)
+                        {
+                            ChangeSlot();
+                        }
+                        else
+                        {
+                            inven.GetItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+
+                            DragSlot.instance.dragSlot.ClearSlot();
+                        }
+                    }
+                    else
+                    {
+                        AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+
+                        DragSlot.instance.dragSlot.ClearSlot();
+                    }
+                }
             }
             else if (gameObject.CompareTag("Equipment"))
             {
@@ -346,6 +291,18 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                     // 이후에 생기면 구문 작성 필요.
                 }
             }
+            else if (gameObject.CompareTag("QuickPotionSlot"))
+            {
+                if (DragSlot.instance.dragSlot.CompareTag("Inventory"))
+                {
+                    if (DragSlot.instance.dragSlot.item.Type == 9)
+                        ChangeSlot();
+                }
+                else if (DragSlot.instance.dragSlot.CompareTag("QuickPotionSlot"))
+                {
+                    ChangeSlot();
+                }
+            }
         }
 
         if (itemCount != 0)
@@ -357,32 +314,37 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// </summary>
     private void ChangeSlot()
     {
-        if (itemCount != 0)
+        if (this != DragSlot.instance.dragSlot)
         {
-            if (item.Name == DragSlot.instance.dragSlot.item.Name)
+            if (itemCount != 0)
             {
-                if (item.Type == 9 || item.Type == 10)
+                if (item.Name == DragSlot.instance.dragSlot.item.Name)
                 {
-                    SetSlotCount(DragSlot.instance.dragSlot.itemCount);
+                    if (item.Type == 9 || item.Type == 10)
+                    {
+                        SetSlotCount(DragSlot.instance.dragSlot.itemCount);
 
-                    DragSlot.instance.dragSlot.ClearSlot();
+                        DragSlot.instance.dragSlot.ClearSlot();
+                    }
+                }
+                else
+                {
+                    Item _item = item;
+                    int _itemCount = itemCount;
+
+                    AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+
+                    DragSlot.instance.dragSlot.AddItem(_item, _itemCount);
                 }
             }
             else
             {
-                Item _item = item;
-                int _itemCount = itemCount;
-
                 AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
 
-                DragSlot.instance.dragSlot.AddItem(_item, _itemCount);
+                DragSlot.instance.dragSlot.ClearSlot();
+                DragSlot.instance.SetColorAlpha(0);
+                DragSlot.instance.dragSlot = null;
             }
-        }
-        else
-        {
-            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
-
-            DragSlot.instance.dragSlot.ClearSlot();
         }
     }
 
@@ -711,8 +673,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void UseItem(Item _item)
     {
-        SetSlotCount(-1);
-
         List<int> keys = new List<int>();
         keys.AddRange(_item.itemEffect.ValueDic.Keys);
 
@@ -726,18 +686,34 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             switch (keys[i])
             {
                 case 1:
-                    player.curHp += _item.itemEffect.ValueDic[keys[i]];
+                    if (player.curHp < player.finalMaxHp)
+                    {
+                        player.curHp += _item.itemEffect.ValueDic[keys[i]];
 
-                    if (player.curHp > player.finalMaxHp)
-                        player.curHp = player.finalMaxHp;
+                        if (player.curHp > player.finalMaxHp)
+                            player.curHp = player.finalMaxHp;
 
+                        SetSlotCount(-1);
+                    }
+                    else
+                    {
+                        print("플레이어의 hp가 최대치입니다.");
+                    }
                     break;
                 case 2:
-                    player.curMp += _item.itemEffect.ValueDic[keys[i]];
+                    if (player.curMp < player.finalMaxMp)
+                    {
+                        player.curMp += _item.itemEffect.ValueDic[keys[i]];
 
-                    if (player.curMp > player.finalMaxMp)
-                        player.curMp = player.finalMaxMp;
+                        if (player.curMp > player.finalMaxMp)
+                            player.curMp = player.finalMaxMp;
 
+                        SetSlotCount(-1);
+                    }
+                    else
+                    {
+                        print("플레이어의 mp가 최대치입니다.");
+                    }
                     break;
                 default:
                     break;
@@ -746,13 +722,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     }
 
     /// <summary>
-    /// 슬롯을 비우고, 상점칸에 아이템이 추가되고, 플레이어의 골드가 아이템의 판매가만큼 증가함.
+    /// 
     /// </summary>
     /// <param name="_item"></param>
     void SellItem(Item _item)
     {
-        ClearSlot();
-        shop.GetItem(_item);
-        player.stats.Gold += _item.SellCost;
+
     }
 }

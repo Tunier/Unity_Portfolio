@@ -20,6 +20,8 @@ public class Skill_Tree_UI : MonoBehaviour
 
     public SkillSlot curSlot = null;
 
+    public Text skillPointText;
+
     private void Awake()
     {
         playerinfo = FindObjectOfType<PlayerInfo>();
@@ -43,16 +45,6 @@ public class Skill_Tree_UI : MonoBehaviour
         {
             slots[i].AddSkill(player_skill[i]);
         }
-
-        //foreach (Skill skill in player_skill)
-        //{
-        //    switch (skill.NeedLv)
-        //    {
-        //        case 1:
-
-        //            break;
-        //    }
-        //}
     }
 
 
@@ -62,6 +54,8 @@ public class Skill_Tree_UI : MonoBehaviour
         {
             skillOptionPanel.SetActive(false);
         }
+
+        skillPointText.text = playerinfo.stats.Skill_Point + "";
     }
 
     public void BG_Click()
@@ -71,10 +65,21 @@ public class Skill_Tree_UI : MonoBehaviour
 
     public void PlusBtnClick()
     {
-        if (playerinfo.player_Skill_Dic[curSlot.skill.UIDCODE] < curSlot.skill.MaxSkillLv)
+        if (playerinfo.stats.Level >= curSlot.skill.NeedLv + playerinfo.player_Skill_Dic[curSlot.skill.UIDCODE])
         {
-            playerinfo.SetSkillLv(SkillDatabase.instance.AllSkillDic[curSlot.skill.UIDCODE]);
-            tooltip.ShowTooltip(curSlot.skill);
+            if (playerinfo.player_Skill_Dic[curSlot.skill.UIDCODE] < curSlot.skill.MaxSkillLv)
+            {
+                playerinfo.SetSkillLv(SkillDatabase.instance.AllSkillDic[curSlot.skill.UIDCODE]);
+                tooltip.ShowTooltip(curSlot.skill);
+            }
+            else
+            {
+                print("스킬이 최대 레벨입니다.");
+            }
+        }
+        else
+        {
+            print("레벨이 모자랍니다.");
         }
     }
 
@@ -84,6 +89,10 @@ public class Skill_Tree_UI : MonoBehaviour
         {
             playerinfo.SetSkillLv(SkillDatabase.instance.AllSkillDic[curSlot.skill.UIDCODE], -1);
             tooltip.ShowTooltip(curSlot.skill);
+        }
+        else
+        {
+            print("스킬이 최소 레벨입니다.");
         }
     }
 }
