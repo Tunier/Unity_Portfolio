@@ -9,7 +9,7 @@ public class CameraMoveMent : MonoBehaviour
     GameObject player;
     PlayerMovement playerMvt;
     public Transform cameraArm;
-    float camSpeed;
+    float camSpeed = 4f;
     float mouseX;
     float mouseY;
 
@@ -21,8 +21,6 @@ public class CameraMoveMent : MonoBehaviour
     {
         cController = FindObjectOfType<CharacterController>();
         playerMvt = FindObjectOfType<PlayerMovement>();
-
-        camSpeed = 3.5f;
 
         cameraArm.position = player.transform.position;
     }

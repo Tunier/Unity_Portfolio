@@ -13,6 +13,7 @@ public class PlayerWeaponCtrl : MonoBehaviour
 
     void Awake()
     {
+        col = GetComponent<Collider>();
         col.enabled = false;
     }
 
@@ -23,7 +24,7 @@ public class PlayerWeaponCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MONSTER")) //몬스터가 맞으면
+        if (other.CompareTag("Monster")) //몬스터가 맞으면
         {
             curHitMob = other.gameObject;
 

@@ -2,9 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerActionCtrl : MonoBehaviour
 {
+    public Collider weaponCol;
+    PlayerWeaponCtrl playerWP;
+    [SerializeField]
+    GameObject AttackEffect1;
+    [SerializeField]
+    GameObject AttackEffect2;
+
+
+
     PlayerInfo player;
     SkillDatabase skillDB;
     Tooltip tooltip;
@@ -40,9 +50,13 @@ public class PlayerActionCtrl : MonoBehaviour
     public bool isWhirlwind = false;
 
     readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");
+    readonly int hashIsAttack = Animator.StringToHash("IsAttack");
+    readonly int hashSpeed = Animator.StringToHash("Speed_f");
+    readonly int hashJump = Animator.StringToHash("Jump_b");
 
     void Awake()
     {
+        playerWP = FindObjectOfType<PlayerWeaponCtrl>();
         player = FindObjectOfType<PlayerInfo>();
         skillDB = FindObjectOfType<SkillDatabase>();
         tooltip = FindObjectOfType<Tooltip>();
@@ -52,16 +66,21 @@ public class PlayerActionCtrl : MonoBehaviour
 
         skillSlot.AddRange(QuickSkillSlotParents.GetComponentsInChildren<SkillSlot>());
         potionSlot.AddRange(QuickPotionSlotParents.GetComponentsInChildren<Slot>());
+
+        StartCoroutine(StateCheck());
     }
 
     private void Start()
     {
+        weaponCol.enabled = false;
+
         keys.AddRange(player.player_Skill_Dic.Keys);
 
         foreach (var key in keys)
         {
             curSkillCooltime.Add(key, 0f);
         }
+
     }
 
     void Update()
@@ -116,6 +135,10 @@ public class PlayerActionCtrl : MonoBehaviour
             {
                 potionSlot[3].UseItem(potionSlot[3].item);
             }
+            else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                player.state = STATE.Attacking;
+            }
             else if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
             {
                 skillIndicator.straightIndicator.SetActive(false);
@@ -123,6 +146,7 @@ public class PlayerActionCtrl : MonoBehaviour
                 readySkillSlot = null;
                 readySkill = null;
             }
+
         }
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -244,5 +268,85 @@ public class PlayerActionCtrl : MonoBehaviour
             //skillIndicator.straightIndicator.SetActive(true);
             #endregion
         }
+    }
+
+    IEnumerator StateCheck()
+    {
+        while (true)
+        {
+            switch (player.state)
+            {
+                case STATE.Idle:
+                    ani.SetBool(hashIsAttack, false);
+                    ani.SetBool(hashJump, false);
+                    ani.SetFloat(hashSpeed, 0);
+                    break;
+                case STATE.Attacking:
+                    ani.SetBool(hashIsAttack, true);
+                    ani.SetBool(hashJump, false);
+                    ani.SetFloat(hashSpeed, 0);
+                    break;
+                case STATE.Walk:
+                    ani.SetFloat(hashSpeed, 0.5f);
+                    ani.SetBool(hashIsAttack, false);
+                    ani.SetBool(hashJump, false);
+                    break;
+                case STATE.Run:
+                    ani.SetFloat(hashSpeed, 1f);
+                    ani.SetBool(hashIsAttack, false);
+                    ani.SetBool(hashJump, false);
+                    break;
+                case STATE.Backoff:
+                    ani.SetFloat(hashSpeed, 0.5f);
+                    ani.SetBool(hashIsAttack, false);
+                    ani.SetBool(hashJump, false);
+                    break;
+                case STATE.Jump:
+                    ani.SetBool(hashJump, true);
+                    ani.SetBool(hashIsAttack, false);
+                    break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+
+    public void EventEndAttack()
+    {
+        ClearMobList();
+
+        if (!Input.GetMouseButton(0))
+            player.state = STATE.Idle;
+    }
+
+    public void WeaponColCtrl()
+    {
+        weaponCol.enabled = !weaponCol.enabled;
+    }
+
+    public void WeaponRotCtrl1()
+    {
+        weaponCol.gameObject.transform.localEulerAngles = new Vector3(90, 90, 90);
+    }
+
+    public void WeaponRotCtrl2()
+    {
+        weaponCol.gameObject.transform.localEulerAngles = new Vector3(45, 90, 90);
+    }
+
+    public void ClearMobList()
+    {
+        playerWP.mobList.Clear();
+    }
+
+    public void OnOffAttackEffect()
+    {
+        AttackEffect1.SetActive(!AttackEffect1.activeSelf);
+    }
+
+    public void OnOffAttackEffect2()
+    {
+        AttackEffect2.SetActive(!AttackEffect2.activeSelf);
     }
 }

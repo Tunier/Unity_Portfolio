@@ -107,6 +107,7 @@ public class Tooltip : MonoBehaviour
         // 17: 마법 공격력 고정값, 18: 마법 공격력 %값, 19: 마법 방어력 고정값, 20: 마법 방어력 %값
 
         LevelText.gameObject.SetActive(false);
+        SkillCostText.gameObject.SetActive(false);
 
         #region 아이템 이름
         NameText.text = _item.Name;

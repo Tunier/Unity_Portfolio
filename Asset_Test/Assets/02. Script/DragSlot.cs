@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DragSlot : MonoBehaviour
 {
-    static public DragSlot instance;
+    public static DragSlot instance;
     public Slot dragSlot;
     public SkillSlot dragSkillSlot;
     //public ShopSlot shopSlot;
@@ -21,7 +21,7 @@ public class DragSlot : MonoBehaviour
     public void DragSetImage(Image _Image)
     {
         image.sprite = _Image.sprite;
-        SetColorAlpha(1);
+        SetColorAlpha(0.88f);
     }
 
     public void SetColorAlpha(float alpha)

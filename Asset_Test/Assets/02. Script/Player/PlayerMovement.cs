@@ -41,9 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     float pushTime = 0;
 
-    readonly int hashSpeed = Animator.StringToHash("Speed_f");
-    readonly int hashJump = Animator.StringToHash("Jump_b");
-
     Ray ray;
     public RaycastHit hit;
 
@@ -69,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (playerInfo.state != STATE.Die)
+        if (playerInfo.state != STATE.Die && playerInfo.state != STATE.Attacking)
         {
             #region 키보드로 제어하는 움직임 부분
             runMoveSpeed = walkMoveSpeed * 2f;
@@ -84,12 +81,11 @@ public class PlayerMovement : MonoBehaviour
             if (!cController.isGrounded)
                 moveDirection.y += gravity * Time.deltaTime;
             else
-                ani.SetBool(hashJump, false);
+                playerInfo.state = STATE.Idle;
 
             if (Input.GetKeyDown(jumpKeyCode) && cController.isGrounded && cController.enabled && !playerActionCtrl.isWhirlwind)
             {
                 moveDirection.y = jumpForce;
-                ani.SetBool(hashJump, true);
                 playerInfo.state = STATE.Jump;
             }
 
@@ -120,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
                 if (nav.enabled)
                 {
                     wantMove = false;
-                    ani.SetFloat(hashSpeed, 0f);
+                    playerInfo.state = STATE.Idle;
 
                     nav.isStopped = true;
                     nav.ResetPath();
@@ -184,7 +180,6 @@ public class PlayerMovement : MonoBehaviour
                     {
                         nav.SetDestination(transform.position);
                         nav.ResetPath();
-                        ani.SetFloat(hashSpeed, 0f);
                         playerInfo.state = STATE.Idle;
 
                         cController.enabled = true;
@@ -199,12 +194,10 @@ public class PlayerMovement : MonoBehaviour
                     {
                         if (isRun)
                         {
-                            ani.SetFloat(hashSpeed, 1f);
                             playerInfo.state = STATE.Run;
                         }
                         else
                         {
-                            ani.SetFloat(hashSpeed, 0.5f);
                             playerInfo.state = STATE.Walk;
                         }
                     }
@@ -228,31 +221,35 @@ public class PlayerMovement : MonoBehaviour
         else if (_z == 1f)
         {
             if (!isRun)
+            {
                 speed = walkMoveSpeed;
+                playerInfo.state = STATE.Walk;
+            }
             else
+            {
                 speed = runMoveSpeed;
-
-            //moveDirection = new Vector3(transform.forward.x * speed, moveDirection.y, transform.forward.z * speed);
+                playerInfo.state = STATE.Run;
+            }
         }
         else if (_z == -1)
         {
             speed = backMoveSpeed;
-            //moveDirection = new Vector3(-transform.forward.x * speed, moveDirection.y, -transform.forward.z * speed);
+            playerInfo.state = STATE.Backoff;
         }
         else if (_x == 1)
         {
             speed = walkMoveSpeed;
-            //moveDirection = new Vector3(transform.right.x * speed, moveDirection.y, transform.right.z * speed);
+            playerInfo.state = STATE.Walk;
         }
         else if (_x == -1f)
         {
             speed = walkMoveSpeed;
-            //moveDirection = new Vector3(-transform.right.x * speed, moveDirection.y, -transform.right.z * speed);
+            playerInfo.state = STATE.Walk;
         }
         else if (_x == 0 && _z == 0)
         {
             speed = 0;
-            //moveDirection = new Vector3(0, moveDirection.y, 0);
+            playerInfo.state = STATE.Idle;
         }
 
         if (_z == 0 && _x == 0)
@@ -273,29 +270,5 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = new Vector3((Rot[6].position.x - transform.position.x) * speed, moveDirection.y, (Rot[6].position.z - transform.position.z) * speed);
         else if (_z == -1 && _x == 1)
             moveDirection = new Vector3((Rot[7].position.x - transform.position.x) * speed, moveDirection.y, (Rot[7].position.z - transform.position.z) * speed);
-
-
-        if (!playerActionCtrl.isWhirlwind)
-        {
-            if (speed == runMoveSpeed)
-            {
-                ani.SetFloat(hashSpeed, 1f);
-                playerInfo.state = STATE.Run;
-            }
-            else if (speed == walkMoveSpeed)
-            {
-                ani.SetFloat(hashSpeed, 0.5f);
-                playerInfo.state = STATE.Walk;
-            }
-            else if (speed == backMoveSpeed)
-            {
-                ani.SetFloat(hashSpeed, 0.5f);
-                playerInfo.state = STATE.Walk;
-            }
-            else
-            {
-                ani.SetFloat(hashSpeed, 0);
-            }
-        }
     }
 }

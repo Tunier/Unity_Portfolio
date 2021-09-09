@@ -31,13 +31,14 @@ public class GameManager : MonoBehaviour
 
     public bool isPause = false;
 
-    public Texture2D[] cursorImg;
+    //public Texture2D[] cursorImg;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -56,11 +57,11 @@ public class GameManager : MonoBehaviour
 
         Vector2 mousePos = new Vector2(-2f, 0);
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 
-#else
-        Cursor.SetCursor(cursorImg[0], mousePos, CursorMode.ForceSoftware);
-#endif
+//#else
+//        Cursor.SetCursor(cursorImg[0], mousePos, CursorMode.ForceSoftware);
+//#endif
     }
 
     private void Update()
@@ -78,22 +79,22 @@ public class GameManager : MonoBehaviour
         //    dieText.SetActive(false);
         //}
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 
-#else
-        if (shop.isBuying)
-        {
-            Cursor.SetCursor(GameManager.instance.cursorImg[1], Vector2.zero, CursorMode.ForceSoftware);
-        }
-        else if (shop.isSelling)
-        {
-            Cursor.SetCursor(GameManager.instance.cursorImg[2], Vector2.zero, CursorMode.ForceSoftware);
-        }
-        else
-        {
-            Cursor.SetCursor(GameManager.instance.cursorImg[0], Vector2.zero, CursorMode.ForceSoftware);
-        }
-#endif
+//#else
+//        if (shop.isBuying)
+//        {
+//            Cursor.SetCursor(GameManager.instance.cursorImg[1], Vector2.zero, CursorMode.ForceSoftware);
+//        }
+//        else if (shop.isSelling)
+//        {
+//            Cursor.SetCursor(GameManager.instance.cursorImg[2], Vector2.zero, CursorMode.ForceSoftware);
+//        }
+//        else
+//        {
+//            Cursor.SetCursor(GameManager.instance.cursorImg[0], Vector2.zero, CursorMode.ForceSoftware);
+//        }
+//#endif
     }
 
     public void OnPauseClick()
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
 
     public void OnInventoryBottonClick()
     {
-        inventoryUI.SetActive(!inventoryUI.activeSelf);
+        //inventoryUI.SetActive(!inventoryUI.activeSelf);
     }
 
     void QuickSlotUseItem(int i)
