@@ -174,7 +174,7 @@ public class SkillDatabase : MonoBehaviour
                             player.curMp -= _skill.Cost;
                             //playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
                             playerAC.isWhirlwind = true;
-                            var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
+                            StartCoroutine(WhirlWindEffectInst());
                             break;
                     }
 
@@ -245,5 +245,12 @@ public class SkillDatabase : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator WhirlWindEffectInst()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
     }
 }

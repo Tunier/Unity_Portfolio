@@ -13,8 +13,6 @@ public class PlayerActionCtrl : MonoBehaviour
     [SerializeField]
     GameObject AttackEffect2;
 
-
-
     PlayerInfo player;
     SkillDatabase skillDB;
     Tooltip tooltip;
@@ -47,8 +45,9 @@ public class PlayerActionCtrl : MonoBehaviour
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
 
-    public bool isWhirlwind = false;
+    bool isUsingSkill = false;
 
+    public bool isWhirlwind = false;
     readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");
     readonly int hashIsAttack = Animator.StringToHash("IsAttack");
     readonly int hashSpeed = Animator.StringToHash("Speed_f");
@@ -135,16 +134,22 @@ public class PlayerActionCtrl : MonoBehaviour
             {
                 potionSlot[3].UseItem(potionSlot[3].item);
             }
-            else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                player.state = STATE.Attacking;
-            }
             else if (skillIndicator.straightIndicator.activeSelf && Input.GetMouseButtonDown(0))
             {
                 skillIndicator.straightIndicator.SetActive(false);
                 skillDB.UseSkill(readySkill, gameObject, null, readySkillSlot);
                 readySkillSlot = null;
                 readySkill = null;
+                isUsingSkill = false;
+            }
+            else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                ani.SetBool(hashIsAttack, false);
+            }
+            else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                player.state = STATE.Attacking;
+                ani.SetBool(hashIsAttack, true);
             }
 
         }
@@ -182,8 +187,13 @@ public class PlayerActionCtrl : MonoBehaviour
         }
 
         ani.SetBool(hashWhirlwind, isWhirlwind);
+
         if (isWhirlwind)
+        {
             ani.SetFloat("Speed_f", 0);
+        }
+
+        isUsingSkill = isWhirlwind;
 
         for (int i = 0; i < curSkillCooltime.Count; i++)
         {
@@ -200,73 +210,83 @@ public class PlayerActionCtrl : MonoBehaviour
         SkillSlot _skillSlot = skillSlot[_slotIndex];
         if (_skillSlot.haveSkill)
         {
-            if (_skillSlot.curCooltime <= 0)
+            if (isUsingSkill == false && player.state != STATE.Attacking)
             {
-                switch (_skill.CostType)
+                if (_skillSlot.curCooltime <= 0)
                 {
-                    case 0:
-                        // z 키에 있는 스킬의 종류를 받아서 인디케이터를 킬지 정함.
-                        // 인디케이터를 킬 필요가 없으면 바로 useskill 발동
-                        if (_skill.Type == 1)
-                        {
-                            skillIndicator.straightIndicator.SetActive(true);
-                            readySkillSlot = _skillSlot;
-                            readySkill = _skillSlot.skill;
-                        }
-                        else
-                        {
-                            SkillDatabase.instance.UseSkill(_skill, gameObject);
-                        }
-                        break;
-
-                    case 1:
-                        if (player.curHp >= _skill.Cost)
-                        {
+                    switch (_skill.CostType)
+                    {
+                        case 0:
+                            // z 키에 있는 스킬의 종류를 받아서 인디케이터를 킬지 정함.
+                            // 인디케이터를 킬 필요가 없으면 바로 useskill 발동
                             if (_skill.Type == 1)
                             {
                                 skillIndicator.straightIndicator.SetActive(true);
                                 readySkillSlot = _skillSlot;
                                 readySkill = _skillSlot.skill;
+                                isUsingSkill = true;
                             }
                             else
                             {
-                                SkillDatabase.instance.UseSkill(_skill, gameObject, null, _skillSlot);
+                                SkillDatabase.instance.UseSkill(_skill, gameObject);
                             }
-                        }
-                        else
-                        {
-                            print("마나가 부족합니다.");
-                        }
-                        break;
+                            break;
 
-                    case 2:
-                        if (player.curMp >= _skill.Cost)
-                        {
-                            if (_skill.Type == 1)
+                        case 1:
+                            if (player.curHp >= _skill.Cost)
                             {
-                                skillIndicator.straightIndicator.SetActive(true);
-                                readySkillSlot = _skillSlot;
-                                readySkill = _skillSlot.skill;
+                                if (_skill.Type == 1)
+                                {
+                                    skillIndicator.straightIndicator.SetActive(true);
+                                    readySkillSlot = _skillSlot;
+                                    readySkill = _skillSlot.skill;
+                                    isUsingSkill = true;
+                                }
+                                else
+                                {
+                                    SkillDatabase.instance.UseSkill(_skill, gameObject, null, _skillSlot);
+                                }
                             }
                             else
                             {
-                                SkillDatabase.instance.UseSkill(_skill, gameObject, null, _skillSlot);
+                                print("마나가 부족합니다.");
                             }
-                        }
-                        else
-                        {
-                            print("마나가 부족합니다.");
-                        }
-                        break;
+                            break;
+
+                        case 2:
+                            if (player.curMp >= _skill.Cost)
+                            {
+                                if (_skill.Type == 1)
+                                {
+                                    skillIndicator.straightIndicator.SetActive(true);
+                                    readySkillSlot = _skillSlot;
+                                    readySkill = _skillSlot.skill;
+                                    isUsingSkill = true;
+                                }
+                                else
+                                {
+                                    SkillDatabase.instance.UseSkill(_skill, gameObject, null, _skillSlot);
+                                }
+                            }
+                            else
+                            {
+                                print("마나가 부족합니다.");
+                            }
+                            break;
+                    }
                 }
+                else
+                {
+                    print("스킬이 쿨타임입니다.");
+                }
+                #region 테스트 코드
+                //skillIndicator.straightIndicator.SetActive(true);
+                #endregion
             }
             else
             {
-                print("스킬이 쿨타임입니다.");
+                print("다른 동작중입니다.");
             }
-            #region 테스트 코드
-            //skillIndicator.straightIndicator.SetActive(true);
-            #endregion
         }
     }
 
@@ -282,7 +302,7 @@ public class PlayerActionCtrl : MonoBehaviour
                     ani.SetFloat(hashSpeed, 0);
                     break;
                 case STATE.Attacking:
-                    ani.SetBool(hashIsAttack, true);
+                    //ani.SetBool(hashIsAttack, true);
                     ani.SetBool(hashJump, false);
                     ani.SetFloat(hashSpeed, 0);
                     break;

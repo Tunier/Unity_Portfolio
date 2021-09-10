@@ -66,14 +66,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        runMoveSpeed = walkMoveSpeed * 2f;
+        backMoveSpeed = walkMoveSpeed * 0.85f;
+
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
+
         if (playerInfo.state != STATE.Die && playerInfo.state != STATE.Attacking)
         {
             #region 키보드로 제어하는 움직임 부분
-            runMoveSpeed = walkMoveSpeed * 2f;
-            backMoveSpeed = walkMoveSpeed * 0.85f;
-
-            x = Input.GetAxisRaw("Horizontal");
-            z = Input.GetAxisRaw("Vertical");
 
             if (Input.GetKeyDown(runKeyCode))
                 isRun = !isRun;
