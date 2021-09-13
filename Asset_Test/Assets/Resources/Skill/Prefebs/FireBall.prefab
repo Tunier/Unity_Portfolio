@@ -9555,7 +9555,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2657590873430618228
 Rigidbody:
@@ -9587,6 +9587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireBallEffect: {fileID: 2657590873233697737}
   explosion_Effet: {fileID: 6615196939441904247}
+  player: {fileID: 0}
 --- !u!1 &6615196939441904241
 GameObject:
   m_ObjectHideFlags: 0

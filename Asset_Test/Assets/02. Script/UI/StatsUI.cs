@@ -7,6 +7,9 @@ public class StatsUI : MonoBehaviour
 {
     PlayerInfo player;
 
+    public Text NameText;
+    public Text LvText;
+    public Text JobText;
     public Text HpText;
     public Text MpText;
     public Text HpRegenText;
@@ -33,12 +36,18 @@ public class StatsUI : MonoBehaviour
     void Update()
     {
         RefreshStatsUIText();
+
+        //print(player.finalLifeStealPercent);
     }
 
     public void RefreshStatsUIText()
     {
-        HpText.text = player.curHp + " / " + player.finalMaxHp;
-        MpText.text = player.curMp + " / " + player.finalMaxMp;
+        //NameText.text = player.stats.s_Name;
+        NameText.text = "Tunier";
+        LvText.text = "레벨 : " + player.stats.Level;
+        JobText.text = "직업 : 전사";
+        HpText.text = Mathf.CeilToInt(player.curHp) + " / " + player.finalMaxHp;
+        MpText.text = Mathf.CeilToInt(player.curMp) + " / " + player.finalMaxMp;
         HpRegenText.text = player.finalHpRegen + "";
         MpRegenText.text = player.finalMpRegen + "";
         StrText.text = player.finalStr + "";
@@ -53,6 +62,6 @@ public class StatsUI : MonoBehaviour
         //CastSpeedText;
         //MoveSpeedText;
         AtkHpRecoverText.text = player.finalLifeSteal + "";
-        AtkLifeStealText.text = player.finalLifeStealPercent + "";
+        AtkLifeStealText.text = player.finalLifeStealPercent + " %";
     }
 }

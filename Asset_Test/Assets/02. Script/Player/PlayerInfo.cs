@@ -123,9 +123,13 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     {
         if (curHp < finalMaxHp)
             curHp += finalHpRegen * Time.deltaTime;
+        else
+            curHp = finalMaxHp;
 
         if (curMp < finalMaxMp)
             curMp += finalMpRegen * Time.deltaTime;
+        else
+            curMp = finalMaxMp;
     }
 
     /// <summary>
@@ -141,7 +145,13 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         finalInt = stats.Int + ItemEffectInt + SkillEffectInt * (1 + ItemEffectIntMultiplier + SkillEffectIntMultiplier);
 
         finalCriticalChance = 1000 + ItemEffectCriticalChance + SkillEffectCriticalChace;
+        if (finalCriticalChance >= 10000)
+            finalCriticalChance = 10000;
+
         finalCriticalDamageMuliplie = 1.5f + ItemEffectCriticalDamageMultiple + SkillEffectCriticalDamageMultiple;
+
+        finalLifeSteal = ItemEffectLifeSteal + SkillEffectLifeSteal;
+        finalLifeStealPercent = ItemEffectLifeStealPercent + SkillEffectLifeStealPercent;
 
         finalHpRegen = 0.4f + finalStr * 0.1f + ItemEffectHpRegen + SkillEffectHpRegen;
         finalMpRegen = 0.4f + finalInt * 0.1f + ItemEffectMpRegen + SkillEffectMpRegen;
@@ -269,7 +279,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             Debug.LogWarning("플레이어데이터파일이 없습니다.\n플레이어정보 강제 초기화 진행합니다.");
 
             #region 플레이어 정보 강제 초기화
-            stats.Level = 15;
+            stats.Level = 20;
             stats.CurExp = 0;
             stats.MaxExp = stats.Level * 100;
             stats.MaxHp = 100f + (stats.Level - 1) * 20;

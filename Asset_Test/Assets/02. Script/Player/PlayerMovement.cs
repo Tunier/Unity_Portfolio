@@ -224,33 +224,39 @@ public class PlayerMovement : MonoBehaviour
             if (!isRun)
             {
                 speed = walkMoveSpeed;
-                playerInfo.state = STATE.Walk;
+                if (playerInfo.state != STATE.Jump)
+                    playerInfo.state = STATE.Walk;
             }
             else
             {
                 speed = runMoveSpeed;
-                playerInfo.state = STATE.Run;
+                if (playerInfo.state != STATE.Jump)
+                    playerInfo.state = STATE.Run;
             }
         }
         else if (_z == -1)
         {
             speed = backMoveSpeed;
-            playerInfo.state = STATE.Backoff;
+            if (playerInfo.state != STATE.Jump)
+                playerInfo.state = STATE.Backoff;
         }
         else if (_x == 1)
         {
             speed = walkMoveSpeed;
-            playerInfo.state = STATE.Walk;
+            if (playerInfo.state != STATE.Jump)
+                playerInfo.state = STATE.Walk;
         }
         else if (_x == -1f)
         {
             speed = walkMoveSpeed;
-            playerInfo.state = STATE.Walk;
+            if (playerInfo.state != STATE.Jump)
+                playerInfo.state = STATE.Walk;
         }
         else if (_x == 0 && _z == 0)
         {
             speed = 0;
-            playerInfo.state = STATE.Idle;
+            if (playerInfo.state != STATE.Jump)
+                playerInfo.state = STATE.Idle;
         }
 
         if (_z == 0 && _x == 0)

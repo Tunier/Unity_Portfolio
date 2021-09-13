@@ -13,6 +13,8 @@ public class Whirlwind : MonoBehaviour
     public GameObject curHitMob;
     public List<GameObject> mobList = new List<GameObject>();
 
+    Skill _skill;
+
     private void OnEnable()
     {
         player = FindObjectOfType<PlayerInfo>();
@@ -22,6 +24,8 @@ public class Whirlwind : MonoBehaviour
         StartCoroutine(ClearMobList());
 
         Destroy(gameObject, 5.2f);
+
+        _skill = SkillDatabase.instance.AllSkillDic["0300005"];
     }
 
     private void OnTriggerStay(Collider other)
@@ -32,18 +36,26 @@ public class Whirlwind : MonoBehaviour
 
             if (!mobList.Contains(curHitMob)) // 맞은 몬스터가 리스트에 없으면
             {
+                player.targetMonster = curHitMob;
                 mobList.Add(curHitMob); // 맞은 몬스터를 리스트에 저장하고
 
                 if (CritcalCalculate()) // 크리티컬이 떴는지 계산해서 Hit를 호출
                 {
-                    curHitMob.GetComponent<MonsterBase>().Hit((SkillDatabase.instance.AllSkillDic["0300005"].Value + (player.player_Skill_Dic["0300005"] - 1)
-                                                                * SkillDatabase.instance.AllSkillDic["0300005"].ValueFactor) * 1.5f);
-                    // 데미지 UI 출력하는 구문 작성해야함. 크리티컬이 뜨면 해당 UI Text의 컬러를 바꿔주는 기능도 추가해야함.
+                    curHitMob.GetComponent<MonsterBase>().Hit((_skill.Value + (player.player_Skill_Dic["0300005"] - 1)
+                                                                * _skill.ValueFactor) * 1.5f);
+
+                    UIManager.Instance.ShowDamageText((_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor) * 1.5f, true);
+
+                    player.curHp += player.finalLifeStealPercent * player.finalNormalAtk * 1.5f * 0.01f;
                 }
                 else
                 {
-                    curHitMob.GetComponent<MonsterBase>().Hit(SkillDatabase.instance.AllSkillDic["0300005"].Value + (player.player_Skill_Dic["0300005"] - 1)
-                                                               * SkillDatabase.instance.AllSkillDic["0300005"].ValueFactor);
+                    curHitMob.GetComponent<MonsterBase>().Hit(_skill.Value + (player.player_Skill_Dic["0300005"] - 1)
+                                                               * _skill.ValueFactor);
+
+                    UIManager.Instance.ShowDamageText(_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor);
+
+                    player.curHp += player.finalLifeStealPercent * player.finalNormalAtk * 0.01f;
                 }
             }
             else { return; }
@@ -62,6 +74,7 @@ public class Whirlwind : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         playerAC.isWhirlwind = false;
+        playerAC.isUsingSkill = false;
     }
 
     IEnumerator ClearMobList()

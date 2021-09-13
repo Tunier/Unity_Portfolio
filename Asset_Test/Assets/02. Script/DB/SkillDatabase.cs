@@ -34,6 +34,8 @@ public class SkillDatabase : MonoBehaviour
     PlayerInfo player;
     PlayerActionCtrl playerAC;
 
+    public GameObject skill2HitArea;
+
     const string skillDataPath = "/Resources/Data/All_Skill_Data.text";
 
     private void Awake()
@@ -170,9 +172,15 @@ public class SkillDatabase : MonoBehaviour
                 case 4:
                     switch (_skill.UIDCODE)
                     {
+                        case "0300002":
+                            player.curMp -= _skill.Cost;
+                            playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
+                            playerAC.isSwordSkill2 = true;
+                            StartCoroutine(UseSkill2());
+                            break;
                         case "0300005":
                             player.curMp -= _skill.Cost;
-                            //playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
+                            playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
                             playerAC.isWhirlwind = true;
                             StartCoroutine(WhirlWindEffectInst());
                             break;
@@ -252,5 +260,19 @@ public class SkillDatabase : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         var obj = Instantiate(Resources.Load<GameObject>("Skill/Prefebs/WhirlWind_Skill_Effect"), player.transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
+    }
+
+    IEnumerator UseSkill2()
+    {
+        var skill2 = skill2HitArea.GetComponent<Skill2>();
+
+        yield return new WaitForSeconds(0.45f);
+
+        skill2HitArea.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        skill2HitArea.SetActive(false);
+        skill2.mobList.Clear();
     }
 }

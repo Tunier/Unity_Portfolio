@@ -45,13 +45,15 @@ public class PlayerActionCtrl : MonoBehaviour
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
 
-    bool isUsingSkill = false;
+    public bool isUsingSkill = false;
 
     public bool isWhirlwind = false;
+    public bool isSwordSkill2 = false;
     readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");
     readonly int hashIsAttack = Animator.StringToHash("IsAttack");
     readonly int hashSpeed = Animator.StringToHash("Speed_f");
     readonly int hashJump = Animator.StringToHash("Jump_b");
+    readonly int hashSwordSkill2 = Animator.StringToHash("UseSwordSkill2");
 
     void Awake()
     {
@@ -191,9 +193,16 @@ public class PlayerActionCtrl : MonoBehaviour
         if (isWhirlwind)
         {
             ani.SetFloat("Speed_f", 0);
+            isUsingSkill = true;
         }
 
-        isUsingSkill = isWhirlwind;
+        if (isSwordSkill2)
+        {
+            ani.SetTrigger(hashSwordSkill2);
+            player.state = STATE.Attacking;
+            isSwordSkill2 = false;
+            isUsingSkill = true;
+        }
 
         for (int i = 0; i < curSkillCooltime.Count; i++)
         {
@@ -325,6 +334,9 @@ public class PlayerActionCtrl : MonoBehaviour
                     ani.SetBool(hashJump, true);
                     ani.SetBool(hashIsAttack, false);
                     break;
+                case STATE.Hit:
+                    // 히트모션 동작하게 해야함.
+                    break;
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -368,5 +380,11 @@ public class PlayerActionCtrl : MonoBehaviour
     public void OnOffAttackEffect2()
     {
         AttackEffect2.SetActive(!AttackEffect2.activeSelf);
+    }
+
+    public void SwordSkill2End()
+    {
+        player.state = STATE.Idle;
+        isUsingSkill = false;
     }
 }

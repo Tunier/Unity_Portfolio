@@ -582,7 +582,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                     player.ItemEffectLifeSteal += _item.itemEffect.ValueDic[keys[i]];
                     break;
                 case 16:
-                    player.ItemEffectLifeStealPercent += _item.itemEffect.ValueDic[keys[i]] * 0.01f;
+                    player.ItemEffectLifeStealPercent += _item.itemEffect.ValueDic[keys[i]];
                     break;
                 default:
                     break;

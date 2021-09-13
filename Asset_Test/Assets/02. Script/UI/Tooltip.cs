@@ -325,7 +325,10 @@ public class Tooltip : MonoBehaviour
         int mainStart = 1;
 
         if (_item.Type == 9 || _item.Type == 10)
+        {
             mainStart = 0;
+            EffectText.gameObject.SetActive(true);
+        }
         else
         {
             if (_item.itemEffect.ValueDic.Count == 1)
@@ -465,9 +468,6 @@ public class Tooltip : MonoBehaviour
         if (player.player_Skill_Dic[_skill.UIDCODE] > 0)
             switch (_skill.UIDCODE)
             {
-                case "0300002":
-                    EffectText.text = string.Format(_skill.SkillDescription, (_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor) * 3);
-                    break;
                 default:
                     EffectText.text = string.Format(_skill.SkillDescription, _skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor);
                     break;

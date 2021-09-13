@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Item
@@ -59,6 +60,8 @@ public class ItemDatabase : MonoBehaviour
 
     [SerializeField]
     Inventory inven;
+
+    public Text debugText;
 
     const string itemDataPath = "/Resources/Data/All_Item_Data.text";
     const string itemEffectDataPath = "/Resources/Data/All_Item_Effect_Data.text";

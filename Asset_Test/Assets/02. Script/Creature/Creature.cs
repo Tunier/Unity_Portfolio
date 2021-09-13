@@ -47,6 +47,7 @@ public enum STATE
     JumpAndAttack,
     Rolling,
     Die,
+    Hit,
 }
 
 public abstract class Creature : MonoBehaviour, IHit, IDie

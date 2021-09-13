@@ -5,28 +5,25 @@ using UnityEngine;
 public class PlayerWeaponCtrl : MonoBehaviour
 {
     public PlayerInfo player;
+    PlayerActionCtrl playerAC;
 
     Collider col;
 
-    public GameObject curHitMob;
     public List<GameObject> mobList = new List<GameObject>();
 
     void Awake()
     {
         col = GetComponent<Collider>();
         col.enabled = false;
-    }
-
-    void Update()
-    {
-
+        playerAC = FindObjectOfType<PlayerActionCtrl>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Monster")) //몬스터가 맞으면
         {
-            curHitMob = other.gameObject;
+            var curHitMob = other.gameObject;
+            player.targetMonster = curHitMob;
 
             if (!mobList.Contains(curHitMob)) // 맞은 몬스터가 리스트에 없으면
             {
@@ -36,10 +33,17 @@ public class PlayerWeaponCtrl : MonoBehaviour
                 {
                     curHitMob.GetComponent<MonsterBase>().Hit(player.finalNormalAtk * 1.5f);
                     // 데미지 UI 출력하는 구문 작성해야함. 크리티컬이 뜨면 해당 UI Text의 컬러를 바꿔주는 기능도 추가해야함.
+                    UIManager.Instance.ShowDamageText(player.finalNormalAtk * 1.5f, true);
+
+                    player.curHp += player.finalLifeStealPercent * player.finalNormalAtk * 1.5f * 0.01f;
                 }
                 else
                 {
                     curHitMob.GetComponent<MonsterBase>().Hit(player.finalNormalAtk);
+
+                    UIManager.Instance.ShowDamageText(player.finalNormalAtk);
+
+                    player.curHp += player.finalLifeStealPercent * player.finalNormalAtk * 0.01f;
                 }
             }
             else { return; }
