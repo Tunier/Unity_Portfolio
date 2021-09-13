@@ -5,26 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingletone<GameManager>
 {
-    public static GameManager instance = null;
-
+    public GameObject wayPointUI;
     public GameObject inventoryUI;
-
-    ItemDatabase ItemDB;
-
-    [SerializeField]
-    RectTransform invenBase;
-    [SerializeField]
-    RectTransform statusBase;
-
-    [SerializeField]
-    Tooltip toolTip;
-
-    [SerializeField]
-    GameObject quickSlotParent;
-    [SerializeField]
-    Slot[] quickSlots;
 
     public GameObject dieText;
     PlayerInfo player;
@@ -33,25 +17,10 @@ public class GameManager : MonoBehaviour
 
     //public Texture2D[] cursorImg;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            if (instance != this)
-                Destroy(gameObject);
-        }
-    }
-
     private void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
 
-        ItemDB = FindObjectOfType<ItemDatabase>();
 
         isPause = false;
 

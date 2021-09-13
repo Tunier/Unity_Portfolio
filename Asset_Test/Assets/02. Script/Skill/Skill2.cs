@@ -37,7 +37,9 @@ public class Skill2 : MonoBehaviour
 
                 if (CritcalCalculate()) // 크리티컬이 떴는지 계산해서 Hit를 호출
                 {
-                    Instantiate(skillEffect[1], new Vector3(curHitMob.transform.position.x, curHitMob.transform.position.y + 3, curHitMob.transform.position.z), Quaternion.Euler(-90, 0, 0));
+                    var obj = Instantiate(skillEffect[1], new Vector3(curHitMob.transform.position.x, curHitMob.transform.position.y + 3, curHitMob.transform.position.z),
+                                                                      Quaternion.Euler(-90, 0, 0));
+                    Destroy(obj, 1f);
 
                     curHitMob.GetComponent<MonsterBase>().Hit((_skill.Value + (player.player_Skill_Dic["0300005"] - 1)
                                                                 * _skill.ValueFactor) * 1.5f);
@@ -48,7 +50,9 @@ public class Skill2 : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(skillEffect[0], new Vector3(curHitMob.transform.position.x, curHitMob.transform.position.y + 3, curHitMob.transform.position.z), Quaternion.Euler(-90, 0, 0));
+                    var obj = Instantiate(skillEffect[0], new Vector3(curHitMob.transform.position.x, curHitMob.transform.position.y + 3, curHitMob.transform.position.z), 
+                                                                      Quaternion.Euler(-90, 0, 0));
+                    Destroy(obj, 1f);
 
                     curHitMob.GetComponent<MonsterBase>().Hit(_skill.Value + (player.player_Skill_Dic["0300005"] - 1)
                                                                * _skill.ValueFactor);

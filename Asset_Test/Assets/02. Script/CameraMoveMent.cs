@@ -39,7 +39,7 @@ public class CameraMoveMent : MonoBehaviour
             if (x < 180f)
                 x = Mathf.Clamp(x, -1f, 50f);
             else
-                x = Mathf.Clamp(x, 355f, 361f);
+                x = Mathf.Clamp(x, 360f, 361f);
 
             cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseX, camAngle.z);
         }

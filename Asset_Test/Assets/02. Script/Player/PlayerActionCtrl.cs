@@ -24,6 +24,8 @@ public class PlayerActionCtrl : MonoBehaviour
     Player_SkillIndicator skillIndicator;
 
     [SerializeField]
+    GameObject wayPointUI;
+    [SerializeField]
     GameObject inventoryUI;
     [SerializeField]
     GameObject skilltreeUI;
@@ -211,6 +213,8 @@ public class PlayerActionCtrl : MonoBehaviour
             else
                 curSkillCooltime[keys[i]] = 0;
         }
+
+        TryAction();
     }
 
     void UseQuickSlotSkill(int _slotIndex) // 나중에 스킬퀵슬롯으로 옴김.
@@ -343,6 +347,27 @@ public class PlayerActionCtrl : MonoBehaviour
         }
     }
 
+    void TryAction()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (UIManager.Instance.hotKeyGuid.activeSelf)
+            {
+                if (UIManager.Instance.wayPoints.Contains(UIManager.Instance.hotKeyGuidTarget))
+                {
+                    wayPointUI.SetActive(true);
+                }
+            }
+            else
+            {
+                wayPointUI.SetActive(false);
+            }
+            //else if(UIManager.instance.hotKeyGuid.activeSelf && merchants.Contains(UIManager.instance.hotKeyGuidTarget))
+            //{
+            //상점ui키고 인벤토리 키기
+            //}
+        }
+    }
 
     public void EventEndAttack()
     {

@@ -16,6 +16,7 @@ TagManager:
   - SkillTreeSlot
   - QuickSkillSlot
   - QuickPotionSlot
+  - Merchant
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - RaycastTarget
   - Player
   - Skill
-  - 
+  - MinimapTarget
   - 
   - 
   - 
