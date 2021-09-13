@@ -9,8 +9,10 @@ public class WeaponManager : MonoBehaviour
 
     [Header("오브젝트 풀 정보")]
     public GameObject arrowPrefab;
-    public int maxPool = 10;
+    int maxPool = 20;
     public List<GameObject> arrowPool = new List<GameObject>();
+
+    GameObject arrowPools;
 
     private void Awake()
     {
@@ -22,14 +24,14 @@ public class WeaponManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        arrowPools = new GameObject("ArrowPools");
+
         CreatePooling();
     }
 
     public void CreatePooling()
     {
-        GameObject arrowPools = new GameObject("ArrowPools");
-
-        for(int i = 0; i< maxPool; i++)
+        for (int i = 0; i < maxPool; i++)
         {
             var obj = Instantiate<GameObject>(arrowPrefab, arrowPools.transform);
             obj.name = "Arrow_" + i.ToString("00");
@@ -40,12 +42,13 @@ public class WeaponManager : MonoBehaviour
 
     public GameObject GetArrow()
     {
-        for(int i = 0; i < arrowPool.Count; i++)
+        for (int i = 0; i < arrowPool.Count; i++)
         {
-            if(arrowPool[i].activeSelf == false)
+            if (arrowPool[i].activeSelf == false)
             {
                 return arrowPool[i];
             }
+
         }
         return null;
     }

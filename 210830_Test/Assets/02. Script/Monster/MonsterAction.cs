@@ -25,7 +25,9 @@ public class MonsterAction : MonsterBase
     private int obstacleLayer;          //장애물 레이어
     private int playerLayer;            //플레이어 레이어
     private int monsterLayer;           //몬스터 레이어
-     
+
+    private Collider monsterCollider;
+
     public bool isDie = false;
     public bool isAttack = false;
     public bool isAnger = false;        //선공 : Anger true 후공 : Anger false
@@ -35,12 +37,14 @@ public class MonsterAction : MonsterBase
     MonsterAnim monsterAnim;
     MonsterFire monsterFire;
 
-    public Collider[] monsters; //테스트
+    //public Collider[] monsters; //테스트
+    public List<Collider> monsters = new List<Collider>();
 
     private void Awake()
     {
         monsterFire = GetComponent<MonsterFire>();
         monsterAnim = GetComponent<MonsterAnim>();
+        monsterCollider = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
@@ -94,7 +98,7 @@ public class MonsterAction : MonsterBase
     public void Attack(Vector3 _target)
     {
         Vector3 dir = (_target - transform.position).normalized;
-        if (Physics.Raycast(transform.position + (Vector3.up * 2), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
+        if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
         {
             if (isAttack == false)
             {
@@ -113,13 +117,12 @@ public class MonsterAction : MonsterBase
             {
                 isAttack = false;
             }
-            else
-            {
-                monsterAnim.OnMove(true, agent.speed);
-                agent.SetDestination(_target);
-                agent.speed = backSpeed;
-                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
-            }
+
+            monsterAnim.OnMove(true, agent.speed);
+            agent.SetDestination(_target);
+            agent.speed = backSpeed;
+            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
+
         }
     }
 
@@ -162,6 +165,14 @@ public class MonsterAction : MonsterBase
 
     public override void Die()
     {
+        Stop();
+        isDie = true;
+        isAttack = false;
+        gameObject.tag = "Untagged";
+        GetComponent<CapsuleCollider>().enabled = false;
+
+        monsterAnim.OnDie();
+        monsterAnim.OnDieIdx();
     }
 
     public override void DropItem()
@@ -170,17 +181,28 @@ public class MonsterAction : MonsterBase
 
     public override void Hit(float _damage)
     {
-        monsters = Physics.OverlapSphere(monsterTr, traceDist, 1 << monsterLayer);
-        for(int i = 0; i < monsters.Length; i++)
+        if (!isDie)
         {
-            if (isAnger == false)
+            if (!monsters.Contains(monsterCollider))
             {
-                isAnger = true;
+                monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 3f, 1 << monsterLayer));
+            }
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                var mob = monsters[i].GetComponent<MonsterAction>();
+
+                if (mob.isAnger == false)
+                {
+                    mob.isAnger = true;
+                }
+            }
+            curHp -= _damage - finalDef;
+            monsterAnim.OnHit();
+            if (curHp <= 0)
+            {
+                state = STATE.Die;
             }
         }
-        
-        
-        
     }
 }
 

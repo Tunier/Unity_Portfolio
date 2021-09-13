@@ -8,9 +8,6 @@ public class MonsterAi : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-    public bool isDie = false;
-    public bool isAttack = false;
-
     MonsterAnim monsterAnim;
     MonsterAction monsterAction;
     Creature creature;
@@ -37,40 +34,44 @@ public class MonsterAi : MonoBehaviour
     private void Update()
     {
         dist = Vector3.Distance(playerTr.position, transform.position);
+
     }
+
     private void OnEnable()
     {
         StartCoroutine(Action());
         StartCoroutine(CheckState());
     }
+
     IEnumerator CheckState()
     {
         yield return new WaitForSeconds(1f);
 
-        while (!isDie && monsterAction.isAnger == true) //죽지않고 Anger가 true일때 상태변화
+        while (!monsterAction.isDie) //죽지않고 Anger가 true일때 상태변화
         {
-            //체력이 일정이하면 backing상태로 강제 이동 조건 걸어주기
-            if (creature.state == STATE.Die)
-                yield break;
-            else if (dist <= monsterAction.maxDist)
+            if (monsterAction.isAnger)
             {
-                if (dist < monsterAction.minDist)
+                if (dist <= monsterAction.maxDist)
                 {
-                    creature.state = STATE.Backing;
+                    if (dist < monsterAction.minDist)
+                    {
+                        creature.state = STATE.Backing;
+                    }
+                }
+                else if (dist <= monsterAction.attackDist && dist > monsterAction.maxDist)
+                {
+                    creature.state = STATE.Attacking;
+                }
+                else if (dist <= monsterAction.traceDist && dist > monsterAction.attackDist)
+                {
+                    creature.state = STATE.Chase;
+                }
+                else
+                {
+                    creature.state = STATE.Patrol;
                 }
             }
-            else if (dist <= monsterAction.attackDist && dist > monsterAction.maxDist)
-            {
-                creature.state = STATE.Attacking;
-            }
-            else if (dist <= monsterAction.traceDist && dist > monsterAction.attackDist)
-            {
-                creature.state = STATE.Chase;
-            }
-            else
-            {
-                creature.state = STATE.Patrol;
-            }
+
             yield return new WaitForSeconds(0.3f);
         }
     }
@@ -81,7 +82,7 @@ public class MonsterAi : MonoBehaviour
     /// <returns></returns>
     IEnumerator Action()
     {
-        while (!isDie)
+        while (!monsterAction.isDie)
         {
             yield return new WaitForSeconds(0.3f);
 
@@ -94,9 +95,6 @@ public class MonsterAi : MonoBehaviour
                     monsterAction.Chase(playerTr.position);
                     break;
                 case STATE.Attacking:
-                    //agent.enabled = false;
-                    //agent.isStopped = true;
-                    //agent.speed = 0;
                     agent.velocity = Vector3.zero;
                     monsterAction.Attack(playerTr.position);
                     break;
@@ -105,6 +103,7 @@ public class MonsterAi : MonoBehaviour
                     break;
                 case STATE.Die:
                     monsterAction.Die();
+                    monsterAction.DropItem();
                     break;
             }
         }

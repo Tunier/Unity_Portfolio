@@ -25,17 +25,21 @@ public class MonsterFire : MonoBehaviour
 
     public void ArrowShot()
     {
-        monsterAnim.OnAttack();
+        //테스트 instantiate
+        //var _arrow = Instantiate(arrow,transform.position, Quaternion.identity);
 
         //쏠때 파티클 제어문
-
-        //var _arrow = WeaponManager.instance.GetArrow();
-        var _arrow = Instantiate(arrow,transform.position, Quaternion.identity);
+        var _arrow = WeaponManager.instance.GetArrow();
         if(_arrow != null)
         {
+            monsterAnim.OnAttack();
             _arrow.transform.position = shotPos.position;
             _arrow.transform.rotation = shotPos.rotation;
             _arrow.SetActive(true);
+        }
+        else
+        {
+            monsterAnim.OnMove(false, 0f);
         }
 
     }

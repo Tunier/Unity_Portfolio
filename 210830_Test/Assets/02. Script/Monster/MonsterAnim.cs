@@ -5,9 +5,12 @@ using UnityEngine;
 public class MonsterAnim : MonoBehaviour
 {
     Animator animator;
+    [SerializeField]
+    GameObject attackCollision;
 
     readonly int hashMove = Animator.StringToHash("IsMove");
     readonly int hashDie = Animator.StringToHash("IsDie");
+    readonly int hashDieIdx = Animator.StringToHash("DieIdx");
     readonly int hashHit = Animator.StringToHash("IsHit");
     readonly int hashAttack = Animator.StringToHash("IsAttack");
     readonly int hashIdleIdx = Animator.StringToHash("IdleIdx");
@@ -27,6 +30,11 @@ public class MonsterAnim : MonoBehaviour
         animator.SetTrigger(hashDie);
     }
 
+    public void OnDieIdx()
+    {
+        animator.SetInteger(hashDieIdx, Random.Range(0, 2));
+    }
+
     public void OnAttack()
     {
         animator.SetTrigger(hashAttack);
@@ -40,6 +48,11 @@ public class MonsterAnim : MonoBehaviour
     public void OnIdle()
     {
         animator.SetInteger(hashIdleIdx, Random.Range(0, 3));
+    }
+
+    public void OnAttackCollision()
+    {
+        attackCollision.SetActive(true);
     }
 }
 

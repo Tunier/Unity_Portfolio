@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3139439165204021785}
   - component: {fileID: 3102331745425811200}
   - component: {fileID: 7281327880385308838}
-  - component: {fileID: -5929315336629669114}
+  - component: {fileID: 846709117322685691}
   m_Layer: 0
   m_Name: Goblin_Arrow
   m_TagString: Untagged
@@ -98,7 +98,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &7281327880385308838
 CapsuleCollider:
@@ -108,21 +108,22 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3139439165201853191}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.11776352
+  m_Radius: 0.21
   m_Height: 1.9627689
   m_Direction: 1
   m_Center: {x: 0, y: 0.98138446, z: -0.00000047683716}
---- !u!75 &-5929315336629669114
-ConstantForce:
+--- !u!114 &846709117322685691
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3139439165201853191}
   m_Enabled: 1
-  m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: -100, z: -10}
-  m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4dffc4f2a50b5e4292066e805a802e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowDamage: 10
