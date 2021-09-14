@@ -22,7 +22,8 @@ public class Item
     public int SellCost;
     public string ItemImagePath;
 
-    public int SlotIndex;
+    public int SlotIndex = 0; // 세이브용 데이터
+    public int Count = 0; // 세이브용 데이터
 
     public ItemEffect itemEffect = new ItemEffect();
 }
@@ -156,25 +157,6 @@ public class ItemDatabase : MonoBehaviour
         #endregion
     }
 
-    public void Save()
-    {
-        inven.SaveInven();
-    }
-
-    public void Load()
-    {
-        if (File.Exists(Application.dataPath + invenSavePath))
-        {
-            string Jdata = File.ReadAllText(Application.dataPath + invenSavePath);
-            LoadItemList = JsonConvert.DeserializeObject<List<Item>>(Jdata);
-            inven.LoadInven(LoadItemList);
-
-            Debug.Log("인벤토리 로드성공");
-        }
-        else
-            Debug.Log("세이브파일없음");
-    }
-
     public Item newItem(string _UIDCODE)
     {
         var item = new Item();
@@ -189,8 +171,8 @@ public class ItemDatabase : MonoBehaviour
 
         //var randomItemQuality = UnityEngine.Random.Range(1, 10000);
 
-        item.itemEffect.ValueDic = AllItemEffectDic[item.UIDCODE].ValueDic;
-        item.itemEffect.RequireValueDic = AllItemEffectDic[item.UIDCODE].RequireValueDic;
+        item.itemEffect.ValueDic = new Dictionary<int, float>(AllItemEffectDic[item.UIDCODE].ValueDic);
+        item.itemEffect.RequireValueDic = new Dictionary<int, float>(AllItemEffectDic[item.UIDCODE].RequireValueDic);
 
         // 나중에 아이템 효과 같은경우 아이템 종류에따라 랜덤 옵션 풀을 가지고, 퀄리티에 따라 옵션 갯수와
         // 옵션의 수치가 결정되도록 코드를 고쳐야함.

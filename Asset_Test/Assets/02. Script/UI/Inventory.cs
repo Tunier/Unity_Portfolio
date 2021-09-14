@@ -47,8 +47,6 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        //rect.localPosition = new Vector3(190, -12); // 게임켜면 위치 초기화.
-
         WeaponSlot = Equipment_Slots[0];
         HelmetSlot = Equipment_Slots[1];
         ArmorSlot = Equipment_Slots[2];
@@ -57,6 +55,13 @@ public class Inventory : MonoBehaviour
         GlovesSlot = Equipment_Slots[5];
         NecklaceSlot = Equipment_Slots[6];
         RingSlot = Equipment_Slots[7];
+
+        for (int i = 0; i < inventory_Slots.Count; i++)
+        {
+            inventory_Slots[i].index = i;
+        }
+
+        LoadInven();
 
         #region 테스트 코드
         GetItem(ItemDatabase.instance.newItem("0000003"));
@@ -141,19 +146,26 @@ public class Inventory : MonoBehaviour
         Debug.Log("인벤 세이브 완료");
     }
 
-    public void LoadInven(List<Item> itemList)
+    public void LoadInven()
     {
-        //for (int i = 0; i < itemList.Count; i++)
-        //{
-        //    if (itemList[i].Count != 0)
-        //    {
-        //        slots[itemList[i].SlotIndex].AddItem(itemList[i]);
-        //    }
-        //    else
-        //    {
-        //        Debug.Log(i + "번째 아이템 리스트의 아이템은 비어있어서 로드안함");
-        //    }
-        //}
+        if (File.Exists(Application.dataPath + "/Resources/Data/MyInvenItems.text"))
+        {
+            List<Item> loadItems = new List<Item>();
+
+            string Jdata = File.ReadAllText(Application.dataPath + "/Resources/Data/MyInvenItems.text");
+            loadItems = JsonConvert.DeserializeObject<List<Item>>(Jdata);
+
+            foreach (var item in loadItems)
+            {
+                inventory_Slots[item.SlotIndex].AddItem(item, item.Count);
+            }
+
+            Debug.Log("인벤토리 로드 완료.");
+        }
+        else
+        {
+            Debug.Log("인벤토리 세이브 데이터 없음.");
+        }
     }
 
     /// <summary>

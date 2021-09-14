@@ -67,6 +67,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         item = _item;
         itemCount = count;
         item.SlotIndex = index;
+        item.Count += count;
         itemImage.sprite = Resources.Load<Sprite>(_item.ItemImagePath);
         SetColorAlpha(0.85f);
 
@@ -108,6 +109,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public void SetSlotCount(int count)
     {
         itemCount += count;
+        item.Count -= count;
         countText.text = itemCount.ToString();
 
         if (itemCount <= 0)

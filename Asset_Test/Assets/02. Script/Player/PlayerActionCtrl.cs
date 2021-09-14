@@ -188,12 +188,7 @@ public class PlayerActionCtrl : MonoBehaviour
             if (skilltreeUI.activeSelf)
                 skilltreeUI.SetActive(false);
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            inventoryUI.SetActive(false);
-            skilltreeUI.SetActive(false);
-            statsUI.SetActive(false);
-        }
+        
 
         ani.SetBool(hashWhirlwind, isWhirlwind);
 

@@ -246,6 +246,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
     public override void Die()
     {
+        GameManager.Instance.isPause = true;
         print("»ç¸Á");
     }
 
