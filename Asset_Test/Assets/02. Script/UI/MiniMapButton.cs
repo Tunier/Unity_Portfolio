@@ -5,6 +5,8 @@ using UnityEngine;
 public class MiniMapButton : MonoBehaviour
 {
     public MiniMapCam minimapCam;
+    [SerializeField]
+    GameObject PlayerMark;
 
     private void Start()
     {
@@ -12,17 +14,19 @@ public class MiniMapButton : MonoBehaviour
     }
     public void OnClickPlus()
     {
-        if (minimapCam.offset.y > 15)
+        if (minimapCam.offset.y > 35)
         {
             minimapCam.offset.y -= 5;
+            PlayerMark.transform.position = new Vector3(PlayerMark.transform.localPosition.x, PlayerMark.transform.localPosition.y - 5);
         }
     }
   
     public void OnClickMinus()
     {
-        if (minimapCam.offset.y < 30)
+        if (minimapCam.offset.y < 50)
         {
             minimapCam.offset.y += 5;
+            PlayerMark.transform.position = new Vector3(PlayerMark.transform.localPosition.x, PlayerMark.transform.localPosition.y + 5);
         }
     }
 }

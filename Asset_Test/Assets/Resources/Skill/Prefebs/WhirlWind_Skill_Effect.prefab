@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1011112579302502169}
   - component: {fileID: 1011112579302502166}
   - component: {fileID: 1011112579302502167}
+  - component: {fileID: 3369356125038716822}
   m_Layer: 0
   m_Name: WhirlWind_Skill_Effect
   m_TagString: Untagged
@@ -61,6 +62,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHitMob: {fileID: 0}
   mobList: []
+--- !u!54 &3369356125038716822
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011112579302502168}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1011112579083057921
 PrefabInstance:
   m_ObjectHideFlags: 0

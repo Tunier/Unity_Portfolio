@@ -41,7 +41,7 @@ public class Skill2 : MonoBehaviour
                                                                       Quaternion.Euler(-90, 0, 0));
                     Destroy(obj, 1f);
 
-                    curHitMob.GetComponent<MonsterBase>().Hit((_skill.Value + (player.player_Skill_Dic["0300005"] - 1)
+                    curHitMob.GetComponent<MonsterBase>().Hit((_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1)
                                                                 * _skill.ValueFactor) * 1.5f);
 
                     UIManager.Instance.ShowDamageText((_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor) * 1.5f, true);
@@ -54,7 +54,7 @@ public class Skill2 : MonoBehaviour
                                                                       Quaternion.Euler(-90, 0, 0));
                     Destroy(obj, 1f);
 
-                    curHitMob.GetComponent<MonsterBase>().Hit(_skill.Value + (player.player_Skill_Dic["0300005"] - 1)
+                    curHitMob.GetComponent<MonsterBase>().Hit(_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1)
                                                                * _skill.ValueFactor);
 
                     UIManager.Instance.ShowDamageText(_skill.Value + (player.player_Skill_Dic[_skill.UIDCODE] - 1) * _skill.ValueFactor);

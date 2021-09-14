@@ -130,6 +130,9 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             curMp += finalMpRegen * Time.deltaTime;
         else
             curMp = finalMaxMp;
+
+        //if (stats.CurExp >= stats.MaxExp)
+            //LevelUp();
     }
 
     /// <summary>

@@ -72,6 +72,19 @@ public class PlayerMovement : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
 
+        if (playerInfo.state == STATE.Attacking)
+        {
+            if (nav.enabled)
+            {
+                wantMove = false;
+
+                nav.isStopped = true;
+                nav.ResetPath();
+
+                clickEffect.clickEffectCanvas.enabled = false;
+            }
+        }
+
         if (playerInfo.state != STATE.Die && playerInfo.state != STATE.Attacking)
         {
             #region 키보드로 제어하는 움직임 부분

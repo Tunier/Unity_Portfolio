@@ -43,6 +43,7 @@ public enum STATE
     Chase,
     Attacking,
     Backoff,
+    Backing,
     Jump,
     JumpAndAttack,
     Rolling,
@@ -58,7 +59,7 @@ public abstract class Creature : MonoBehaviour, IHit, IDie
     public float finalMaxHp { get; protected set; }
     public float curHp;
 
-    public float finalHpRegen;
+    public float finalHpRegen { get; protected set; }
 
     public float finalNormalAtk { get; protected set; }
     public float finalMagicAtk { get; protected set; }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MonsterBase : Creature
 {
-    int dropGold;
+    public int dropGold { get; protected set; }
 
     public abstract void DropItem();
 }

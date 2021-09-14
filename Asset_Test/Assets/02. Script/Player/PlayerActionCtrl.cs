@@ -16,6 +16,8 @@ public class PlayerActionCtrl : MonoBehaviour
     PlayerInfo player;
     SkillDatabase skillDB;
     Tooltip tooltip;
+    [SerializeField]
+    GameObject cameraArm;
 
     public RectTransform inventoryRect;
     public RectTransform skillTreeRect;
@@ -152,6 +154,9 @@ public class PlayerActionCtrl : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
+                Vector3 camArmRot = new Vector3(0, cameraArm.transform.eulerAngles.y, 0);
+                transform.rotation = Quaternion.Euler(camArmRot);
+
                 player.state = STATE.Attacking;
                 ani.SetBool(hashIsAttack, true);
             }
