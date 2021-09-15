@@ -75,6 +75,87 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &710961647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710961648}
+  - component: {fileID: 710961650}
+  - component: {fileID: 710961649}
+  m_Layer: 9
+  m_Name: MonsterCube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &710961648
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710961647}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_Children: []
+  m_Father: {fileID: 5290976716515388184}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &710961650
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710961647}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &710961649
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710961647}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: aee61fe1829dfc949af1831e0220676f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1160032736
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97d7bba1c61bc74da4c6d430bfcce0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 5290976716515456381}
+  monster: {fileID: 5777615530022163373}
   hpFill: {fileID: 302878796}
 --- !u!1 &5290976716515456346
 GameObject:
@@ -232,10 +313,9 @@ GameObject:
   - component: {fileID: 5290976716508344370}
   - component: {fileID: 5290976715807152090}
   - component: {fileID: 5290976716515456368}
-  - component: {fileID: 5290976716515456383}
-  - component: {fileID: 5290976716515456380}
-  - component: {fileID: 5290976716515456381}
   - component: {fileID: 54685571912769723}
+  - component: {fileID: 5290976716515456383}
+  - component: {fileID: 5777615530022163373}
   m_Layer: 10
   m_Name: LittleboarB
   m_TagString: Monster
@@ -258,6 +338,7 @@ Transform:
   - {fileID: 5290976716515412644}
   - {fileID: 5290976716595145322}
   - {fileID: 1160032737}
+  - {fileID: 710961648}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -316,68 +397,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.3, z: 0}
---- !u!114 &5290976716515456383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5290976716515456370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accca6cf43947c14382cf7e1f389a7b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCollision: {fileID: 5290976716595145323}
---- !u!114 &5290976716515456380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5290976716515456370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f01cd893192f24a96bedb20414bedd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
---- !u!114 &5290976716515456381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5290976716515456370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98aa844d844b52140965684cf426bcfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curHp: 50
-  player: {fileID: 0}
-  exp: 20
-  attackMetod: 0
-  group: {fileID: 0}
-  movePoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  nextIdx: 0
-  minDist: -1.5
-  maxDist: -1.5
-  attackDist: 5
-  traceDist: 15
-  attackRate: 0.2
-  nextFire: 0
-  patrolSpeed: 5
-  traceSpeed: 10
-  backSpeed: 15
-  isDie: 0
-  isAttack: 0
-  isAnger: 0
-  monsters: []
 --- !u!54 &54685571912769723
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -394,6 +413,54 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &5290976716515456383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5290976716515456370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accca6cf43947c14382cf7e1f389a7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCollision: {fileID: 5290976716595145323}
+--- !u!114 &5777615530022163373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5290976716515456370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4ef9e4c05218545b00a36a2c63d0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curHp: 0
+  playerGo: {fileID: 0}
+  player: {fileID: 0}
+  exp: 20
+  group: {fileID: 0}
+  movePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  nextIdx: 0
+  minDist: -1
+  maxDist: 0
+  attackDist: 4
+  traceDist: 15
+  attackRate: 0.2
+  nextFire: 0
+  patrolSpeed: 4
+  traceSpeed: 10
+  backSpeed: 20
+  isDie: 0
+  isAttack: 0
+  monsters: []
 --- !u!1 &5290976716515463502
 GameObject:
   m_ObjectHideFlags: 0

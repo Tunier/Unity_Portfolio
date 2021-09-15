@@ -8,7 +8,7 @@ public class HpCanvas : MonoBehaviour
     GameObject CameraArm;
 
     [SerializeField]
-    MonsterAction monster;
+    MonsterBase monster;
     [SerializeField]
     Image hpFill;
 

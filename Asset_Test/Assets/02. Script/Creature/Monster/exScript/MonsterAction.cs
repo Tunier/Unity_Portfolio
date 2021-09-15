@@ -34,7 +34,6 @@ public class MonsterAction : MonsterBase
 
     public bool isDie = false;
     public bool isAttack = false;
-    public bool isAnger = false;        //¼±°ø : Anger true ÈÄ°ø : Anger false
 
     Vector3 monsterTr;
     NavMeshAgent agent;
@@ -213,7 +212,10 @@ public class MonsterAction : MonsterBase
             player.stats.CurExp += exp;
             player.stats.Gold += dropGold;
 
-            if (player.stats.CurExp > player.stats.MaxExp)
+            Debug.Log("°æÇèÄ¡ "+ exp + "È¹µæ");
+            Debug.Log("°ñµå " + dropGold + "È¹µæ");
+
+            if (player.stats.CurExp >= player.stats.MaxExp)
                 player.LevelUp();
 
             monsterAi.StopCoroutine(monsterAi.checkState);

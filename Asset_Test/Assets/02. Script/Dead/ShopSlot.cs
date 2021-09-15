@@ -14,7 +14,6 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Image itemImage;
 
     Inventory inven;
-
     [SerializeField]
     RectTransform invenBase;
 
