@@ -22,6 +22,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public GameObject targetMonster;
 
     public GameObject cameraArm;
+    public Inventory inven;
 
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
@@ -314,6 +315,13 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             stats.Int = 5f + (stats.Level - 1);
 
             stats.Skill_Point = stats.Level - 1;
+
+            //GetItem(ItemDatabase.instance.newItem("0000003"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000000"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000004"));
+            //GetItem(ItemDatabase.instance.newItem("0000005"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000008"), 5);
+            //GetItem(ItemDatabase.instance.newItem("0000009"), 10);
 
             #endregion
         }

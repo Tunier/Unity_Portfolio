@@ -7,6 +7,7 @@ public class MonsterBoar : MonsterBase
 {
     [SerializeField]
     GameObject playerGo;
+    public GameObject minimapCube;
 
     public PlayerInfo player;
     Transform playerTr;
@@ -201,6 +202,8 @@ public class MonsterBoar : MonsterBase
         isDie = true;
         isAttack = false;
         GetComponent<CapsuleCollider>().enabled = false;
+
+        minimapCube.SetActive(false);
     }
 
     public override void DropItem()
@@ -228,7 +231,7 @@ public class MonsterBoar : MonsterBase
 
         if (!monsters.Contains(monsterCollider))
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 3f, 1 << monsterLayer));
+            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
         }
 
         for (int i = 0; i < monsters.Count; i++)

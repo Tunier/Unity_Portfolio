@@ -499,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHp: 0
   playerGo: {fileID: 0}
+  minimapCube: {fileID: 5260240746739241129}
   player: {fileID: 0}
   exp: 20
   group: {fileID: 0}

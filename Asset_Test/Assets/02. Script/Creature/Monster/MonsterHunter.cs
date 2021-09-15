@@ -7,6 +7,7 @@ public class MonsterHunter : MonsterBase
 {
     [SerializeField]
     GameObject playerGo;
+    public GameObject minimapCube;
 
     public PlayerInfo player;
     Transform playerTr;
@@ -18,8 +19,8 @@ public class MonsterHunter : MonsterBase
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = 4f;          //최소 공격거리
     public float maxDist = 10f;
-    public float attackDist = 14f;       //최대 공격거리
-    public float traceDist = 20f;       //추적 거리
+    public float attackDist = 13f;       //최대 공격거리
+    public float traceDist = 16f;       //추적 거리
 
 
     public float attackRate = 0.2f;     //공격딜레이
@@ -211,6 +212,8 @@ public class MonsterHunter : MonsterBase
         isDie = true;
         isAttack = false;
         GetComponent<CapsuleCollider>().enabled = false;
+
+        minimapCube.SetActive(false);
     }
 
     public override void DropItem()
@@ -238,7 +241,7 @@ public class MonsterHunter : MonsterBase
 
         if (!monsters.Contains(monsterCollider))
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 3f, 1 << monsterLayer));
+            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
         }
 
         for (int i = 0; i < monsters.Count; i++)

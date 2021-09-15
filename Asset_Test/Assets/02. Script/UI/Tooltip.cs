@@ -275,8 +275,8 @@ public class Tooltip : MonoBehaviour
         if (keys.Count == 1 && keys[0] == 0)
         {
             RequireText.gameObject.SetActive(false);
-            foreach (GameObject obj in Divider)
-                obj.SetActive(false);
+            //foreach (GameObject obj in Divider)
+            //    obj.SetActive(false);
         }
         else
         {
@@ -464,6 +464,8 @@ public class Tooltip : MonoBehaviour
         BaseValueText.gameObject.SetActive(false);
 
         RequireText.text = string.Format("요구 레벨 <color><b>{0}</b></color>", _skill.NeedLv + player.player_Skill_Dic[_skill.UIDCODE]);
+
+        EffectText.gameObject.SetActive(true);
 
         if (player.player_Skill_Dic[_skill.UIDCODE] > 0)
             switch (_skill.UIDCODE)
