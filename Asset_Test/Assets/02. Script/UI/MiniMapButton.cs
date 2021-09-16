@@ -8,17 +8,17 @@ public class MiniMapButton : MonoBehaviour
 
     public void OnClickPlus()
     {
-        if (minimapCamera.orthographicSize > 33)
+        if (minimapCamera.orthographicSize > 40)
         {
-            minimapCamera.orthographicSize -= 6;
+            minimapCamera.orthographicSize -= 15;
         }
     }
   
     public void OnClickMinus()
     {
-        if (minimapCamera.orthographicSize < 60)
+        if (minimapCamera.orthographicSize < 90)
         {
-            minimapCamera.orthographicSize += 6;
+            minimapCamera.orthographicSize += 15;
         }
     }
 }

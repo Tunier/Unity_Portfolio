@@ -323,6 +323,8 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             inven.GetItem(ItemDatabase.instance.newItem("0000008"), 5);
             //GetItem(ItemDatabase.instance.newItem("0000009"), 10);
 
+            stats.Gold = 1000;
+
             #endregion
         }
 
