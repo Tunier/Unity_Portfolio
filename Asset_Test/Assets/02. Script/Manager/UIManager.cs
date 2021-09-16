@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoSingletone<UIManager>
 {
     public PlayerInfo player;
-
+    public CharacterController characterController;
     public GameObject go_DamageText;
 
     public Canvas BackCanvas;
@@ -26,7 +26,7 @@ public class UIManager : MonoSingletone<UIManager>
     [SerializeField]
     GameObject shopUI;
 
-    float recognitionRange = 3.5f;
+    public float recognitionRange = 3.5f;
     private void Awake()
     {
         hotKeyGuid.SetActive(false);
@@ -138,6 +138,7 @@ public class UIManager : MonoSingletone<UIManager>
     /// <returns></returns>
     public IEnumerator FadeCoroutine(float _darkTime, int _waynumber)
     {
+        characterController.enabled = false;
         float fadeCount = 0;
         while (fadeCount < 1.0f)
         {
@@ -153,6 +154,7 @@ public class UIManager : MonoSingletone<UIManager>
             yield return new WaitForSeconds(0.03f);
             fadeImg.color = new Color(0, 0, 0, fadeCount);
         }
+        characterController.enabled = true;
     }
 
 }
