@@ -47,7 +47,6 @@ public class Skill_Tree_UI : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         if (!SkillTree_BG.gameObject.activeSelf)

@@ -34,7 +34,7 @@ public class SkillDatabase : MonoBehaviour
     PlayerInfo player;
     PlayerActionCtrl playerAC;
 
-    public GameObject skill2HitArea;
+    GameObject skill2HitArea;
 
     const string skillDataPath = "/Resources/Data/All_Skill_Data.text";
 
@@ -43,7 +43,7 @@ public class SkillDatabase : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -69,13 +69,16 @@ public class SkillDatabase : MonoBehaviour
 
         player = FindObjectOfType<PlayerInfo>();
         playerAC = FindObjectOfType<PlayerActionCtrl>();
+        skill2HitArea = GameObject.Find("Skill2HitBox");
 
         player.player_Skill_Dic.Add(AllSkillDic["0300000"].UIDCODE, 1); // 임시로 플레이어의 스킬리스트에 스킬을 넣어줌.
         player.player_Skill_Dic.Add(AllSkillDic["0300001"].UIDCODE, 0);
         player.player_Skill_Dic.Add(AllSkillDic["0300002"].UIDCODE, 0);
-        player.player_Skill_Dic.Add(AllSkillDic["0300003"].UIDCODE, 0);
-        player.player_Skill_Dic.Add(AllSkillDic["0300004"].UIDCODE, 0);
+        //player.player_Skill_Dic.Add(AllSkillDic["0300003"].UIDCODE, 0);
+        //player.player_Skill_Dic.Add(AllSkillDic["0300004"].UIDCODE, 0);
         player.player_Skill_Dic.Add(AllSkillDic["0300005"].UIDCODE, 0);
+
+        skill2HitArea.SetActive(false);
     }
 
     public Skill NewSkill(string _UIDCODE)

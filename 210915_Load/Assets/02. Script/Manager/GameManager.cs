@@ -10,6 +10,7 @@ public class GameManager : MonoSingletone<GameManager>
     public GameObject inventoryUI;
     public GameObject statusUI;
     public GameObject skilltreeUI;
+    public GameObject shopUI;
     public GameObject PauseCanvas;
 
     public GameObject dieText;
@@ -18,6 +19,7 @@ public class GameManager : MonoSingletone<GameManager>
     Inventory inventory;
 
     public bool isPause = false;
+    bool isGamequit = false;
 
     //public Texture2D[] cursorImg;
 
@@ -28,6 +30,7 @@ public class GameManager : MonoSingletone<GameManager>
         inventory = FindObjectOfType<Inventory>();
 
         isPause = false;
+        isGamequit = false;
 
         //Vector2 mousePos = new Vector2(-2f, 0);
     }
@@ -44,23 +47,27 @@ public class GameManager : MonoSingletone<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (wayPointUI.activeSelf || inventoryUI.activeSelf || statusUI.activeSelf || skilltreeUI.activeSelf)
+            if (wayPointUI.activeSelf || inventoryUI.activeSelf || statusUI.activeSelf || skilltreeUI.activeSelf || shopUI.activeSelf)
             {
                 wayPointUI.SetActive(false);
                 inventoryUI.SetActive(false);
                 skilltreeUI.SetActive(false);
                 statusUI.SetActive(false);
+
+                DragSlot.instance.SetColorAlpha(0);
+                DragSlot.instance.dragSlot = null;
+                DragSlot.instance.dragSkillSlot = null;
             }
-            else if (!wayPointUI.activeSelf && !inventoryUI.activeSelf && !statusUI.activeSelf && !skilltreeUI.activeSelf)
+            else if (!wayPointUI.activeSelf && !inventoryUI.activeSelf && !statusUI.activeSelf && !skilltreeUI.activeSelf && !shopUI.activeSelf)
                 isPause = !isPause;
         }
 
-        if (isPause)
+        if (isPause && !isGamequit)
         {
             PauseCanvas.SetActive(true);
             Time.timeScale = 0;
         }
-        else
+        else if (!isPause || isGamequit)
         {
             PauseCanvas.SetActive(false);
             Time.timeScale = 1;
@@ -126,6 +133,7 @@ public class GameManager : MonoSingletone<GameManager>
     {
         player.SavePlayerInfo();
         inventory.SaveInven();
-        // 시작씬 로드하는 기능 추가필요.
+        isGamequit = true;
+        LoadingSceneController.Instance.LoadScene("Game_Title_Scene");
     }
 }

@@ -19,12 +19,12 @@ public class Inventory : MonoBehaviour
 
     [SerializeField]
     PlayerInfo player;
+    [SerializeField]
+    PlayerActionCtrl playerAC;
     Tooltip tooltip;
 
     public List<Slot> inventory_Slots = new List<Slot>();
     public List<Slot> Equipment_Slots = new List<Slot>();
-
-    public List<Item> myItems = new List<Item>();
 
     public bool isFull = false;
 
@@ -43,10 +43,7 @@ public class Inventory : MonoBehaviour
         inventory_Slots.AddRange(inventory_Slot_Parent.GetComponentsInChildren<Slot>()); // 칠드런으로 받아오는 이유는 비활성화 되면 못받아오기때문에 비활성화된 상태도 찾아올수있는 칠드런으로 받아온다.
         Equipment_Slots.AddRange(eqipment_Slot_Parent.GetComponentsInChildren<Slot>());
         tooltip = FindObjectOfType<Tooltip>();
-    }
 
-    private void Start()
-    {
         WeaponSlot = Equipment_Slots[0];
         HelmetSlot = Equipment_Slots[1];
         ArmorSlot = Equipment_Slots[2];
@@ -55,22 +52,21 @@ public class Inventory : MonoBehaviour
         GlovesSlot = Equipment_Slots[5];
         NecklaceSlot = Equipment_Slots[6];
         RingSlot = Equipment_Slots[7];
+    }
 
+    private void Start()
+    {
         for (int i = 0; i < inventory_Slots.Count; i++)
         {
             inventory_Slots[i].index = i;
         }
 
-        LoadInven();
+        for (int i = 0; i < Equipment_Slots.Count; i++)
+        {
+            Equipment_Slots[i].index = i;
+        }
 
-        #region 테스트 코드
-        GetItem(ItemDatabase.instance.newItem("0000003"));
-        GetItem(ItemDatabase.instance.newItem("0000002"));
-        GetItem(ItemDatabase.instance.newItem("0000004"));
-        GetItem(ItemDatabase.instance.newItem("0000005"));
-        GetItem(ItemDatabase.instance.newItem("0000008"), 5);
-        GetItem(ItemDatabase.instance.newItem("0000009"), 10);
-        #endregion
+        LoadInven();
     }
 
     private void Update()
@@ -129,6 +125,10 @@ public class Inventory : MonoBehaviour
 
     public void SaveInven()
     {
+        List<Item> myItems = new List<Item>();
+        List<Item> myEquipItems = new List<Item>();
+        List<Item> myPotionSlotItems = new List<Item>();
+
         for (int i = 0; i < inventory_Slots.Count; i++)
         {
             if (inventory_Slots[i].itemCount != 0)
@@ -140,8 +140,36 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        for (int i = 0; i < Equipment_Slots.Count; i++)
+        {
+            if (Equipment_Slots[i].itemCount != 0)
+            {
+                if (!myEquipItems.Contains(Equipment_Slots[i].item))
+                {
+                    myEquipItems.Add(Equipment_Slots[i].item);
+                }
+            }
+        }
+
+        for (int i = 0; i < playerAC.potionSlot.Count; i++)
+        {
+            if (playerAC.potionSlot[i].itemCount != 0)
+            {
+                if (!myPotionSlotItems.Contains(playerAC.potionSlot[i].item))
+                {
+                    myPotionSlotItems.Add(playerAC.potionSlot[i].item);
+                }
+            }
+        }
+
         string Jdata = JsonConvert.SerializeObject(myItems, Formatting.Indented);
         File.WriteAllText(Application.dataPath + "/Resources/Data/MyInvenItems.text", Jdata);
+
+        string Jdata2 = JsonConvert.SerializeObject(myEquipItems, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Resources/Data/MyEquipItems.text", Jdata2);
+
+        string Jdata3 = JsonConvert.SerializeObject(myPotionSlotItems, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Resources/Data/MyQuickSlotItems.text", Jdata3);
 
         Debug.Log("인벤 세이브 완료");
     }
@@ -165,6 +193,40 @@ public class Inventory : MonoBehaviour
         else
         {
             Debug.Log("인벤토리 세이브 데이터 없음.");
+        }
+
+        if (File.Exists(Application.dataPath + "/Resources/Data/MyEquipItems.text"))
+        {
+            List<Item> loadEquipItems = new List<Item>();
+
+            string Jdata2 = File.ReadAllText(Application.dataPath + "/Resources/Data/MyEquipItems.text");
+            loadEquipItems = JsonConvert.DeserializeObject<List<Item>>(Jdata2);
+
+            foreach (var item in loadEquipItems)
+            {
+                Equipment_Slots[item.SlotIndex].OnLoadEquipItem(item);
+            }
+        }
+        else
+        {
+            Debug.Log("장착한 장비 데이터 없음.");
+        }
+
+        if (File.Exists(Application.dataPath + "/Resources/Data/MyQuickSlotItems.text"))
+        {
+            List<Item> loadPotionSlotItems = new List<Item>();
+
+            string Jdata2 = File.ReadAllText(Application.dataPath + "/Resources/Data/MyQuickSlotItems.text");
+            loadPotionSlotItems = JsonConvert.DeserializeObject<List<Item>>(Jdata2);
+
+            foreach (var item in loadPotionSlotItems)
+            {
+                playerAC.potionSlot[item.SlotIndex].AddItem(item, item.Count);
+            }
+        }
+        else
+        {
+            Debug.Log("장착한 장비 데이터 없음.");
         }
     }
 

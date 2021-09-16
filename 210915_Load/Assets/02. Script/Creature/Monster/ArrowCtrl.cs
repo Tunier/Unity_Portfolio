@@ -11,7 +11,7 @@ public class ArrowCtrl : MonoBehaviour
     Rigidbody rb;
 
     Vector3 shotRot;
-    Vector3 dir;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -20,8 +20,8 @@ public class ArrowCtrl : MonoBehaviour
 
     private void OnEnable()
     {
-        dir = (player.transform.position - transform.position).normalized;
-        shotRot = dir;
+        delayTime = 0;
+        shotRot = (new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z) - new Vector3(transform.position.x, 0.1f, transform.position.z)).normalized;
     }
 
     void Update()
@@ -56,10 +56,9 @@ public class ArrowCtrl : MonoBehaviour
             playerInfo.Hit(arrowDamage);
             rb.velocity = Vector3.zero;
             this.gameObject.SetActive(false);
-            //WeaponManager.instance.arrowPool.Add(this.gameObject);
+
+            if (playerInfo.curHp <= 0)
+                playerInfo.Die();
         }
     }
-
-
-
 }

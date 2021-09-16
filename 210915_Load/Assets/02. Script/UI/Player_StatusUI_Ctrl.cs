@@ -26,8 +26,8 @@ public class Player_StatusUI_Ctrl : MonoBehaviour
     {
         playerInfo = FindObjectOfType<PlayerInfo>();
 
-        hpBar.fillAmount = playerInfo.curHp / playerInfo.finalMaxHp;
-        mpBar.fillAmount = playerInfo.curMp / playerInfo.finalMaxMp;
+        hpBar.fillAmount = 1;
+        mpBar.fillAmount = 1;
         expBar.fillAmount = playerInfo.stats.CurExp / playerInfo.stats.MaxExp;
     }
 

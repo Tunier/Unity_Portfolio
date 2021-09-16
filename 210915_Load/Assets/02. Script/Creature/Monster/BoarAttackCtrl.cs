@@ -28,6 +28,9 @@ public class BoarAttackCtrl : MonoBehaviour
                 var playerInfo = player.GetComponent<PlayerInfo>();
                 playerInfo.Hit(attackDamage);
                 isAttacked = true;
+
+                if (playerInfo.curHp <= 0)
+                    playerInfo.Die();
             }
         }
     }

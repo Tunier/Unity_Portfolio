@@ -7,6 +7,7 @@ public class MonsterHunter : MonsterBase
 {
     [SerializeField]
     GameObject playerGo;
+    public GameObject minimapCube;
 
     public PlayerInfo player;
     Transform playerTr;
@@ -18,8 +19,8 @@ public class MonsterHunter : MonsterBase
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = 4f;          //최소 공격거리
     public float maxDist = 10f;
-    public float attackDist = 14f;       //최대 공격거리
-    public float traceDist = 20f;       //추적 거리
+    public float attackDist = 13f;       //최대 공격거리
+    public float traceDist = 16f;       //추적 거리
 
 
     public float attackRate = 0.2f;     //공격딜레이
@@ -37,7 +38,6 @@ public class MonsterHunter : MonsterBase
 
     public bool isDie = false;
     public bool isAttack = false;
-    public bool isAnger = true;        //선공 : Anger true 후공 : Anger false
 
     float dist; //플레이어와 적의 거리
     Vector3 monsterTr;
@@ -73,7 +73,7 @@ public class MonsterHunter : MonsterBase
         }
         dropGold = 15;
         finalMaxHp = 50f;
-        finalNormalDef = 10f;
+        finalNormalDef = 0;
         curHp = 50f;
     }
 
@@ -81,6 +81,8 @@ public class MonsterHunter : MonsterBase
     {
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
+
+        isAnger = true;
     }
 
     private void Update()
@@ -128,13 +130,16 @@ public class MonsterHunter : MonsterBase
     public void Attack(Vector3 _target)
     {
         Vector3 dir = (_target - transform.position).normalized;
-        if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
+        if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.1f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
         {
+            agent.enabled = true;
+            Stop();
+
             if (isAttack == false)
             {
                 isAttack = true;
             }
-            Stop();
+
             if (Time.time >= nextFire)
             {
                 monsterAnim.OnAttack();
@@ -148,11 +153,13 @@ public class MonsterHunter : MonsterBase
                 isAttack = false;
             }
 
-            monsterAnim.OnMove(true, agent.speed);
-            agent.SetDestination(_target);
-            agent.speed = backSpeed;
-            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
 
+            monsterAnim.OnMove(true, agent.speed);
+            agent.enabled = false;
+
+            //agent.SetDestination(_target);
+            //agent.speed = backSpeed;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
         }
     }
 
@@ -198,10 +205,15 @@ public class MonsterHunter : MonsterBase
         monsterAnim.OnDie();
         monsterAnim.OnDieIdx();
 
-        Stop();
+        if (agent.enabled)
+        {
+            Stop();
+        }
         isDie = true;
         isAttack = false;
         GetComponent<CapsuleCollider>().enabled = false;
+
+        minimapCube.SetActive(false);
     }
 
     public override void DropItem()
@@ -229,7 +241,7 @@ public class MonsterHunter : MonsterBase
 
         if (!monsters.Contains(monsterCollider))
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 3f, 1 << monsterLayer));
+            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
         }
 
         for (int i = 0; i < monsters.Count; i++)
@@ -238,7 +250,7 @@ public class MonsterHunter : MonsterBase
                 continue;
             else
             {
-                var mob = monsters[i].GetComponent<MonsterHunter>();
+                var mob = monsters[i].GetComponent<MonsterBase>();
 
                 if (mob.isAnger == false)
                 {
@@ -262,6 +274,7 @@ public class MonsterHunter : MonsterBase
                 {
                     if (dist < minDist)
                     {
+                        agent.enabled = true;
                         state = STATE.Backing;
                     }
                 }
@@ -271,10 +284,12 @@ public class MonsterHunter : MonsterBase
                 }
                 else if (dist <= traceDist && dist > attackDist)
                 {
+                    agent.enabled = true;
                     state = STATE.Chase;
                 }
                 else
                 {
+                    agent.enabled = true;
                     state = STATE.Patrol;
                 }
             }
@@ -313,6 +328,9 @@ public class MonsterHunter : MonsterBase
                     DropItem();
                     yield break;
             }
+
+            if (state == STATE.Die)
+                break;
 
             yield return new WaitForSeconds(0.05f);
         }

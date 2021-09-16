@@ -1,0 +1,16 @@
+{
+  "s_Name": null,
+  "Level": 20,
+  "Skill_Point": 19,
+  "CurExp": 20.0,
+  "MaxExp": 2000.0,
+  "MaxHp": 480.0,
+  "MaxMp": 115.0,
+  "Str": 24.0,
+  "Int": 24.0,
+  "Pos_x": -46.40046,
+  "Pos_y": 0.115000367,
+  "Pos_z": 27.6257763,
+  "Rot_y": 151.399323,
+  "Gold": 15
+}

@@ -58,6 +58,8 @@ public class PlayerActionCtrl : MonoBehaviour
     readonly int hashSpeed = Animator.StringToHash("Speed_f");
     readonly int hashJump = Animator.StringToHash("Jump_b");
     readonly int hashSwordSkill2 = Animator.StringToHash("UseSwordSkill2");
+    readonly int hashDeath = Animator.StringToHash("Death_b");
+    readonly int hashDeathtype = Animator.StringToHash("DeathType_int");
 
     void Awake()
     {
@@ -170,6 +172,15 @@ public class PlayerActionCtrl : MonoBehaviour
             {
                 tooltip.HideTooltip();
             }
+            else if (!inventoryUI.activeSelf)
+            {
+                if (DragSlot.instance.dragSlot != null)
+                    if (DragSlot.instance.dragSlot.itemCount != 0)
+                    {
+                        DragSlot.instance.SetColorAlpha(0);
+                        DragSlot.instance.dragSlot = null;
+                    }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
@@ -181,6 +192,14 @@ public class PlayerActionCtrl : MonoBehaviour
             {
                 tooltip.HideTooltip();
             }
+            else if (!skilltreeUI.activeSelf)
+            {
+                if (DragSlot.instance.dragSkillSlot != null)
+                {
+                    DragSlot.instance.SetColorAlpha(0);
+                    DragSlot.instance.dragSkillSlot = null;
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.O))
         {
@@ -188,7 +207,7 @@ public class PlayerActionCtrl : MonoBehaviour
             if (skilltreeUI.activeSelf)
                 skilltreeUI.SetActive(false);
         }
-        
+
 
         ani.SetBool(hashWhirlwind, isWhirlwind);
 
@@ -341,6 +360,13 @@ public class PlayerActionCtrl : MonoBehaviour
                 case STATE.Hit:
                     // 히트모션 동작하게 해야함.
                     break;
+                case STATE.Die:
+                    ani.SetBool(hashIsAttack, false);
+                    ani.SetBool(hashJump, false);
+                    ani.SetFloat(hashSpeed, 0);
+                    ani.SetBool(hashDeath, true);
+                    ani.SetInteger(hashDeathtype, 1);
+                    yield break;
             }
 
             yield return new WaitForSeconds(0.1f);

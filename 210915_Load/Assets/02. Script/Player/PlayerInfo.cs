@@ -22,6 +22,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public GameObject targetMonster;
 
     public GameObject cameraArm;
+    public Inventory inven;
 
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
@@ -87,13 +88,16 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     SkillDatabase skillDB;
 
     const string PlayerDataPath = "/Resources/Data/PlayerData.text";
+    const string PlayerSkillDataPath = "/Resources/Data/PlayerSkillData.text";
 
     CharacterController cController;
+    Animator ani;
 
     void Awake()
     {
         skillDB = FindObjectOfType<SkillDatabase>();
         cController = GetComponent<CharacterController>();
+        ani = GetComponent<Animator>();
 
         LoadPlayerInfo();
 
@@ -131,8 +135,14 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         else
             curMp = finalMaxMp;
 
+        if (curHp < 0)
+            curHp = 0;
+
+        if (curMp < 0)
+            curMp = 0;
+
         //if (stats.CurExp >= stats.MaxExp)
-            //LevelUp();
+        //LevelUp();
     }
 
     /// <summary>
@@ -246,8 +256,18 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
     public override void Die()
     {
-        GameManager.Instance.isPause = true;
+        state = STATE.Die;
+
         print("사망");
+
+        StartCoroutine(DieCo());
+    }
+
+    IEnumerator DieCo()
+    {
+        yield return new WaitForSeconds(3f);
+
+        GameManager.Instance.isPause = true;
     }
 
     public virtual void SavePlayerInfo()
@@ -260,6 +280,9 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         string Jdata = JsonConvert.SerializeObject(stats, Formatting.Indented);
         File.WriteAllText(Application.dataPath + PlayerDataPath, Jdata);
 
+        string Jdata2 = JsonConvert.SerializeObject(player_Skill_Dic, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + PlayerSkillDataPath, Jdata2);
+
         Debug.Log("플레이어데이터 세이브 완료");
     }
 
@@ -269,11 +292,11 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         {
             string Jdata = File.ReadAllText(Application.dataPath + PlayerDataPath);
             stats = JsonConvert.DeserializeObject<Stats>(Jdata);
+
             cController.enabled = false;
             transform.position = new Vector3(stats.Pos_x, stats.Pos_y, stats.Pos_z);
             transform.eulerAngles = new Vector3(0, stats.Rot_y, 0);
             cameraArm.transform.eulerAngles = new Vector3(0, stats.Rot_y, 0);
-
             cController.enabled = true;
 
             Debug.Log("플레이어데이터 로드성공.");
@@ -293,7 +316,26 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
             stats.Skill_Point = stats.Level - 1;
 
+            //GetItem(ItemDatabase.instance.newItem("0000003"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000000"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000004"));
+            //GetItem(ItemDatabase.instance.newItem("0000005"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000008"), 5);
+            //GetItem(ItemDatabase.instance.newItem("0000009"), 10);
+
             #endregion
+        }
+
+        if (File.Exists(Application.dataPath + PlayerSkillDataPath))
+        {
+            string Jdata = File.ReadAllText(Application.dataPath + PlayerSkillDataPath);
+            player_Skill_Dic = JsonConvert.DeserializeObject<Dictionary<string, int>>(Jdata);
+
+            Debug.Log("플레이어 스킬데이터 로드 성공");
+        }
+        else
+        {
+            Debug.Log("플레이어 스킬 데이터파일이 없습니다.");
         }
     }
 

@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class DragSlot : MonoBehaviour
 {
-    public static DragSlot instance;
+    static public DragSlot instance;
     public Slot dragSlot;
     public SkillSlot dragSkillSlot;
-    //public ShopSlot shopSlot;
+    public ShopSlot_Test shopSlot;
 
     [SerializeField]
     private Image image;
-
+    [SerializeField]
+    public Image slotOutLine;
     void Start()
     {
         instance = this;
@@ -21,7 +22,7 @@ public class DragSlot : MonoBehaviour
     public void DragSetImage(Image _Image)
     {
         image.sprite = _Image.sprite;
-        SetColorAlpha(0.88f);
+        SetColorAlpha(1);
     }
 
     public void SetColorAlpha(float alpha)
@@ -29,5 +30,10 @@ public class DragSlot : MonoBehaviour
         Color color = image.color;
         color.a = alpha;
         image.color = color;
+    }
+
+    public void SetActiveOutLine(bool _bool)
+    {
+        slotOutLine.enabled = _bool;
     }
 }

@@ -7,6 +7,7 @@ public class MonsterBoar : MonsterBase
 {
     [SerializeField]
     GameObject playerGo;
+    public GameObject minimapCube;
 
     public PlayerInfo player;
     Transform playerTr;
@@ -36,7 +37,6 @@ public class MonsterBoar : MonsterBase
 
     public bool isDie = false;
     public bool isAttack = false;
-    public bool isAnger = false;        //선공 : Anger true 후공 : Anger false
 
     float dist; //플레이어와 적의 거리
     Vector3 monsterTr;
@@ -72,7 +72,7 @@ public class MonsterBoar : MonsterBase
         }
         dropGold = 15;
         finalMaxHp = 50f;
-        finalNormalDef = 10f;
+        finalNormalDef = 0f;
         curHp = 50f;
     }
 
@@ -80,6 +80,8 @@ public class MonsterBoar : MonsterBase
     {
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
+
+        isAnger = false;
     }
 
     private void Update()
@@ -200,6 +202,8 @@ public class MonsterBoar : MonsterBase
         isDie = true;
         isAttack = false;
         GetComponent<CapsuleCollider>().enabled = false;
+
+        minimapCube.SetActive(false);
     }
 
     public override void DropItem()
@@ -227,7 +231,7 @@ public class MonsterBoar : MonsterBase
 
         if (!monsters.Contains(monsterCollider))
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 3f, 1 << monsterLayer));
+            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
         }
 
         for (int i = 0; i < monsters.Count; i++)
@@ -236,7 +240,7 @@ public class MonsterBoar : MonsterBase
                 continue;
             else
             {
-                var mob = monsters[i].GetComponent<MonsterBoar>();
+                var mob = monsters[i].GetComponent<MonsterBase>();
 
                 if (mob.isAnger == false)
                 {
@@ -311,6 +315,9 @@ public class MonsterBoar : MonsterBase
                     DropItem();
                     yield break;
             }
+
+            if (state == STATE.Die)
+                break;
 
             yield return new WaitForSeconds(0.05f);
         }
