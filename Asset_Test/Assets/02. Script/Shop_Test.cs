@@ -21,10 +21,9 @@ public class Shop_Test : MonoBehaviour
     void Start()
     {
         slots.AddRange(slotsGroup.GetComponentsInChildren<ShopSlot_Test>());
-        buyIcon = Resources.Load<Texture2D>("UI/Flask");
-        sellIcon = Resources.Load<Texture2D>("UI/GFlask");
-
-
+        buyIcon = Resources.Load<Texture2D>("UI/Curser/Cursor_Flask");
+        sellIcon = Resources.Load<Texture2D>("UI/Curser/G_Cursor_Flask");
+        
         #region 테스트 코드
         slots[0].AddItem(ItemDatabase.instance.newItem("0000008"));
         slots[1].AddItem(ItemDatabase.instance.newItem("0000009"));

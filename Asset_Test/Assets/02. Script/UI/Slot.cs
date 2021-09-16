@@ -20,8 +20,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     ItemDatabase ItemDB;
     InputNumberUI inputNumber;
     public Inventory inven;
-    Shop shop;
     Tooltip tooltip;
+    ShopMessage shopMessage;
+    Shop_Test shop;
 
     public PlayerInfo player;
 
@@ -44,8 +45,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         ItemDB = FindObjectOfType<ItemDatabase>();
         inputNumber = FindObjectOfType<InputNumberUI>();
-        shop = FindObjectOfType<Shop>();
         tooltip = FindObjectOfType<Tooltip>();
+        shopMessage = FindObjectOfType<ShopMessage>();
+        shop = FindObjectOfType<Shop_Test>();
     }
 
     void SetColorAlpha(float alpha)
@@ -153,12 +155,15 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             {
                 if (gameObject.CompareTag("Inventory"))
                 {
-                    if (item.Type != 9 && item.Type != 10)
-                        EquipItem(item);
-                    else if (item.Type == 9)
-                        UseItem(item);
-                    else if (item.Type == 10)
-                        Debug.Log("재료탬 우클릭 - 효과없음");
+                    if (!shopBase.gameObject.activeSelf)
+                    {
+                        if (item.Type != 9 && item.Type != 10)
+                            EquipItem(item);
+                        else if (item.Type == 9)
+                            UseItem(item);
+                        else if (item.Type == 10)
+                            Debug.Log("재료탬 우클릭 - 효과없음");
+                    }
                 }
                 else if (gameObject.CompareTag("Equipment"))
                 {
@@ -168,6 +173,13 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 {
                     UseItem(item);
                 }
+            }
+        }
+        else if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (shopBase.gameObject.activeSelf && shop.isSelling)
+            {
+                SellItem(item);
             }
         }
     }
@@ -206,28 +218,25 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        //if (invenBase.gameObject.activeSelf)
-        //{
-        //    if (RectTransformUtility.RectangleContainsScreenPoint(invenBase, DragSlot.instance.transform.position))
-        //    {
-        //        DragSlot.instance.SetColorAlpha(0);
-        //        DragSlot.instance.dragSlot = null;
-        //    }
-        //    else
-        //    {
-        //        //if (DragSlot.instance.dragSlot != null)
-        //        //    if (DragSlot.instance.dragSlot.itemCount <= 1)
-        //        //    {
-        //        //        DragSlot.instance.SetColorAlpha(0);
-        //        //        StartCoroutine(inputNumber.DropItemCoruntine(1));
-        //        //    }
-        //        //    else
-        //        //        inputNumber.Call();
-        //    }
-        //}
+        if (RectTransformUtility.RectangleContainsScreenPoint(shopBase, Input.mousePosition) && shopBase.gameObject.activeSelf)
+        {
+            if (DragSlot.instance.dragSlot != null)
+            {
+                if (DragSlot.instance.dragSlot.CompareTag("Inventory"))
+                {
+                    shopMessage.ShowMessageTxt(DragSlot.instance.dragSlot.item, 1);
+                }
+            }
+        }
+        else
+        {
+            if (DragSlot.instance.dragSlot != null)
+            {
+                DragSlot.instance.SetColorAlpha(0);
+                DragSlot.instance.dragSlot = null;
+            }
+        }
 
-        DragSlot.instance.SetColorAlpha(0);
-        DragSlot.instance.dragSlot = null;
     }
 
     /// <summary>
@@ -950,8 +959,26 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// 
     /// </summary>
     /// <param name="_item"></param>
-    void SellItem(Item _item)
+    public void SellItem(Item _item)
     {
+        if (_item.Count == 1)
+        {
+            if (DragSlot.instance.dragSlot != null)
+            {
+                DragSlot.instance.dragSlot.SetSlotCount(-1);
+                DragSlot.instance.SetColorAlpha(0);
+                DragSlot.instance.dragSlot = null;
+            }
+            else
+            {
+                SetSlotCount(-1);
+            }
 
+            player.stats.Gold += _item.SellCost;
+        }
+        else
+        {
+            shopMessage.ShowQuantityTxt(_item, 1, this);
+        }
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     public GameObject go_Tooltip;
+    public RectTransform invenRect;
+    public RectTransform shopRect;
 
     [SerializeField]
     Text NameText;
@@ -44,7 +46,7 @@ public class Tooltip : MonoBehaviour
     void Start()
     {
         go_Tooltip.SetActive(false);
-        CostText.gameObject.SetActive(false);
+        //CostText.gameObject.SetActive(false);
 
         #region 아이템 툴팁 체크 (디버그용)
         //Item _testItem = ItemDatabase.instance.newItem("0000008");
@@ -275,6 +277,7 @@ public class Tooltip : MonoBehaviour
         if (keys.Count == 1 && keys[0] == 0)
         {
             RequireText.gameObject.SetActive(false);
+            Divider[1].SetActive(false);
             //foreach (GameObject obj in Divider)
             //    obj.SetActive(false);
         }
@@ -328,6 +331,7 @@ public class Tooltip : MonoBehaviour
         {
             mainStart = 0;
             EffectText.gameObject.SetActive(true);
+            //Divider[1].SetActive(false);
         }
         else
         {
@@ -406,6 +410,24 @@ public class Tooltip : MonoBehaviour
         }
         #endregion
 
+        #region 아이템 가격
+        if (RectTransformUtility.RectangleContainsScreenPoint(invenRect, Input.mousePosition))
+            CostText.text = "판매가격 : <color>" + _item.SellCost + " Gold</color>";
+        else if (RectTransformUtility.RectangleContainsScreenPoint(shopRect, Input.mousePosition))
+            CostText.text = "구매가격 : <color>" + _item.BuyCost + " Gold</color>";
+
+        CostText.gameObject.SetActive(true);
+
+        //if (shopBase.activeSelf)
+        //{
+        //    CostText.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    CostText.gameObject.SetActive(false);
+        //}
+        #endregion
+
         wantActive = true;
     }
 
@@ -420,6 +442,9 @@ public class Tooltip : MonoBehaviour
 
         // 코스트 타입
         // 0: 노코스트, 1: Hp, 2: Mp
+
+        foreach (GameObject obj in Divider)
+            obj.SetActive(true);
 
         NameText.text = _skill.Name;
 
@@ -477,6 +502,8 @@ public class Tooltip : MonoBehaviour
 
         else
             EffectText.text = string.Format(_skill.SkillDescription, _skill.Value);
+
+        CostText.gameObject.SetActive(false);
 
         wantActive = true;
     }

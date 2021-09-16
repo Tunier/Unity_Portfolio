@@ -33,6 +33,8 @@ public class PlayerActionCtrl : MonoBehaviour
     GameObject skilltreeUI;
     [SerializeField]
     GameObject statsUI;
+    [SerializeField]
+    GameObject shopUI;
 
     public GameObject QuickSkillSlotParents;
     public GameObject QuickPotionSlotParents;
@@ -162,6 +164,11 @@ public class PlayerActionCtrl : MonoBehaviour
                 player.state = STATE.Attacking;
                 ani.SetBool(hashIsAttack, true);
             }
+            else if (Input.GetMouseButtonDown(1) && skillIndicator.straightIndicator.activeSelf)
+            {
+                isUsingSkill = false;
+                skillIndicator.straightIndicator.SetActive(false);
+            }
 
         }
 
@@ -244,7 +251,7 @@ public class PlayerActionCtrl : MonoBehaviour
         {
             if (isUsingSkill == false && player.state != STATE.Attacking)
             {
-                if (_skillSlot.curCooltime <= 0)
+                if (_skillSlot.curCooltime <= 0 && player.player_Skill_Dic[_skill.UIDCODE] > 0)
                 {
                     switch (_skill.CostType)
                     {
@@ -379,19 +386,16 @@ public class PlayerActionCtrl : MonoBehaviour
         {
             if (UIManager.Instance.hotKeyGuid.activeSelf)
             {
-                if (UIManager.Instance.wayPoints.Contains(UIManager.Instance.hotKeyGuidTarget))
+                if (UIManager.Instance.hotKeyGuidTarget.CompareTag("Merchant"))
+                {
+                    shopUI.SetActive(true);
+                    inventoryUI.SetActive(true);
+                }
+                else if (UIManager.Instance.hotKeyGuidTarget.CompareTag("WayPoint"))
                 {
                     wayPointUI.SetActive(true);
                 }
             }
-            else
-            {
-                wayPointUI.SetActive(false);
-            }
-            //else if(UIManager.instance.hotKeyGuid.activeSelf && merchants.Contains(UIManager.instance.hotKeyGuidTarget))
-            //{
-            //상점ui키고 인벤토리 키기
-            //}
         }
     }
 

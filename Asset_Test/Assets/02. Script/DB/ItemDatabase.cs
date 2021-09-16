@@ -171,8 +171,8 @@ public class ItemDatabase : MonoBehaviour
 
         //var randomItemQuality = UnityEngine.Random.Range(1, 10000);
 
-        item.itemEffect.ValueDic = new Dictionary<int, float>(AllItemEffectDic[item.UIDCODE].ValueDic);
-        item.itemEffect.RequireValueDic = new Dictionary<int, float>(AllItemEffectDic[item.UIDCODE].RequireValueDic);
+        item.itemEffect.ValueDic = AllItemEffectDic[item.UIDCODE].ValueDic;
+        item.itemEffect.RequireValueDic = AllItemEffectDic[item.UIDCODE].RequireValueDic;
 
         // 나중에 아이템 효과 같은경우 아이템 종류에따라 랜덤 옵션 풀을 가지고, 퀄리티에 따라 옵션 갯수와
         // 옵션의 수치가 결정되도록 코드를 고쳐야함.

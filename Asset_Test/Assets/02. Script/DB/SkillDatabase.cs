@@ -35,6 +35,7 @@ public class SkillDatabase : MonoBehaviour
     PlayerActionCtrl playerAC;
 
     GameObject skill2HitArea;
+    GameObject cameraArm;
 
     const string skillDataPath = "/Resources/Data/All_Skill_Data.text";
 
@@ -52,6 +53,7 @@ public class SkillDatabase : MonoBehaviour
         }
 
         player_SkillIndicator = FindObjectOfType<Player_SkillIndicator>();
+        cameraArm = GameObject.Find("CameraArm");
 
         if (File.Exists(Application.dataPath + skillDataPath))
         {
@@ -177,6 +179,8 @@ public class SkillDatabase : MonoBehaviour
                     {
                         case "0300002":
                             player.curMp -= _skill.Cost;
+                            Vector3 camArmRot = new Vector3(0, cameraArm.transform.eulerAngles.y, 0);
+                            player.transform.rotation = Quaternion.Euler(camArmRot);
                             playerAC.curSkillCooltime[_skillslot.skill.UIDCODE] += _skill.CoolTime;
                             playerAC.isSwordSkill2 = true;
                             StartCoroutine(UseSkill2());

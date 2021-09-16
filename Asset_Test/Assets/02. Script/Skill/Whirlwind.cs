@@ -64,7 +64,7 @@ public class Whirlwind : MonoBehaviour
 
     void Update()
     {
-        pos = new Vector3(player.transform.position.x, 1.5f, player.transform.position.z);
+        pos = new Vector3(player.transform.position.x, player.transform.position.y + 1.5f, player.transform.position.z);
 
         transform.position = pos;
     }

@@ -39,12 +39,8 @@ public class ShopSlot_Test : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Start()
     {
         tooltip = FindObjectOfType<Tooltip>();
-        
     }
-    private void Update()
-    {
-        
-    }
+
     public void AddItem(Item _item)
     {
         item = _item;
@@ -158,7 +154,11 @@ public class ShopSlot_Test : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 //판매 메세지
                 shop.isBuying = true;
                 shop.isSelling = false;
-                shopMessage.ShowMessageTxt(item,0);
+
+                if (DragSlot.instance.shopSlot.item.BuyCost > player.stats.Gold)
+                    shopMessage.ShowMessageTxt(item, 2);
+                else
+                    shopMessage.ShowMessageTxt(item, 0);
             }
             else
             {

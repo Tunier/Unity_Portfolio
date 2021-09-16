@@ -23,8 +23,10 @@ public class UIManager : MonoSingletone<UIManager>
     Text explainTxt;
     [SerializeField]
     GameObject wayPointUI;
+    [SerializeField]
+    GameObject shopUI;
 
-    float recognitionRange = 2.5f;
+    float recognitionRange = 3.5f;
     private void Awake()
     {
         hotKeyGuid.SetActive(false);
@@ -65,9 +67,9 @@ public class UIManager : MonoSingletone<UIManager>
             {
                 explainTxt.text = "작동시키기";
             }
-            else if (hotKeyGuidTarget.CompareTag("MerChant")) //태그가 마을사람,상점이면 다르게 글자가 나오게
+            else if (hotKeyGuidTarget.CompareTag("Merchant")) //태그가 마을사람,상점이면 다르게 글자가 나오게
             {
-                explainTxt.text = "대화하기";
+                explainTxt.text = "상점창열기";
             }
         }
     }
@@ -76,35 +78,35 @@ public class UIManager : MonoSingletone<UIManager>
     {
         foreach (GameObject _wayPoint in wayPoints) //웨이포인트 작용 키 활성화
         {
-            if (Vector3.Distance(player.transform.position, _wayPoint.transform.position) <= recognitionRange)
+            if (Vector3.Distance(player.transform.position, _wayPoint.transform.position) <= recognitionRange && !wayPointUI.activeSelf)
             {
-                if (!wayPointUI.activeSelf)
-                {
-                    hotKeyGuid.SetActive(true);
-                    hotKeyGuidTarget = _wayPoint;
-                    return;
-                }
+                hotKeyGuid.SetActive(true);
+                hotKeyGuidTarget = _wayPoint;
+                return;
             }
-            else
+            else if (wayPointUI.activeSelf)
             {
                 hotKeyGuid.SetActive(false);
+                return;
             }
         }
 
         foreach (GameObject _merchant in merchants) //상점 or NPC 상호작용 키 활성화
         {
-            if (Vector3.Distance(player.transform.position, _merchant.transform.position) <= recognitionRange)
+            if (Vector3.Distance(player.transform.position, _merchant.transform.position) <= recognitionRange && !shopUI.activeSelf)
             {
                 hotKeyGuid.SetActive(true);
                 hotKeyGuidTarget = _merchant;
                 return;
             }
-            else
+            else if (shopUI.activeSelf)
             {
                 hotKeyGuid.SetActive(false);
-
+                return;
             }
         }
+
+        hotKeyGuid.SetActive(false);
     }
 
     /// <summary>
@@ -118,6 +120,14 @@ public class UIManager : MonoSingletone<UIManager>
                 || hotKeyGuidTarget == null)
             {
                 wayPointUI.SetActive(false);
+            }
+        }
+        else if (shopUI.activeSelf)
+        {
+            if (Vector3.Distance(player.transform.position, hotKeyGuidTarget.transform.position) > recognitionRange
+                || hotKeyGuidTarget == null)
+            {
+                shopUI.SetActive(false);
             }
         }
     }

@@ -24,19 +24,26 @@ public class ShopMessage : MonoBehaviour
 
     public InputField inputField;
 
+    [SerializeField]
     Item item;
+    Slot curSlot;
     int selectNum;
     int count = 0;
     int lastCount;
 
-    private void Start()
-    {
-
-    }
     private void Update()
     {
-        if (item != null)
+        if (curSlot != null)
             CheckCount(item);
+
+        if (inputField.text != "")
+            lastCount = int.Parse(inputField.text);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (messageBackground.activeSelf || quantityMessage.activeSelf)
+                OnClickNoButton();
+        }
     }
 
     public void OnClilckYesButton()
@@ -48,8 +55,8 @@ public class ShopMessage : MonoBehaviour
                 messageBackground.SetActive(false);
                 break;
             case 1:
-                //캐릭터에서 판매할때
-                //판매함수 넣어주기
+                DragSlot.instance.dragSlot.SellItem(DragSlot.instance.dragSlot.item);
+                curSlot = null;
                 messageBackground.SetActive(false);
                 break;
             case 2:
@@ -69,6 +76,20 @@ public class ShopMessage : MonoBehaviour
                 quantityMessage.SetActive(false);
                 break;
             case 1:
+                if (DragSlot.instance.dragSlot != null)
+                {
+                    player.stats.Gold += DragSlot.instance.dragSlot.item.SellCost * lastCount;
+
+                    DragSlot.instance.dragSlot.SetSlotCount(-lastCount);
+                    DragSlot.instance.SetColorAlpha(0);
+                    DragSlot.instance.dragSlot = null;
+                }
+                else
+                {
+                    player.stats.Gold += item.SellCost * lastCount;
+                    curSlot.SetSlotCount(-lastCount);
+                }
+                curSlot = null;
                 quantityMessage.SetActive(false);
                 break;
             case 2:
@@ -82,10 +103,8 @@ public class ShopMessage : MonoBehaviour
         quantityMessage.SetActive(false);
     }
 
-    public void ShowMessageTxt(Item _item ,int _num)
+    public void ShowMessageTxt(Item _item, int _num)
     {
-        messageBackground.SetActive(true);
-        
         item = _item;
         selectNum = _num;
         switch (_num)
@@ -102,14 +121,18 @@ public class ShopMessage : MonoBehaviour
             default:
                 break;
         }
+
+        messageBackground.SetActive(true);
     }
 
-    public void ShowQuantityTxt(Item _item, int _num)
+    public void ShowQuantityTxt(Item _item, int _num, Slot _slot = null)
     {
         quantityMessage.SetActive(true);
         item = _item;
         selectNum = _num;
-        
+        if (_slot != null)
+            curSlot = _slot;
+
         switch (_num)
         {
             case 0:
@@ -117,30 +140,33 @@ public class ShopMessage : MonoBehaviour
                 break;
             case 1:
                 quantityTxt.text = "판매 수량";
+                inputField.text = 0.ToString();
                 break;
             case 2:
                 break;
         }
     }
-    public void SellItem(Item _item,int _count =1)
+
+    public void SellItem(Item _item, int _count = 1)
     {
         if (player.stats.Gold >= _item.BuyCost)
         {
-            player.stats.Gold -= _item.BuyCost*_count;
-            inven.GetItem(_item,_count);
+            player.stats.Gold -= _item.BuyCost * _count;
+            inven.GetItem(_item, _count);
         }
         else
         {
             ShowMessageTxt(item, 2);
         }
     }
-    
+
     public void CheckCount(Item _item)
     {
         switch (selectNum)
         {
             case 0:
-                count = player.stats.Gold / _item.BuyCost;
+                if (_item.BuyCost != 0)
+                    count = player.stats.Gold / _item.BuyCost;
 
                 if (inputField.text != "")
                 {
@@ -156,25 +182,24 @@ public class ShopMessage : MonoBehaviour
                 }
                 break;
             case 1:
-                count = slot.itemCount;
-                if(inputField.text != "")
+                count = curSlot.itemCount;
+
+                if (inputField.text != "")
                 {
-                    if(count < int.Parse(inputField.text))
+                    if (count < int.Parse(inputField.text))
                     {
                         inputField.text = count.ToString();
                     }
                     else
                     {
-
+                        lastCount = int.Parse(inputField.text);
                     }
+                }
+                else if (inputField.text == "")
+                {
+                    inputField.text = "0";
                 }
                 break;
         }
-        
-    }
-    
-    public void BuyItem(Item _item)
-    {
-        //상점입장에서 물건을 구매할때
     }
 }

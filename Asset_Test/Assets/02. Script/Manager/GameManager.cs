@@ -17,6 +17,7 @@ public class GameManager : MonoSingletone<GameManager>
 
     PlayerInfo player;
     Inventory inventory;
+    Tooltip tooltip;
 
     public bool isPause = false;
     bool isGamequit = false;
@@ -28,6 +29,7 @@ public class GameManager : MonoSingletone<GameManager>
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
         inventory = FindObjectOfType<Inventory>();
+        tooltip = FindObjectOfType<Tooltip>();
 
         isPause = false;
         isGamequit = false;
@@ -53,6 +55,9 @@ public class GameManager : MonoSingletone<GameManager>
                 inventoryUI.SetActive(false);
                 skilltreeUI.SetActive(false);
                 statusUI.SetActive(false);
+                shopUI.SetActive(false);
+
+                tooltip.HideTooltip();
 
                 DragSlot.instance.SetColorAlpha(0);
                 DragSlot.instance.dragSlot = null;
