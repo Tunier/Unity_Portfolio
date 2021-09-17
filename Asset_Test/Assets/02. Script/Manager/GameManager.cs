@@ -11,6 +11,7 @@ public class GameManager : MonoSingletone<GameManager>
     public GameObject statusUI;
     public GameObject skilltreeUI;
     public GameObject shopUI;
+    public GameObject worldMapUI;
     public GameObject PauseCanvas;
 
     public GameObject dieText;
@@ -49,13 +50,14 @@ public class GameManager : MonoSingletone<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (wayPointUI.activeSelf || inventoryUI.activeSelf || statusUI.activeSelf || skilltreeUI.activeSelf || shopUI.activeSelf)
+            if (wayPointUI.activeSelf || inventoryUI.activeSelf || statusUI.activeSelf || skilltreeUI.activeSelf || shopUI.activeSelf || worldMapUI.activeSelf)
             {
                 wayPointUI.SetActive(false);
                 inventoryUI.SetActive(false);
                 skilltreeUI.SetActive(false);
                 statusUI.SetActive(false);
                 shopUI.SetActive(false);
+                worldMapUI.SetActive(false);
 
                 tooltip.HideTooltip();
 
@@ -63,7 +65,7 @@ public class GameManager : MonoSingletone<GameManager>
                 DragSlot.instance.dragSlot = null;
                 DragSlot.instance.dragSkillSlot = null;
             }
-            else if (!wayPointUI.activeSelf && !inventoryUI.activeSelf && !statusUI.activeSelf && !skilltreeUI.activeSelf && !shopUI.activeSelf)
+            else if (!wayPointUI.activeSelf && !inventoryUI.activeSelf && !statusUI.activeSelf && !skilltreeUI.activeSelf && !shopUI.activeSelf && !worldMapUI.activeSelf)
                 isPause = !isPause;
         }
 

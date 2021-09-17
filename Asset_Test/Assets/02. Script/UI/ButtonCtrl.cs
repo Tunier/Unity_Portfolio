@@ -12,7 +12,7 @@ public class ButtonCtrl : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        wayPoints.AddRange(GameObject.FindGameObjectsWithTag("WayPoint"));
+        //wayPoints.AddRange(GameObject.FindGameObjectsWithTag("WayPoint"));
     }
 
     public void OnClickHuman()

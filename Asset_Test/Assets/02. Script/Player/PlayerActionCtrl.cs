@@ -397,6 +397,8 @@ public class PlayerActionCtrl : MonoBehaviour
                 {
                     shopUI.SetActive(true);
                     inventoryUI.SetActive(true);
+                    skilltreeUI.SetActive(false);
+                    statsUI.SetActive(false);
                 }
                 else if (UIManager.Instance.hotKeyGuidTarget.CompareTag("WayPoint"))
                 {
