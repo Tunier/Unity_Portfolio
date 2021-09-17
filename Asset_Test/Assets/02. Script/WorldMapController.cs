@@ -7,6 +7,14 @@ public class WorldMapController : MonoBehaviour
 {
     [SerializeField]
     RectTransform worldMapImgRect;
+    [SerializeField]
+    RectTransform humanTxtRect;
+    [SerializeField]
+    RectTransform elvenTxtRect;
+    [SerializeField]
+    RectTransform goblinTxtRect;
+    [SerializeField]
+    RectTransform UndeadTxtRect;
 
     private void Awake()
     {
@@ -17,19 +25,27 @@ public class WorldMapController : MonoBehaviour
     {
         ZoomFunc();
     }
-    public void OnClickPlus() 
+    public void OnClickPlus()
     {
         if (worldMapImgRect.localScale.x < 2)
         {
             worldMapImgRect.localScale += new Vector3(0.28f, 0.28f);
+            humanTxtRect.localScale -= new Vector3(0.1f, 0.1f);
+            elvenTxtRect.localScale -= new Vector3(0.1f, 0.1f);
+            goblinTxtRect.localScale -= new Vector3(0.1f, 0.1f);
+            UndeadTxtRect.localScale -= new Vector3(0.1f, 0.1f);
         }
     }
-    
+
     public void OnClickMinus()
     {
         if (worldMapImgRect.localScale.x > 0.7f)
         {
             worldMapImgRect.localScale -= new Vector3(0.28f, 0.28f);
+            humanTxtRect.localScale += new Vector3(0.1f, 0.1f);
+            elvenTxtRect.localScale += new Vector3(0.1f, 0.1f);
+            goblinTxtRect.localScale += new Vector3(0.1f, 0.1f);
+            UndeadTxtRect.localScale += new Vector3(0.1f, 0.1f);
         }
     }
 
@@ -37,15 +53,23 @@ public class WorldMapController : MonoBehaviour
     {
         float scroll = Input.GetAxisRaw("Mouse ScrollWheel");
 
-        if (worldMapImgRect.localScale.x >0.7f && scroll < 0)
+        if (worldMapImgRect.localScale.x > 0.7f && scroll < 0)
         {
             worldMapImgRect.localScale -= new Vector3(0.28f, 0.28f);
+            humanTxtRect.localScale += new Vector3(0.1f, 0.1f);
+            elvenTxtRect.localScale += new Vector3(0.1f, 0.1f);
+            goblinTxtRect.localScale += new Vector3(0.1f, 0.1f);
+            UndeadTxtRect.localScale += new Vector3(0.1f, 0.1f);
         }
-        else if(worldMapImgRect.localScale.x <2 && scroll>0) 
+        else if (worldMapImgRect.localScale.x < 2 && scroll > 0)
         {
-            worldMapImgRect.localScale += new Vector3(0.28f,0.28f);
+            worldMapImgRect.localScale += new Vector3(0.28f, 0.28f);
+            humanTxtRect.localScale -= new Vector3(0.1f, 0.1f);
+            elvenTxtRect.localScale -= new Vector3(0.1f, 0.1f);
+            goblinTxtRect.localScale -= new Vector3(0.1f, 0.1f);
+            UndeadTxtRect.localScale -= new Vector3(0.1f, 0.1f);
         }
-        
+
 
 
     }
