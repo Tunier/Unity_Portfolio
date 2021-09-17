@@ -36,7 +36,7 @@ public class PlayerActionCtrl : MonoBehaviour
     [SerializeField]
     GameObject shopUI;
     [SerializeField]
-    GameObject WorldMapUI;
+    GameObject WorldMap;
 
     public GameObject QuickSkillSlotParents;
     public GameObject QuickPotionSlotParents;
@@ -218,7 +218,8 @@ public class PlayerActionCtrl : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.M))
         { 
-            WorldMapUI.SetActive(!WorldMapUI.activeSelf);
+            WorldMap.SetActive(!WorldMap.activeSelf);
+            
         }
 
 
