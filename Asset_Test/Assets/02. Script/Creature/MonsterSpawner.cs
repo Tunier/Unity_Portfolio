@@ -10,6 +10,7 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject[] movepoints;
 
     public float checkDistance;
+    [Range(1,10)]
     public int maxSpawnCount;
     public int spawnCount;
 

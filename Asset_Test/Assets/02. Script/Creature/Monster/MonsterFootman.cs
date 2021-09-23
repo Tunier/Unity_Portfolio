@@ -15,8 +15,6 @@ public class MonsterFootman : MonsterBase
     PlayerInfo player;
     Transform playerTr;
 
-    public float exp;
-
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
@@ -81,6 +79,7 @@ public class MonsterFootman : MonsterBase
         checkState = StartCoroutine(CheckState());
 
         state = STATE.Patrol;
+        GetComponent<CapsuleCollider>().enabled = true;
 
         isAnger = true;
 

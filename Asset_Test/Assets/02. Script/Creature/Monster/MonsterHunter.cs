@@ -78,6 +78,7 @@ public class MonsterHunter : MonsterBase
     {
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
+        GetComponent<CapsuleCollider>().enabled = true;
 
         isAnger = true;
 

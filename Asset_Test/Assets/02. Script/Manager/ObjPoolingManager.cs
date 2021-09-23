@@ -4,52 +4,66 @@ using UnityEngine;
 
 public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
 {
+    public enum Obj
+    {
+        GoblinHunterArrow,
+    }
+
     public enum Monster
     {
         Pig,
-        GolinHunter,
+        GoblinHunter,
         SkeltonWarrior,
     }
 
+    [Header("풀링할 오브젝트들")]
+    public GameObject go_goblinHunterArrow;
     public GameObject go_monsterPig;
     public GameObject go_monsterGoblinHunter;
     public GameObject go_monsterSkeletonWarrior;
 
-    int maxcount = 40;
+    int maxcount = 50;
 
-    public List<GameObject> pigList = new List<GameObject>();
-    public List<GameObject> goblinHunterList = new List<GameObject>();
-    public List<GameObject> skeletonWarriorList = new List<GameObject>();
+    [Header("풀링된 오브젝트들 리스트")]
+    public List<GameObject> arrowPool = new List<GameObject>();
+    public List<GameObject> pigPool = new List<GameObject>();
+    public List<GameObject> goblinHunterPool = new List<GameObject>();
+    public List<GameObject> skeletonWarriorPool = new List<GameObject>();
 
     private void Awake()
     {
-        CreateMonsterPool(go_monsterPig, maxcount);
-        CreateMonsterPool(go_monsterGoblinHunter, maxcount);
-        CreateMonsterPool(go_monsterSkeletonWarrior, maxcount);
+        CreatePool(go_goblinHunterArrow, maxcount);
+        CreatePool(go_monsterPig, maxcount);
+        CreatePool(go_monsterGoblinHunter, maxcount);
+        CreatePool(go_monsterSkeletonWarrior, maxcount);
     }
 
-    void CreateMonsterPool(GameObject _monster, int _count)
+    void CreatePool(GameObject _obj, int _count)
     {
-        var monsterPool = new GameObject(_monster.name + "Pool");
+        var pool = new GameObject(_obj.name + "Pool");
 
         for (int i = 0; i < _count; i++)
         {
-            var obj = Instantiate(_monster);
+            var obj = Instantiate(_obj);
             obj.SetActive(false);
-            obj.name = _monster.name + " " + (i + 1).ToString("00");
-            obj.transform.SetParent(monsterPool.transform);
+            obj.name = _obj.name + " " + (i + 1).ToString("00");
+            obj.transform.SetParent(pool.transform);
 
-            if (obj.name.Contains("Pig"))
+            if (obj.name.Contains("Goblin_Arrow"))
             {
-                pigList.Add(obj);
+                arrowPool.Add(obj);
+            }
+            else if (obj.name.Contains("Pig"))
+            {
+                pigPool.Add(obj);
             }
             else if (obj.name.Contains("Goblin_Hunter"))
             {
-                goblinHunterList.Add(obj);
+                goblinHunterPool.Add(obj);
             }
             else if (obj.name.Contains("Skeleton_Warrior"))
             {
-                skeletonWarriorList.Add(obj);
+                skeletonWarriorPool.Add(obj);
             }
         }
     }
@@ -59,21 +73,21 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
         switch (_monster)
         {
             case Monster.Pig:
-                foreach (var obj in pigList)
+                foreach (var obj in pigPool)
                 {
                     if (!obj.activeSelf)
                         return obj;
                 }
                 return null;
-            case Monster.GolinHunter:
-                foreach (var obj in goblinHunterList)
+            case Monster.GoblinHunter:
+                foreach (var obj in goblinHunterPool)
                 {
                     if (!obj.activeSelf)
                         return obj;
                 }
                 return null;
             case Monster.SkeltonWarrior:
-                foreach (var obj in skeletonWarriorList)
+                foreach (var obj in skeletonWarriorPool)
                 {
                     if (!obj.activeSelf)
                         return obj;
@@ -81,6 +95,22 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
                 return null;
             default:
                 Debug.LogError("없는몬스터를 받아가려고함.");
+                return null;
+        }
+    }
+
+    public GameObject GetObjAtPool(Obj _obj)
+    {
+        switch (_obj)
+        {
+            case Obj.GoblinHunterArrow:
+                foreach (var obj in arrowPool)
+                {
+                    if (!obj.activeSelf)
+                        return obj;
+                }
+                return null;
+            default:
                 return null;
         }
     }

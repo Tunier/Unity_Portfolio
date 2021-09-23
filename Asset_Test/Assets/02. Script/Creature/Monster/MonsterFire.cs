@@ -10,7 +10,6 @@ public class MonsterFire : MonoBehaviour
 {
     MonsterAnim monsterAnim;
 
-    public GameObject arrow;    //화살 프리팹
     public Transform shotPos;   //화살 발사 위치
 
     private void Awake()
@@ -29,8 +28,9 @@ public class MonsterFire : MonoBehaviour
         //var _arrow = Instantiate(arrow,transform.position, Quaternion.identity);
 
         //쏠때 파티클 제어문
-        var _arrow = WeaponManager.Instance.GetArrow();
-        if(_arrow != null)
+        var _arrow = ObjPoolingManager.Instance.GetObjAtPool(ObjPoolingManager.Obj.GoblinHunterArrow);
+
+        if (_arrow != null)
         {
             monsterAnim.OnAttack();
             _arrow.transform.position = shotPos.position;
@@ -41,7 +41,6 @@ public class MonsterFire : MonoBehaviour
         {
             monsterAnim.OnMove(false, 0f);
         }
-
     }
 }
 
