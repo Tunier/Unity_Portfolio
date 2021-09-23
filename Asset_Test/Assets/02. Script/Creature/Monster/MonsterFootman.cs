@@ -102,6 +102,7 @@ public class MonsterFootman : MonsterBase
 
     public void MovePoint()
     {
+        agent.enabled = true;
         isAttack = false;
 
         if (agent.isPathStale)
@@ -120,6 +121,7 @@ public class MonsterFootman : MonsterBase
 
     public void Chase(Vector3 _target)
     {
+        agent.enabled = true;
         isAttack = false;
 
         if (agent.isPathStale)
@@ -136,11 +138,13 @@ public class MonsterFootman : MonsterBase
         Vector3 dir = (_target - transform.position).normalized;
         if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //½Ã¾ß°¢
         {
+            agent.enabled = true;
+            Stop();
+
             if (isAttack == false)
             {
                 isAttack = true;
             }
-            Stop();
             if (Time.time >= nextFire)
             {
                 monsterAnim.OnAttack();
@@ -155,9 +159,11 @@ public class MonsterFootman : MonsterBase
             }
 
             monsterAnim.OnMove(true, agent.speed);
-            agent.SetDestination(_target);
-            agent.speed = backSpeed;
-            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
+            agent.enabled = false;
+            
+            //agent.SetDestination(_target);
+            //agent.speed = backSpeed;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
 
         }
     }
