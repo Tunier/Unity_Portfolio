@@ -6,10 +6,12 @@ using UnityEngine.AI;
 public class MonsterHunter : MonsterBase
 {
     [SerializeField]
+    GameObject AttackEffect;
+
     GameObject playerGo;
     public GameObject minimapCube;
 
-    public PlayerInfo player;
+    PlayerInfo player;
     Transform playerTr;
 
     public float exp = 20f;
@@ -52,6 +54,8 @@ public class MonsterHunter : MonsterBase
         monsterAnim = GetComponent<MonsterAnim>();
         monsterCollider = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
+        playerGo = GameObject.FindGameObjectWithTag("Player");
+        player = playerGo.GetComponent<PlayerInfo>();
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
@@ -260,6 +264,11 @@ public class MonsterHunter : MonsterBase
         }
 
         monsterAnim.OnHit();
+    }
+
+    public void OnOffAttackEffect()
+    {
+        AttackEffect.SetActive(!AttackEffect.activeSelf);
     }
 
     IEnumerator CheckState()

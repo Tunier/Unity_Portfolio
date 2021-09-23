@@ -6,10 +6,14 @@ using UnityEngine.AI;
 public class MonsterBoar : MonsterBase
 {
     [SerializeField]
+    GameObject AttackEffect1;
+    [SerializeField]
+    GameObject AttackEffect2;
+
     GameObject playerGo;
     public GameObject minimapCube;
 
-    public PlayerInfo player;
+    PlayerInfo player;
     Transform playerTr;
 
     public float exp = 20f;
@@ -51,6 +55,8 @@ public class MonsterBoar : MonsterBase
         monsterAnim = GetComponent<MonsterAnim>();
         monsterCollider = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
+        playerGo = GameObject.FindGameObjectWithTag("Player");
+        player = playerGo.GetComponent<PlayerInfo>();
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
@@ -250,6 +256,16 @@ public class MonsterBoar : MonsterBase
         }
 
         monsterAnim.OnHit();
+    }
+
+    public void OnOffAttackEffect()
+    {
+        AttackEffect1.SetActive(!AttackEffect1.activeSelf);
+    }
+
+    public void OnOffAttackEffect2()
+    {
+        AttackEffect2.SetActive(!AttackEffect2.activeSelf);
     }
 
     IEnumerator CheckState()

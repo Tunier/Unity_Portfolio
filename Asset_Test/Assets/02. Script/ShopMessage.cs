@@ -149,7 +149,7 @@ public class ShopMessage : MonoBehaviour
 
     public void SellItem(Item _item, int _count = 1)
     {
-        if (player.stats.Gold >= _item.BuyCost)
+        if (player.stats.Gold >= _item.BuyCost * _count)
         {
             player.stats.Gold -= _item.BuyCost * _count;
             inven.GetItem(_item, _count);
