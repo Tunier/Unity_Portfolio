@@ -23,7 +23,7 @@ public class WeaponManager : MonoSingletone<WeaponManager>
     {
         for (int i = 0; i < maxPool; i++)
         {
-            var obj = Instantiate<GameObject>(arrowPrefab, arrowPools.transform);
+            var obj = Instantiate(arrowPrefab, arrowPools.transform);
             obj.name = "Arrow_" + i.ToString("00");
             obj.SetActive(false);
             arrowPool.Add(obj);
@@ -38,14 +38,7 @@ public class WeaponManager : MonoSingletone<WeaponManager>
             {
                 return arrowPool[i];
             }
-
         }
         return null;
     }
 }
-
-
-
-
-
-

@@ -499,11 +499,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curHp: 0
+  movePoints: []
+  spawner: {fileID: 0}
   AttackEffect: {fileID: 5260240746934971257}
   minimapCube: {fileID: 5260240746739241129}
-  exp: 20
+  hpCanvas: {fileID: 874064830415413135}
   group: {fileID: 0}
-  movePoints: []
   nextIdx: 0
   minDist: 4
   maxDist: 10

@@ -12,18 +12,17 @@ public class MonsterBoar : MonsterBase
 
     GameObject playerGo;
     public GameObject minimapCube;
+    public GameObject hpCanvas;
 
     PlayerInfo player;
     Transform playerTr;
-
-    public float exp = 20f;
+    Inventory inven;
 
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
-    public List<Transform> movePoints;  //무브포인트
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
     public float maxDist = 0f;
-    public float attackDist =4f;       //최대 공격거리
+    public float attackDist = 4f;       //최대 공격거리
     public float traceDist = 15f;       //추적 거리
 
     public float attackRate = 0.2f;     //공격딜레이
@@ -43,7 +42,6 @@ public class MonsterBoar : MonsterBase
     public bool isAttack = false;
 
     float dist; //플레이어와 적의 거리
-    Vector3 monsterTr;
     NavMeshAgent agent;
     MonsterAnim monsterAnim;
 
@@ -57,13 +55,11 @@ public class MonsterBoar : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
+        inven = FindObjectOfType<Inventory>();
+
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
-        monsterTr = transform.position + (Vector3.up * 2);
-        state = STATE.Patrol;
-
-
 
         if (group)
         {
@@ -76,10 +72,7 @@ public class MonsterBoar : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
-        dropGold = 15;
-        finalMaxHp = 50f;
-        finalNormalDef = 0f;
-        curHp = 50f;
+
     }
 
     private void OnEnable()
@@ -87,7 +80,18 @@ public class MonsterBoar : MonsterBase
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
 
+        minimapCube.SetActive(true);
+        hpCanvas.SetActive(true);
+
+        state = STATE.Patrol;
+
         isAnger = false;
+
+        exp = 15f;
+        dropGold = 10;
+        finalMaxHp = 35f;
+        finalNormalDef = 0f;
+        curHp = finalMaxHp;
     }
 
     private void Update()
@@ -176,7 +180,7 @@ public class MonsterBoar : MonsterBase
         isAttack = false;
         monsterAnim.OnMove(true, agent.speed);
         Vector3 dir = (transform.position - _target).normalized;
-        if (Physics.Raycast(monsterTr, -transform.forward, 5f, 1 << obstacleLayer))
+        if (Physics.Raycast(transform.position + (Vector3.up * 2), -transform.forward, 5f, 1 << obstacleLayer))
         {
             Debug.Log("옵스타클갑지");
             //뒤로 무빙할때 옵스타클 피하는 위치를 목적지로 설정하는 함수 넣기
@@ -221,6 +225,13 @@ public class MonsterBoar : MonsterBase
 
     public override void DropItem()
     {
+        int random = Random.Range(0, 10000);
+
+        if (random > 1000)
+        {
+            var item = ItemDatabase.instance.newItem("0000000");
+            inven.GetItem(item);
+        }
     }
 
     public override void Hit(float _damage)
@@ -242,9 +253,14 @@ public class MonsterBoar : MonsterBase
             return;
         }
 
-        if (!monsters.Contains(monsterCollider))
+        var ary_monster = Physics.OverlapSphere(transform.position, traceDist * 3, 1 << monsterLayer);
+
+        foreach (var monster in ary_monster)
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
+            if (!monsters.Contains(monster))
+            {
+                monsters.Add(monster);
+            }
         }
 
         for (int i = 0; i < monsters.Count; i++)
@@ -336,6 +352,9 @@ public class MonsterBoar : MonsterBase
                 case STATE.Die:
                     Die();
                     DropItem();
+                    hpCanvas.SetActive(false);
+                    minimapCube.SetActive(false);
+                    StartCoroutine(co_MonsterDie());
                     yield break;
             }
 
@@ -344,5 +363,13 @@ public class MonsterBoar : MonsterBase
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    IEnumerator co_MonsterDie()
+    {
+        yield return new WaitForSeconds(3f);
+
+        spawner.spawnCount--;
+        gameObject.SetActive(false);
     }
 }

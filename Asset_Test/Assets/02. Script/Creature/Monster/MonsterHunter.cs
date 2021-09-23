@@ -10,14 +10,12 @@ public class MonsterHunter : MonsterBase
 
     GameObject playerGo;
     public GameObject minimapCube;
+    public GameObject hpCanvas;
 
     PlayerInfo player;
     Transform playerTr;
 
-    public float exp = 20f;
-
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
-    public List<Transform> movePoints;  //무브포인트
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = 4f;          //최소 공격거리
     public float maxDist = 10f;
@@ -56,13 +54,12 @@ public class MonsterHunter : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
+        
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
+
         monsterTr = transform.position + (Vector3.up * 2);
-        state = STATE.Patrol;
-
-
 
         if (group)
         {
@@ -75,10 +72,6 @@ public class MonsterHunter : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
-        dropGold = 15;
-        finalMaxHp = 50f;
-        finalNormalDef = 0;
-        curHp = 50f;
     }
 
     private void OnEnable()
@@ -87,6 +80,14 @@ public class MonsterHunter : MonsterBase
         checkState = StartCoroutine(CheckState());
 
         isAnger = true;
+
+        state = STATE.Patrol;
+
+        exp = 30f;
+        dropGold = 30;
+        finalMaxHp = 70f;
+        finalNormalDef = 0;
+        curHp = finalMaxHp;
     }
 
     private void Update()
@@ -243,9 +244,14 @@ public class MonsterHunter : MonsterBase
             return;
         }
 
-        if (!monsters.Contains(monsterCollider))
+        var ary_monster = Physics.OverlapSphere(transform.position, traceDist * 3, 1 << monsterLayer);
+
+        foreach (var monster in ary_monster)
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
+            if (!monsters.Contains(monster))
+            {
+                monsters.Add(monster);
+            }
         }
 
         for (int i = 0; i < monsters.Count; i++)
@@ -335,6 +341,9 @@ public class MonsterHunter : MonsterBase
                 case STATE.Die:
                     Die();
                     DropItem();
+                    hpCanvas.SetActive(false);
+                    minimapCube.SetActive(false);
+                    StartCoroutine(co_MonsterDie());
                     yield break;
             }
 
@@ -343,5 +352,13 @@ public class MonsterHunter : MonsterBase
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    IEnumerator co_MonsterDie()
+    {
+        yield return new WaitForSeconds(3f);
+
+        spawner.spawnCount--;
+        gameObject.SetActive(false);
     }
 }

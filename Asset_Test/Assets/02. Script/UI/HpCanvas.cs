@@ -23,8 +23,5 @@ public class HpCanvas : MonoBehaviour
         transform.eulerAngles = Rot;
 
         hpFill.fillAmount = monster.curHp / monster.finalMaxHp;
-
-        if (monster.curHp <= 0)
-            gameObject.SetActive(false);
     }
 }

@@ -10,14 +10,14 @@ public class MonsterFootman : MonsterBase
 
     GameObject playerGo;
     public GameObject minimapCube;
+    public GameObject hpCanvas;
 
     PlayerInfo player;
     Transform playerTr;
 
-    public float exp = 20f;
+    public float exp;
 
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
-    public List<Transform> movePoints;  //무브포인트
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
     public float maxDist = 0f;
@@ -55,13 +55,12 @@ public class MonsterFootman : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
+
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
+
         monsterTr = transform.position + (Vector3.up * 2);
-        state = STATE.Patrol;
-
-
 
         if (group)
         {
@@ -74,10 +73,6 @@ public class MonsterFootman : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
-        dropGold = 15;
-        finalMaxHp = 50f;
-        finalNormalDef = 0f;
-        curHp = 50f;
     }
 
     private void OnEnable()
@@ -85,7 +80,15 @@ public class MonsterFootman : MonsterBase
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
 
+        state = STATE.Patrol;
+
         isAnger = true;
+
+        exp = 75f;
+        dropGold = 60 + Random.Range(0, 6);
+        finalMaxHp = 125f;
+        finalNormalDef = 0f;
+        curHp = finalMaxHp;
     }
 
     private void Update()
@@ -160,7 +163,7 @@ public class MonsterFootman : MonsterBase
 
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
-            
+
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
@@ -240,9 +243,14 @@ public class MonsterFootman : MonsterBase
             return;
         }
 
-        if (!monsters.Contains(monsterCollider))
+        var ary_monster = Physics.OverlapSphere(transform.position, traceDist * 3, 1 << monsterLayer);
+
+        foreach (var monster in ary_monster)
         {
-            monsters.AddRange(Physics.OverlapSphere(monsterTr, traceDist * 2, 1 << monsterLayer));
+            if (!monsters.Contains(monster))
+            {
+                monsters.Add(monster);
+            }
         }
 
         for (int i = 0; i < monsters.Count; i++)
@@ -329,6 +337,9 @@ public class MonsterFootman : MonsterBase
                 case STATE.Die:
                     Die();
                     DropItem();
+                    hpCanvas.SetActive(false);
+                    minimapCube.SetActive(false);
+                    StartCoroutine(co_MonsterDie());
                     yield break;
             }
 
@@ -337,5 +348,13 @@ public class MonsterFootman : MonsterBase
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    IEnumerator co_MonsterDie()
+    {
+        yield return new WaitForSeconds(3f);
+
+        spawner.spawnCount--;
+        gameObject.SetActive(false);
     }
 }
