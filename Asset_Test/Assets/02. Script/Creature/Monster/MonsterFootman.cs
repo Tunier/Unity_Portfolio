@@ -85,6 +85,7 @@ public class MonsterFootman : MonsterBase
 
         exp = 75f;
         dropGold = 60 + Random.Range(0, 6);
+        finalNormalAtk = 50f;
         finalMaxHp = 125f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;

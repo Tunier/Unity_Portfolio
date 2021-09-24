@@ -90,6 +90,7 @@ public class MonsterBoar : MonsterBase
 
         exp = 15f;
         dropGold = 10;
+        finalNormalAtk = 30f;
         finalMaxHp = 35f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;

@@ -110,14 +110,17 @@ public class MonsterHunter : MonsterBase
         if (agent.isPathStale)
             return;
 
-        agent.isStopped = false;
-        agent.destination = movePoints[nextIdx].position;
-        agent.speed = patrolSpeed;
-        monsterAnim.OnMove(true, agent.speed);
-
-        if (agent.velocity.magnitude < 1.5f && agent.remainingDistance <= 1.5f)
+        if (isAttack == false)
         {
-            nextIdx = Random.Range(0, movePoints.Count);
+            agent.isStopped = false;
+            agent.destination = movePoints[nextIdx].position;
+            agent.speed = patrolSpeed;
+            monsterAnim.OnMove(true, agent.speed);
+
+            if (agent.velocity.magnitude < 1.5f && agent.remainingDistance <= 1.5f)
+            {
+                nextIdx = Random.Range(0, movePoints.Count);
+            }
         }
     }
 
@@ -156,11 +159,6 @@ public class MonsterHunter : MonsterBase
         }
         else
         {
-            if (isAttack == true)
-            {
-                isAttack = false;
-            }
-
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
 
