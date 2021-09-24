@@ -36,7 +36,8 @@ public class MonsterFootman : MonsterBase
     private Collider monsterCollider;
 
     public bool isDie = false;
-    public bool isAttack = true;
+    public bool isAttack = false;
+    public bool isHit = false;
 
     float dist; //플레이어와 적의 거리
     Vector3 monsterTr;
@@ -109,34 +110,38 @@ public class MonsterFootman : MonsterBase
     public void MovePoint()
     {
         agent.enabled = true;
-        isAttack = false;
 
         if (agent.isPathStale)
             return;
 
-        agent.isStopped = false;
-        agent.destination = movePoints[nextIdx].position;
-        agent.speed = patrolSpeed;
-        monsterAnim.OnMove(true, agent.speed);
-
-        if (agent.velocity.magnitude < 1.5f && agent.remainingDistance <= 1.5f)
+        if (!isAttack)
         {
-            nextIdx = Random.Range(0, movePoints.Count);
+            agent.isStopped = false;
+            agent.destination = movePoints[nextIdx].position;
+            agent.speed = patrolSpeed;
+            monsterAnim.OnMove(true, agent.speed);
+
+            if (agent.velocity.magnitude < 1.5f && agent.remainingDistance <= 1.5f)
+            {
+                nextIdx = Random.Range(0, movePoints.Count);
+            }
         }
     }
 
     public void Chase(Vector3 _target)
     {
         agent.enabled = true;
-        isAttack = false;
 
         if (agent.isPathStale)
             return;
 
-        monsterAnim.OnMove(true, agent.speed);
-        agent.speed = traceSpeed;
-        agent.destination = _target;
-        agent.isStopped = false;
+        if (!isAttack)
+        {
+            monsterAnim.OnMove(true, agent.speed);
+            agent.speed = traceSpeed;
+            agent.destination = _target;
+            agent.isStopped = false;
+        }
     }
 
     public void Attack(Vector3 _target)
@@ -147,23 +152,18 @@ public class MonsterFootman : MonsterBase
             agent.enabled = true;
             Stop();
 
-            if (isAttack == false)
-            {
-                isAttack = true;
-            }
-            if (Time.time >= nextFire)
+            if (Time.time >= nextFire && !isAttack)
             {
                 monsterAnim.OnAttack();
                 nextFire = Time.time + attackRate + Random.Range(0.5f, 1f);
+                isAttack = true;
             }
+
+            
+            
         }
         else
         {
-            if (isAttack == true)
-            {
-                isAttack = false;
-            }
-
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
 
@@ -177,7 +177,6 @@ public class MonsterFootman : MonsterBase
     public void BackMove(Vector3 _target)
     {
         agent.isStopped = false;
-        isAttack = false;
         monsterAnim.OnMove(true, agent.speed);
         Vector3 dir = (transform.position - _target).normalized;
         if (Physics.Raycast(monsterTr, -transform.forward, 5f, 1 << obstacleLayer))
@@ -218,9 +217,10 @@ public class MonsterFootman : MonsterBase
         Stop();
         isDie = true;
         isAttack = false;
+        isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
-
-        minimapCube.SetActive(false);
+        AttackEffect.SetActive(false);
+       
     }
 
     public override void DropItem()
@@ -272,6 +272,16 @@ public class MonsterFootman : MonsterBase
         }
 
         monsterAnim.OnHit();
+    }
+
+    public void ExitAttackMotion()
+    {
+        isAttack = false;
+    }
+
+    public void ExitHitMotion()
+    {
+        isHit = false;
     }
 
     public void OnOffAttackEffect()

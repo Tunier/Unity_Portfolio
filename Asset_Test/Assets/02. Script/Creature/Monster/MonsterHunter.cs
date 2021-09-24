@@ -110,6 +110,8 @@ public class MonsterHunter : MonsterBase
     }
     public void MovePoint()
     {
+        agent.enabled = true;
+
         if (agent.isPathStale)
             return;
 
@@ -129,6 +131,8 @@ public class MonsterHunter : MonsterBase
 
     public void Chase(Vector3 _target)
     {
+        agent.enabled = true;
+
         if (agent.isPathStale)
             return;
 
@@ -149,16 +153,15 @@ public class MonsterHunter : MonsterBase
             agent.enabled = true;
             Stop();
 
-            if (isAttack == false)
-            {
-                isAttack = true;
-            }
-
-            if (shotAfterTime >= attackRate)
+            if (shotAfterTime >= attackRate && !isAttack)
             {
                 shotAfterTime = 0;
                 monsterAnim.OnAttack();
+                isAttack = true;
             }
+
+            
+
         }
         else
         {
@@ -174,6 +177,7 @@ public class MonsterHunter : MonsterBase
 
     public void BackMove(Vector3 _target)
     {
+        agent.enabled = true;
         agent.isStopped = false;
         monsterAnim.OnMove(true, agent.speed);
         Vector3 dir = (transform.position - _target).normalized;
@@ -182,7 +186,7 @@ public class MonsterHunter : MonsterBase
             Debug.Log("옵스타클갑지");
             //뒤로 무빙할때 옵스타클 피하는 위치를 목적지로 설정하는 함수 넣기
         }
-        else if(!isAttack && !isHit )
+        else if(!isAttack && !isHit)
         {
             Debug.Log("옵스타클 비감지");
             agent.SetDestination(transform.position + dir * traceDist);
@@ -219,9 +223,9 @@ public class MonsterHunter : MonsterBase
         }
         isDie = true;
         isAttack = false;
+        isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
-
-        minimapCube.SetActive(false);
+        AttackEffect.SetActive(false);
     }
 
     public override void DropItem()

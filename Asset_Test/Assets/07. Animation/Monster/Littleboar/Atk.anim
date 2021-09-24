@@ -1749,7 +1749,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 1
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -7920,6 +7920,13 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.33333334
+    functionName: OnOffAttackEffect2
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
     functionName: OnAttackCollision
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -7927,13 +7934,6 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
-    functionName: OnOffAttackEffect2
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.33333334
     functionName: OnOffAttackEffect
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -7949,6 +7949,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.5416667
     functionName: OnOffAttackEffect2
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5416667
+    functionName: ExitAttackMotion
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
