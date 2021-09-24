@@ -471,7 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a7d6a8fa3071f43ba326135af9a506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrow: {fileID: 3139439165201853191, guid: 91b5991a842590d41a3ea272fc4a27de, type: 3}
   shotPos: {fileID: 3825357041383193347}
 --- !u!114 &2901431640358706493
 MonoBehaviour:
@@ -511,12 +510,13 @@ MonoBehaviour:
   attackDist: 13
   traceDist: 16
   attackRate: 0.2
-  nextFire: 0
+  shotAfterTime: 0
   patrolSpeed: 4
   traceSpeed: 10
   backSpeed: 20
   isDie: 0
   isAttack: 0
+  isHit: 0
   monsters: []
 --- !u!1 &3825357042031275196
 GameObject:

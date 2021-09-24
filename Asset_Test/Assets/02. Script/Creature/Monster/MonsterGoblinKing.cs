@@ -6,9 +6,7 @@ using UnityEngine.AI;
 public class MonsterGoblinKing : MonsterBase
 {
     [SerializeField]
-    GameObject AttackEffect1;
-    [SerializeField]
-    GameObject AttackEffect2;
+    GameObject attackEffect;
 
     GameObject playerGo;
     public GameObject minimapCube;
@@ -16,6 +14,8 @@ public class MonsterGoblinKing : MonsterBase
 
     PlayerInfo player;
     Transform playerTr;
+
+    public float exp;
 
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
@@ -39,7 +39,9 @@ public class MonsterGoblinKing : MonsterBase
 
     public bool isDie = false;
     public bool isAttack = true;
+    public bool isAttacking = false;
 
+    float stateDelay = 0f;
     float dist; //플레이어와 적의 거리
     Vector3 monsterTr;
     NavMeshAgent agent;
@@ -86,6 +88,7 @@ public class MonsterGoblinKing : MonsterBase
 
         exp = 75f;
         dropGold = 60 + Random.Range(0, 6);
+        finalNormalAtk = 100f;
         finalMaxHp = 125f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;
@@ -125,15 +128,21 @@ public class MonsterGoblinKing : MonsterBase
     public void Chase(Vector3 _target)
     {
         agent.enabled = true;
-        isAttack = false;
 
         if (agent.isPathStale)
             return;
 
         monsterAnim.OnMove(true, agent.speed);
         agent.speed = traceSpeed;
-        agent.destination = _target;
-        agent.isStopped = false;
+        if (isAttack == false)
+        {
+            agent.destination = _target;
+            agent.isStopped = false;
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void Attack(Vector3 _target)
@@ -156,18 +165,12 @@ public class MonsterGoblinKing : MonsterBase
         }
         else
         {
-            if (isAttack == true)
-            {
-                isAttack = false;
-            }
-
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
 
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
-
         }
     }
 
@@ -271,14 +274,14 @@ public class MonsterGoblinKing : MonsterBase
         monsterAnim.OnHit();
     }
 
-    public void OnOffAttackEffect()
+    public void ExitAttackMotion()
     {
-        AttackEffect1.SetActive(!AttackEffect1.activeSelf);
+        isAttack = false;
     }
 
-    public void OnOffAttackEffect2()
+    public void OnOffAttackEffect()
     {
-        AttackEffect2.SetActive(!AttackEffect2.activeSelf);
+        attackEffect.SetActive(!attackEffect.activeSelf);
     }
 
     IEnumerator CheckState()

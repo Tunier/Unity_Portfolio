@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class GoblinAttackCtrl : MonoBehaviour
 {
+    [SerializeField]
+    MonsterGoblinKing goblinKing;
+    [SerializeField]
+    GameObject attackEffect;
+
     GameObject player;
     bool isAttacked;
-
-    public float attackDamage = 50f;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -24,19 +27,16 @@ public class GoblinAttackCtrl : MonoBehaviour
         {
             if (!isAttacked)
             {
-                var playerInfo = player.GetComponent<PlayerInfo>();
-                playerInfo.Hit(attackDamage);
+                var playerCreature = player.GetComponent<Creature>();
+                playerCreature.Hit(goblinKing.finalNormalAtk);
                 isAttacked = true;
-
-                if (playerInfo.curHp <= 0)
-                    playerInfo.Die();
             }
         }
     }
     IEnumerator AutoDisable()
     {
-        yield return new WaitForSeconds(0.1f);
-
+        yield return new WaitForSeconds(0.4f);
+        attackEffect.SetActive(false);
         gameObject.SetActive(false);
     }
 

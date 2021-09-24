@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ArrowCtrl : MonoBehaviour
 {
+    public MonsterHunter hunter;
     GameObject player;
 
-    public float arrowDamage = 10f;
     float delayTime = 0;
     Rigidbody rb;
 
@@ -42,7 +42,6 @@ public class ArrowCtrl : MonoBehaviour
             delayTime -= delayTime;
             rb.velocity = Vector3.zero;
             this.gameObject.SetActive(false);
-            //WeaponManager.instance.arrowPool.Add(this.gameObject);
         }
     }
 
@@ -50,15 +49,8 @@ public class ArrowCtrl : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var playerInfo = player.GetComponent<PlayerInfo>();
-
-            //캐릭터 히트함수
-            playerInfo.Hit(arrowDamage);
-            rb.velocity = Vector3.zero;
-            this.gameObject.SetActive(false);
-
-            if (playerInfo.curHp <= 0)
-                playerInfo.Die();
+            var playerCreature = player.GetComponent<Creature>();
+            playerCreature.Hit(hunter.finalNormalAtk);
         }
     }
 }

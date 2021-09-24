@@ -837,8 +837,7 @@ MonoBehaviour:
   curHp: 0
   movePoints: []
   spawner: {fileID: 0}
-  AttackEffect1: {fileID: 6651206613806442416}
-  AttackEffect2: {fileID: 6650018996087774716}
+  attackEffect: {fileID: 6651206613806442416}
   minimapCube: {fileID: 6650018996925752835}
   hpCanvas: {fileID: 6650018997053310268}
   exp: 0
@@ -855,6 +854,7 @@ MonoBehaviour:
   backSpeed: 20
   isDie: 0
   isAttack: 1
+  isAttacking: 0
   monsters: []
 --- !u!1 &658790810089090175
 GameObject:
@@ -1169,7 +1169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f772472b9ac9f09429f7ce4079c7ff14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 50
+  goblinKing: {fileID: 6760115212992979193}
+  attackEffect: {fileID: 6650018996087774716}
 --- !u!1 &6650018996622770776
 GameObject:
   m_ObjectHideFlags: 0

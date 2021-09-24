@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class UndeadAttackCtrl : MonoBehaviour
 {
+    [SerializeField]
+    MonsterFootman footMan;
+
     GameObject player;
     bool isAttacked;
-
-    float attackDamage = 50f;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -24,12 +25,9 @@ public class UndeadAttackCtrl : MonoBehaviour
         {
             if (!isAttacked)
             {
-                var playerInfo = player.GetComponent<PlayerInfo>();
-                playerInfo.Hit(attackDamage);
+                var playerCreature = player.GetComponent<Creature>();
+                playerCreature.Hit(footMan.finalNormalAtk);
                 isAttacked = true;
-
-                if (playerInfo.curHp <= 0)
-                    playerInfo.Die();
             }
         }
     }

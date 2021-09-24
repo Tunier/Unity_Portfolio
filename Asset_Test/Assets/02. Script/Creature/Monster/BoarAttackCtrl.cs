@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BoarAttackCtrl : MonoBehaviour
 {
+    [SerializeField]
+    MonsterBoar boar;
+
     GameObject player;
     bool isAttacked;
-
-    float attackDamage = 10f;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -25,12 +26,9 @@ public class BoarAttackCtrl : MonoBehaviour
         {
             if (!isAttacked)
             {
-                var playerInfo = player.GetComponent<PlayerInfo>();
-                playerInfo.Hit(attackDamage);
+                var playerCreature = player.GetComponent<Creature>();
+                playerCreature.Hit(boar.finalNormalAtk);
                 isAttacked = true;
-
-                if (playerInfo.curHp <= 0)
-                    playerInfo.Die();
             }
         }
     }

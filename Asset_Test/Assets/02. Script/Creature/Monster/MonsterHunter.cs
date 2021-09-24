@@ -37,6 +37,7 @@ public class MonsterHunter : MonsterBase
 
     public bool isDie = false;
     public bool isAttack = false;
+    public bool isHit = false;
 
     float dist; //플레이어와 적의 거리
     Vector3 monsterTr;
@@ -85,6 +86,7 @@ public class MonsterHunter : MonsterBase
 
         exp = 30f;
         dropGold = 30;
+        finalNormalAtk = 40f;
         finalMaxHp = 70f;
         finalNormalDef = 0;
         curHp = finalMaxHp;
@@ -105,8 +107,6 @@ public class MonsterHunter : MonsterBase
     }
     public void MovePoint()
     {
-        isAttack = false;
-
         if (agent.isPathStale)
             return;
 
@@ -123,20 +123,21 @@ public class MonsterHunter : MonsterBase
 
     public void Chase(Vector3 _target)
     {
-        isAttack = false;
-
         if (agent.isPathStale)
             return;
 
-        monsterAnim.OnMove(true, agent.speed);
         agent.speed = traceSpeed;
-        agent.destination = _target;
-        agent.isStopped = false;
+        if (isAttack == false)
+        {
+            monsterAnim.OnMove(true, agent.speed);
+            agent.destination = _target;
+            agent.isStopped = false;
+        }
     }
 
     public void Attack(Vector3 _target)
     {
-        Vector3 dir = (_target - transform.position).normalized;
+        
         if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.1f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
         {
             agent.enabled = true;
@@ -149,7 +150,7 @@ public class MonsterHunter : MonsterBase
 
             if (shotAfterTime >= attackRate)
             {
-                shotAfterTime -= 0;
+                shotAfterTime = 0;
                 monsterAnim.OnAttack();
             }
         }
@@ -165,6 +166,7 @@ public class MonsterHunter : MonsterBase
 
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
+            Vector3 dir = (_target - transform.position).normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
         }
     }
@@ -172,7 +174,6 @@ public class MonsterHunter : MonsterBase
     public void BackMove(Vector3 _target)
     {
         agent.isStopped = false;
-        isAttack = false;
         monsterAnim.OnMove(true, agent.speed);
         Vector3 dir = (transform.position - _target).normalized;
         if (Physics.Raycast(monsterTr, -transform.forward, 5f, 1 << obstacleLayer))
@@ -180,7 +181,7 @@ public class MonsterHunter : MonsterBase
             Debug.Log("옵스타클갑지");
             //뒤로 무빙할때 옵스타클 피하는 위치를 목적지로 설정하는 함수 넣기
         }
-        else
+        else if(!isAttack && !isHit )
         {
             Debug.Log("옵스타클 비감지");
             agent.SetDestination(transform.position + dir * traceDist);
@@ -228,6 +229,8 @@ public class MonsterHunter : MonsterBase
 
     public override void Hit(float _damage)
     {
+        isHit = true;
+        Stop();
         curHp -= _damage - finalNormalDef;
 
         if (curHp <= 0)
@@ -271,6 +274,16 @@ public class MonsterHunter : MonsterBase
         }
 
         monsterAnim.OnHit();
+    }
+
+    public void ExitAttackMotion()
+    {
+        isAttack = false;
+    }
+
+    public void ExitHitMotion()
+    {
+        isHit = false;
     }
 
     public void OnOffAttackEffect()

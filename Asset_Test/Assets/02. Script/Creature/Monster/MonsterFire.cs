@@ -29,6 +29,7 @@ public class MonsterFire : MonoBehaviour
 
         //쏠때 파티클 제어문
         var _arrow = ObjPoolingManager.Instance.GetObjAtPool(ObjPoolingManager.Obj.GoblinHunterArrow);
+        _arrow.GetComponent<ArrowCtrl>().hunter = GetComponent<MonsterHunter>();
         _arrow.transform.position = shotPos.position;
         _arrow.transform.rotation = shotPos.rotation;
         _arrow.SetActive(true);
