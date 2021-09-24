@@ -22,9 +22,8 @@ public class MonsterHunter : MonsterBase
     public float attackDist = 13f;       //최대 공격거리
     public float traceDist = 16f;       //추적 거리
 
-
     public float attackRate = 0.2f;     //공격딜레이
-    public float nextFire = 0f;
+    public float shotAfterTime = 0f;
 
     public float patrolSpeed = 4f;      //일상속도
     public float traceSpeed = 10f;      //추적속도
@@ -54,7 +53,7 @@ public class MonsterHunter : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
-        
+
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
@@ -101,6 +100,8 @@ public class MonsterHunter : MonsterBase
             }
         }
         dist = Vector3.Distance(playerTr.position, transform.position);
+
+        shotAfterTime += Time.deltaTime;
     }
     public void MovePoint()
     {
@@ -146,10 +147,10 @@ public class MonsterHunter : MonsterBase
                 isAttack = true;
             }
 
-            if (Time.time >= nextFire)
+            if (shotAfterTime >= attackRate)
             {
+                shotAfterTime -= 0;
                 monsterAnim.OnAttack();
-                nextFire = Time.time + attackRate + Random.Range(0.5f, 1f);
             }
         }
         else
@@ -158,7 +159,6 @@ public class MonsterHunter : MonsterBase
             {
                 isAttack = false;
             }
-
 
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
