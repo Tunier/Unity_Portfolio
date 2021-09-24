@@ -85,6 +85,7 @@ public class MonsterFootman : MonsterBase
         state = STATE.Patrol;
         GetComponent<CapsuleCollider>().enabled = true;
 
+        isDie = false;
         isAnger = true;
 
         exp = 75f;

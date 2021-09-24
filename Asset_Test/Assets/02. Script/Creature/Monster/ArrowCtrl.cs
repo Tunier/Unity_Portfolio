@@ -51,6 +51,9 @@ public class ArrowCtrl : MonoBehaviour
         {
             var playerCreature = player.GetComponent<Creature>();
             playerCreature.Hit(hunter.finalNormalAtk);
+
+            rb.velocity = Vector3.zero;
+            this.gameObject.SetActive(false);
         }
     }
 }

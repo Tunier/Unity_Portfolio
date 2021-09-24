@@ -85,6 +85,7 @@ public class MonsterGoblinKing : MonsterBase
 
         state = STATE.Patrol;
 
+        isDie = false;
         isAnger = true;
 
         exp = 75f;

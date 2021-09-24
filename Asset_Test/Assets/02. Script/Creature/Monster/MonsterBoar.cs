@@ -86,6 +86,7 @@ public class MonsterBoar : MonsterBase
 
         state = STATE.Patrol;
 
+        isDie = false;
         isAnger = false;
         GetComponent<CapsuleCollider>().enabled = true;
 

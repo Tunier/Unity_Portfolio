@@ -10,7 +10,7 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject[] movepoints;
 
     public float checkDistance;
-    [Range(1,10)]
+    [Range(1, 10)]
     public int maxSpawnCount;
     public int spawnCount;
 
@@ -57,7 +57,10 @@ public class MonsterSpawner : MonoBehaviour
 
         foreach (var movepoint in movepoints)
         {
-            monsterbase.movePoints.Add(movepoint.transform);
+            if (!monsterbase.movePoints.Contains(movepoint.transform))
+            {
+                monsterbase.movePoints.Add(movepoint.transform);
+            }
         }
 
         obj.SetActive(true);

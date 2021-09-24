@@ -83,6 +83,7 @@ public class MonsterHunter : MonsterBase
         minimapCube.SetActive(true);
         hpCanvas.SetActive(true);
 
+        isDie = false;
         isAnger = true;
 
         state = STATE.Patrol;
