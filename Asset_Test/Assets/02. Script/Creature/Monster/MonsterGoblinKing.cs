@@ -217,6 +217,8 @@ public class MonsterGoblinKing : MonsterBase
     {
         monsterAnim.OnDie();
 
+        movePoints.Clear();
+
         Stop();
         isDie = true;
         isAttack = false;

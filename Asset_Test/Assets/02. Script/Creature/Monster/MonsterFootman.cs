@@ -215,6 +215,8 @@ public class MonsterFootman : MonsterBase
     {
         monsterAnim.OnDie();
 
+        movePoints.Clear();
+
         Stop();
         isDie = true;
         isAttack = false;

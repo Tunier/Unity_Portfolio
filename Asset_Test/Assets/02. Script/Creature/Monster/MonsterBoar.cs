@@ -219,6 +219,8 @@ public class MonsterBoar : MonsterBase
         isDie = true;
         isAttack = false;
         isHit = false;
+        movePoints.Clear();
+
         GetComponent<CapsuleCollider>().enabled = false;
         AttackEffect1.SetActive(false);
         AttackEffect2.SetActive(false);

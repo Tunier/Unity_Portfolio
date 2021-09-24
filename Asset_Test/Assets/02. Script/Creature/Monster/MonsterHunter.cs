@@ -218,6 +218,8 @@ public class MonsterHunter : MonsterBase
         monsterAnim.OnDie();
         monsterAnim.OnDieIdx();
 
+        movePoints.Clear();
+
         if (agent.enabled)
         {
             Stop();
