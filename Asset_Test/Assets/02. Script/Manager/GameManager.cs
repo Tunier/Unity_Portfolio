@@ -17,6 +17,7 @@ public class GameManager : MonoSingletone<GameManager>
     public GameObject dieText;
 
     PlayerInfo player;
+    PlayerActionCtrl playerAC;
     Inventory inventory;
     Tooltip tooltip;
 
@@ -29,6 +30,7 @@ public class GameManager : MonoSingletone<GameManager>
     private void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
+        playerAC = FindObjectOfType<PlayerActionCtrl>();
         inventory = FindObjectOfType<Inventory>();
         tooltip = FindObjectOfType<Tooltip>();
 
@@ -134,11 +136,13 @@ public class GameManager : MonoSingletone<GameManager>
     public void OnClickSaveButton()
     {
         player.SavePlayerInfo();
+        playerAC.SaveSkillQuickSlot();
         inventory.SaveInven();
     }
     public void OnExitButtonClick()
     {
         player.SavePlayerInfo();
+        playerAC.SaveSkillQuickSlot();
         inventory.SaveInven();
         isGamequit = true;
         LoadingSceneController.Instance.LoadScene("Game_Title_Scene");

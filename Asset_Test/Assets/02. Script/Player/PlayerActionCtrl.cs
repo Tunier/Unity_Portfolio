@@ -1,6 +1,8 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -92,6 +94,7 @@ public class PlayerActionCtrl : MonoBehaviour
             curSkillCooltime.Add(key, 0f);
         }
 
+        LoadSkillQuickSlot();
     }
 
     void Update()
@@ -405,6 +408,47 @@ public class PlayerActionCtrl : MonoBehaviour
                     wayPointUI.SetActive(true);
                 }
             }
+        }
+    }
+
+    public void SaveSkillQuickSlot()
+    {
+        List<Skill> quickSlotSkill = new List<Skill>();
+
+        for (int i = 0; i < skillSlot.Count; i++)
+        {
+            if (skillSlot[i].skill.UIDCODE != "")
+            {
+                if (!quickSlotSkill.Contains(skillSlot[i].skill))
+                {
+                    quickSlotSkill.Add(skillSlot[i].skill);
+                }
+            }
+        }
+
+        string Jdata = JsonConvert.SerializeObject(quickSlotSkill, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Resources/Data/MyQuickSlotSkillData.text", Jdata);
+    }
+
+    public void LoadSkillQuickSlot()
+    {
+        if (File.Exists(Application.dataPath + "/Resources/Data/MyQuickSlotSkillData.text"))
+        {
+            List<Skill> loadSkills = new List<Skill>();
+
+            string Jdata = File.ReadAllText(Application.dataPath + "/Resources/Data/MyQuickSlotSkillData.text");
+            loadSkills = JsonConvert.DeserializeObject<List<Skill>>(Jdata);
+
+            foreach (var skill in loadSkills)
+            {
+                skillSlot[skill.slotIndex].AddSkill(skill);
+            }
+
+            Debug.Log("스킬 퀵슬롯 로드 완료.");
+        }
+        else
+        {
+            Debug.Log("스킬 퀵슬롯 세이브 데이터 없음.");
         }
     }
 

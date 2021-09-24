@@ -78,6 +78,9 @@ public class MonsterFootman : MonsterBase
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
 
+        minimapCube.SetActive(true);
+        hpCanvas.SetActive(true);
+
         state = STATE.Patrol;
         GetComponent<CapsuleCollider>().enabled = true;
 
@@ -85,7 +88,7 @@ public class MonsterFootman : MonsterBase
 
         exp = 75f;
         dropGold = 60 + Random.Range(0, 6);
-        finalNormalAtk = 50f;
+        finalNormalAtk = 30f;
         finalMaxHp = 125f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;
@@ -232,8 +235,8 @@ public class MonsterFootman : MonsterBase
         {
             state = STATE.Die;
 
-            player.stats.CurExp += exp;
-            player.stats.Gold += dropGold;
+            player.GetExp(exp);
+            player.GetGold(dropGold);
 
             if (player.stats.CurExp > player.stats.MaxExp)
                 player.LevelUp();

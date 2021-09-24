@@ -15,8 +15,6 @@ public class MonsterGoblinKing : MonsterBase
     PlayerInfo player;
     Transform playerTr;
 
-    public float exp;
-
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
@@ -82,13 +80,16 @@ public class MonsterGoblinKing : MonsterBase
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
 
+        minimapCube.SetActive(true);
+        hpCanvas.SetActive(true);
+
         state = STATE.Patrol;
 
         isAnger = true;
 
         exp = 75f;
         dropGold = 60 + Random.Range(0, 6);
-        finalNormalAtk = 100f;
+        finalNormalAtk = 50f;
         finalMaxHp = 125f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;
@@ -235,8 +236,8 @@ public class MonsterGoblinKing : MonsterBase
         {
             state = STATE.Die;
 
-            player.stats.CurExp += exp;
-            player.stats.Gold += dropGold;
+            player.GetExp(exp);
+            player.GetGold(dropGold);
 
             if (player.stats.CurExp > player.stats.MaxExp)
                 player.LevelUp();

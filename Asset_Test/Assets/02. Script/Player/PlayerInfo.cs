@@ -263,6 +263,20 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         StartCoroutine(DieCo());
     }
 
+    public void GetExp(float _exp)
+    {
+        stats.CurExp += _exp;
+
+        SystemText_ScrollView_Ctrl.Instance.PrintText("∞Ê«Ëƒ°∏¶ " + _exp + " »πµÊ«ﬂΩ¿¥œ¥Ÿ.");
+    }
+
+    public void GetGold(int _gold)
+    {
+        stats.Gold += _gold;
+
+        SystemText_ScrollView_Ctrl.Instance.PrintText("∞ÒµÂ∏¶ " + _gold + " »πµÊ«ﬂΩ¿¥œ¥Ÿ.");
+    }
+
     IEnumerator DieCo()
     {
         yield return new WaitForSeconds(3f);

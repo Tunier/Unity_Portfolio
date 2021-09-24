@@ -90,7 +90,7 @@ public class MonsterBoar : MonsterBase
 
         exp = 15f;
         dropGold = 10;
-        finalNormalAtk = 30f;
+        finalNormalAtk = 10f;
         finalMaxHp = 35f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;
@@ -229,10 +229,12 @@ public class MonsterBoar : MonsterBase
     {
         int random = Random.Range(0, 10000);
 
-        if (random > 1000)
+        if (random >= 3000)
         {
             var item = ItemDatabase.instance.newItem("0000000");
             inven.GetItem(item);
+
+            SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " À» È¹µæÇß½À´Ï´Ù.");
         }
     }
 
@@ -244,8 +246,8 @@ public class MonsterBoar : MonsterBase
         {
             state = STATE.Die;
 
-            player.stats.CurExp += exp;
-            player.stats.Gold += dropGold;
+            player.GetExp(exp);
+            player.GetGold(dropGold);
 
             if (player.stats.CurExp > player.stats.MaxExp)
                 player.LevelUp();

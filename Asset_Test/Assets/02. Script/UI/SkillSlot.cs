@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Skill skill;
+    public int slotIndex;
     public Image skillImage;
     public Text skillTreeLvText = null;
     public float curCooltime;
@@ -94,6 +95,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void AddSkill(Skill _skill)
     {
         skill = _skill;
+        skill.slotIndex = slotIndex;
         skillImage.sprite = Resources.Load<Sprite>(_skill.SkillImagePath);
         SetColorAlpha(1);
         haveSkill = true;

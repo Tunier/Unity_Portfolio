@@ -80,13 +80,16 @@ public class MonsterHunter : MonsterBase
         checkState = StartCoroutine(CheckState());
         GetComponent<CapsuleCollider>().enabled = true;
 
+        minimapCube.SetActive(true);
+        hpCanvas.SetActive(true);
+
         isAnger = true;
 
         state = STATE.Patrol;
 
         exp = 30f;
         dropGold = 30;
-        finalNormalAtk = 40f;
+        finalNormalAtk = 15f;
         finalMaxHp = 70f;
         finalNormalDef = 0;
         curHp = finalMaxHp;
@@ -235,8 +238,8 @@ public class MonsterHunter : MonsterBase
         {
             state = STATE.Die;
 
-            player.stats.CurExp += exp;
-            player.stats.Gold += dropGold;
+            player.GetExp(exp);
+            player.GetGold(dropGold);
 
             if (player.stats.CurExp > player.stats.MaxExp)
                 player.LevelUp();

@@ -18,6 +18,8 @@ public class Skill
     public int MaxSkillLv;
     public int NeedLv;
 
+    public int slotIndex;
+
     [TextArea]
     public string SkillDescription;
     public string SkillImagePath;
