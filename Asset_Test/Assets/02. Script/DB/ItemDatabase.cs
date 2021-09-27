@@ -157,6 +157,11 @@ public class ItemDatabase : MonoBehaviour
         #endregion
     }
 
+    /// <summary>
+    /// UID코드를 매개변수로 받아서 새 아이템을 생성해줌.
+    /// </summary>
+    /// <param name="_UIDCODE"></param>
+    /// <returns></returns>
     public Item newItem(string _UIDCODE)
     {
         var item = new Item();

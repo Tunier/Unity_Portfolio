@@ -15,18 +15,15 @@ public class SystemText_ScrollView_Ctrl : MonoSingletone<SystemText_ScrollView_C
         var obj = Instantiate(go_Text);
         obj.transform.SetParent(go_contents.transform);
         obj.transform.SetAsFirstSibling();
-        TextList.Add(obj);
+        TextList.Insert(0, obj);
 
         var text = obj.GetComponent<Text>();
         text.text = _text;
-    }
 
-    private void Update()
-    {
         if (TextList.Count > 20)
         {
-            Destroy(TextList[20].gameObject);
-            TextList.RemoveAt(20);
+            Destroy(TextList[19].gameObject);
+            TextList.RemoveAt(19);
         }
     }
 }

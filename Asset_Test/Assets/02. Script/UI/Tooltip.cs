@@ -411,10 +411,10 @@ public class Tooltip : MonoBehaviour
         #endregion
 
         #region 아이템 가격
-        if (RectTransformUtility.RectangleContainsScreenPoint(invenRect, Input.mousePosition))
-            CostText.text = "판매가격 : <color>" + _item.SellCost + " Gold</color>";
-        else if (RectTransformUtility.RectangleContainsScreenPoint(shopRect, Input.mousePosition))
+        if (RectTransformUtility.RectangleContainsScreenPoint(shopRect, Input.mousePosition) && shopRect.gameObject.activeSelf)
             CostText.text = "구매가격 : <color>" + _item.BuyCost + " Gold</color>";
+        else
+            CostText.text = "판매가격 : <color>" + _item.SellCost + " Gold</color>";
 
         CostText.gameObject.SetActive(true);
 
@@ -488,6 +488,7 @@ public class Tooltip : MonoBehaviour
 
         BaseValueText.gameObject.SetActive(false);
 
+        RequireText.gameObject.SetActive(true);
         RequireText.text = string.Format("요구 레벨 <color><b>{0}</b></color>", _skill.NeedLv + player.player_Skill_Dic[_skill.UIDCODE]);
 
         EffectText.gameObject.SetActive(true);

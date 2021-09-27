@@ -160,7 +160,7 @@ public class MonsterBoar : MonsterBase
                 isAttack = true;
             }
 
-            
+
         }
         else
         {
@@ -215,7 +215,10 @@ public class MonsterBoar : MonsterBase
     {
         monsterAnim.OnDie();
 
-        Stop();
+        if (agent.enabled)
+        {
+            Stop();
+        }
         isDie = true;
         isAttack = false;
         isHit = false;
@@ -230,9 +233,16 @@ public class MonsterBoar : MonsterBase
     {
         int random = Random.Range(0, 10000);
 
-        if (random >= 3000)
+        if (random >= 8000)
         {
             var item = ItemDatabase.instance.newItem("0000000");
+            inven.GetItem(item);
+
+            SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " ¿ª »πµÊ«ﬂΩ¿¥œ¥Ÿ.");
+        }
+        else if (random >= 6000)
+        {
+            var item = ItemDatabase.instance.newItem("0000004");
             inven.GetItem(item);
 
             SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " ¿ª »πµÊ«ﬂΩ¿¥œ¥Ÿ.");
@@ -241,23 +251,6 @@ public class MonsterBoar : MonsterBase
 
     public override void Hit(float _damage)
     {
-        curHp -= _damage - finalNormalDef;
-
-        if (curHp <= 0)
-        {
-            state = STATE.Die;
-
-            player.GetExp(exp);
-            player.GetGold(dropGold);
-
-            if (player.stats.CurExp > player.stats.MaxExp)
-                player.LevelUp();
-
-            StopCoroutine(checkState);
-
-            return;
-        }
-
         var ary_monster = Physics.OverlapSphere(transform.position, traceDist * 3, 1 << monsterLayer);
 
         foreach (var monster in ary_monster)
@@ -283,9 +276,26 @@ public class MonsterBoar : MonsterBase
             }
         }
 
+        curHp -= _damage - finalNormalDef;
+
+        if (curHp <= 0)
+        {
+            state = STATE.Die;
+
+            player.GetExp(exp);
+            player.GetGold(dropGold);
+
+            if (player.stats.CurExp > player.stats.MaxExp)
+                player.LevelUp();
+
+            StopCoroutine(checkState);
+
+            return;
+        }
+
         monsterAnim.OnHit();
     }
-    
+
     public void ExitAttackMotion()
     {
         isAttack = false;

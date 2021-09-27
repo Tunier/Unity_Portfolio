@@ -9,6 +9,11 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
         GoblinHunterArrow,
     }
 
+    public enum Effect
+    {
+        RunEffect,
+    }
+
     public enum Monster
     {
         Pig,
@@ -22,6 +27,9 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
     public GameObject go_monsterGoblinHunter;
     public GameObject go_monsterSkeletonWarrior;
 
+    [Header("풀링할 이펙트들")]
+    public GameObject Run_Effect;
+
     int maxcount = 50;
 
     [Header("풀링된 오브젝트들 리스트")]
@@ -30,12 +38,16 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
     public List<GameObject> goblinHunterPool = new List<GameObject>();
     public List<GameObject> skeletonWarriorPool = new List<GameObject>();
 
+    [Header("풀링된 이펙트들 리스트")]
+    public List<GameObject> RunEffectPool = new List<GameObject>();
+
     private void Awake()
     {
         CreatePool(go_goblinHunterArrow, maxcount);
         CreatePool(go_monsterPig, maxcount);
         CreatePool(go_monsterGoblinHunter, maxcount);
         CreatePool(go_monsterSkeletonWarrior, maxcount);
+        CreatePool(Run_Effect, 10);
     }
 
     void CreatePool(GameObject _obj, int _count)
@@ -64,6 +76,10 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
             else if (obj.name.Contains("Skeleton_Warrior"))
             {
                 skeletonWarriorPool.Add(obj);
+            }
+            else if (obj.name.Contains("RunEffect"))
+            {
+                RunEffectPool.Add(obj);
             }
         }
     }
@@ -105,6 +121,22 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
         {
             case Obj.GoblinHunterArrow:
                 foreach (var obj in arrowPool)
+                {
+                    if (!obj.activeSelf)
+                        return obj;
+                }
+                return null;
+            default:
+                return null;
+        }
+    }
+
+    public GameObject GetEffectAtPool(Effect _effect)
+    {
+        switch (_effect)
+        {
+            case Effect.RunEffect:
+                foreach (var obj in RunEffectPool)
                 {
                     if (!obj.activeSelf)
                         return obj;

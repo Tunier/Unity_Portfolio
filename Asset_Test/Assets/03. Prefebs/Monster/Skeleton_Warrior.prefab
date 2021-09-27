@@ -1180,7 +1180,8 @@ MonoBehaviour:
   traceSpeed: 10
   backSpeed: 20
   isDie: 0
-  isAttack: 1
+  isAttack: 0
+  isHit: 0
   monsters: []
 --- !u!1 &2484758521723186843
 GameObject:

@@ -56,7 +56,10 @@ public class UIManager : MonoSingletone<UIManager>
         DamageText.SetDamageText(_Damage);
 
         if (_critical)
+        { 
             DamageText.SetTextColor(Color.red);
+            DamageText.SetTextSize(65);
+        }
     }
 
     public void ShowExplainTxt()

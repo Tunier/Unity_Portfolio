@@ -73,4 +73,9 @@ public class DamageTextUI : MonoBehaviour
     {
         textColor = _color;
     }
+
+    public void SetTextSize(int _size)
+    {
+        damageText.fontSize = _size;
+    }
 }

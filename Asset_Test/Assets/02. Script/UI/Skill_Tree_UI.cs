@@ -73,12 +73,12 @@ public class Skill_Tree_UI : MonoBehaviour
             }
             else
             {
-                print("스킬이 최대 레벨입니다.");
+                SystemText_ScrollView_Ctrl.Instance.PrintText("스킬이 최대 레벨입니다.");
             }
         }
         else
         {
-            print("레벨이 모자랍니다.");
+            SystemText_ScrollView_Ctrl.Instance.PrintText("레벨이 모자랍니다.");
         }
     }
 
@@ -91,7 +91,7 @@ public class Skill_Tree_UI : MonoBehaviour
         }
         else
         {
-            print("스킬이 최소 레벨입니다.");
+            SystemText_ScrollView_Ctrl.Instance.PrintText("스킬이 최소 레벨입니다.");
         }
     }
 }

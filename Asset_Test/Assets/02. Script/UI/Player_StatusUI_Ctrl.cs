@@ -22,6 +22,10 @@ public class Player_StatusUI_Ctrl : MonoBehaviour
     [SerializeField]
     Text expText;
 
+    [SerializeField]
+    Image bloodScreen;
+    Color color;
+
     void Start()
     {
         playerInfo = FindObjectOfType<PlayerInfo>();
@@ -41,5 +45,18 @@ public class Player_StatusUI_Ctrl : MonoBehaviour
 
         expBar.fillAmount = Mathf.Lerp(expBar.fillAmount, playerInfo.stats.CurExp / playerInfo.stats.MaxExp, Time.deltaTime * 3.5f);
         expText.text = Mathf.FloorToInt(playerInfo.stats.CurExp) + " / " + Mathf.FloorToInt(playerInfo.stats.MaxExp);
+
+        color = Color.red;
+
+        if (playerInfo.curHp / playerInfo.finalMaxHp <= 0.1f)
+            color.a = 1;
+        else if (playerInfo.curHp / playerInfo.finalMaxHp <= 0.2f)
+            color.a = 0.66f;
+        else if (playerInfo.curHp / playerInfo.finalMaxHp <= 0.3f)
+            color.a = 0.33f;
+        else if (playerInfo.curHp / playerInfo.finalMaxHp > 0.3f)
+            color.a = 0;
+
+        bloodScreen.color = color;
     }
 }

@@ -33,6 +33,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     [SerializeField]
     RectTransform shopBase;
 
+    GameObject cameraArm;
+
     const string defalt_EquipmentSlotBG_Path = "UI/Tooltip/TooltipBackground";
     const string defalt_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_alphaFront";
     const string common_SlotBG_Path = "UI/Inventory/Slot_Frame/itemFrame_white";
@@ -48,6 +50,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         tooltip = FindObjectOfType<Tooltip>();
         shopMessage = FindObjectOfType<ShopMessage>();
         shop = FindObjectOfType<Shop_Test>();
+        cameraArm = GameObject.Find("CameraArm");
     }
 
     void SetColorAlpha(float alpha)
@@ -928,6 +931,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                             player.curHp = player.finalMaxHp;
 
                         SetSlotCount(-1);
+
+                        var obj = Instantiate(Resources.Load<GameObject>("Effect/HpHealingEffect"));
+                        Destroy(obj, 2f);
                     }
                     else
                     {
@@ -943,6 +949,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                             player.curMp = player.finalMaxMp;
 
                         SetSlotCount(-1);
+
+                        var obj = Instantiate(Resources.Load<GameObject>("Effect/HpHealingEffect"));
+                        Destroy(obj, 2f);
                     }
                     else
                     {

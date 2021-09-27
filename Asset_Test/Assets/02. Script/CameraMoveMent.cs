@@ -21,8 +21,12 @@ public class CameraMoveMent : MonoBehaviour
     {
         cController = FindObjectOfType<CharacterController>();
         playerMvt = FindObjectOfType<PlayerMovement>();
+    }
 
+    private void Start()
+    {
         cameraArm.position = player.transform.position;
+        cameraArm.rotation = player.transform.rotation;
     }
 
     void CamMove()

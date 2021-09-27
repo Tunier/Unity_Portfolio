@@ -14,6 +14,7 @@ public class MonsterHunter : MonsterBase
 
     PlayerInfo player;
     Transform playerTr;
+    Inventory inven;
 
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
@@ -54,6 +55,7 @@ public class MonsterHunter : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
+        inven = FindObjectOfType<Inventory>();
 
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
@@ -184,12 +186,12 @@ public class MonsterHunter : MonsterBase
         Vector3 dir = (transform.position - _target).normalized;
         if (Physics.Raycast(monsterTr, -transform.forward, 5f, 1 << obstacleLayer))
         {
-            Debug.Log("옵스타클갑지");
+            //Debug.Log("옵스타클갑지");
             //뒤로 무빙할때 옵스타클 피하는 위치를 목적지로 설정하는 함수 넣기
         }
         else if(!isAttack && !isHit)
         {
-            Debug.Log("옵스타클 비감지");
+            //Debug.Log("옵스타클 비감지");
             agent.SetDestination(transform.position + dir * traceDist);
             agent.speed = backSpeed;
             if (agent.velocity.sqrMagnitude >= 0.2f * 0.2f)
@@ -233,6 +235,22 @@ public class MonsterHunter : MonsterBase
 
     public override void DropItem()
     {
+        int random = Random.Range(0, 10000);
+
+        if (random >= 8000)
+        {
+            var item = ItemDatabase.instance.newItem("0000002");
+            inven.GetItem(item);
+
+            SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " 을 획득했습니다.");
+        }
+        else if (random >= 6000)
+        {
+            var item = ItemDatabase.instance.newItem("0000006");
+            inven.GetItem(item);
+
+            SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " 을 획득했습니다.");
+        }
     }
 
     public override void Hit(float _damage)

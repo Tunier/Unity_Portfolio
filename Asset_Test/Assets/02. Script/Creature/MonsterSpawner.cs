@@ -46,9 +46,9 @@ public class MonsterSpawner : MonoBehaviour
 
     void SpawnMonster()
     {
-        float x = Random.Range(8f, 12f);
+        float x = Random.Range(-8f, 8f);
         float y = 2f;
-        float z = Random.Range(8f, 12f);
+        float z = Random.Range(-8f, 8f);
 
         var obj = ObjPoolingManager.Instance.GetMonsterAtPool(monster);
         var monsterbase = obj.GetComponent<MonsterBase>();
