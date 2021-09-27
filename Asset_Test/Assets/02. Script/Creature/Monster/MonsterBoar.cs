@@ -73,7 +73,7 @@ public class MonsterBoar : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
-
+        stats.s_Name = "리틀 보어";
     }
 
     private void OnEnable()
@@ -341,6 +341,7 @@ public class MonsterBoar : MonsterBase
                 }
                 else
                 {
+                    isAnger = false;
                     state = STATE.Patrol;
                 }
             }

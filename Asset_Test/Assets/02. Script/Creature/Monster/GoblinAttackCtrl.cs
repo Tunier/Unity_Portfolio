@@ -27,6 +27,7 @@ public class GoblinAttackCtrl : MonoBehaviour
         {
             if (!isAttacked)
             {
+                attackEffect.SetActive(true);
                 var playerCreature = player.GetComponent<Creature>();
                 playerCreature.Hit(goblinKing.finalNormalAtk);
                 isAttacked = true;
@@ -35,7 +36,7 @@ public class GoblinAttackCtrl : MonoBehaviour
     }
     IEnumerator AutoDisable()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         attackEffect.SetActive(false);
         gameObject.SetActive(false);
     }

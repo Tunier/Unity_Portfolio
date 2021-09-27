@@ -73,6 +73,7 @@ public class MonsterGoblinKing : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
+        stats.s_Name = "고블린 킹";
     }
 
     private void OnEnable()

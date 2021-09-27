@@ -6,15 +6,26 @@ using UnityEngine.UI;
 public class HpCanvas : MonoBehaviour
 {
     GameObject CameraArm;
+    MonsterBase monster;
 
     [SerializeField]
-    MonsterBase monster;
+    Image recognize;
     [SerializeField]
     Image hpFill;
+    [SerializeField]
+    Text monsterName;
+
 
     private void Awake()
     {
         CameraArm = GameObject.Find("CameraArm");
+        monster = GetComponentInParent<MonsterBase>();
+        recognize.enabled = false;
+    }
+
+    private void Start()
+    {
+        monsterName.text = monster.stats.s_Name;
     }
 
     void LateUpdate()
@@ -23,5 +34,19 @@ public class HpCanvas : MonoBehaviour
         transform.eulerAngles = Rot;
 
         hpFill.fillAmount = monster.curHp / monster.finalMaxHp;
+
+        Recognize();
+    }
+
+    void Recognize()
+    {
+        if (monster.state == STATE.Attacking || monster.state == STATE.Chase)
+        {
+            recognize.enabled = true;
+        }
+        else
+        {
+            recognize.enabled = false;
+        }
     }
 }

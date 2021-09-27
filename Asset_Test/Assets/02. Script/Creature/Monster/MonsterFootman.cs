@@ -74,6 +74,7 @@ public class MonsterFootman : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
+        stats.s_Name = "½ºÄÌ·¹Åæ ±â»ç";
     }
 
     private void OnEnable()

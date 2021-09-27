@@ -74,6 +74,7 @@ public class MonsterHunter : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
+        stats.s_Name = "∞Ì∫Ì∏∞ «Â≈Õ";
     }
 
     private void OnEnable()
