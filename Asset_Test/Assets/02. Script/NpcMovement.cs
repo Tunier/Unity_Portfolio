@@ -5,17 +5,25 @@ using UnityEngine.AI;
 public class NpcMovement : MonoBehaviour
 {
     Animator animator;
-    public float walkSpeed = 4f;
-
-    public int nextIdx;
+    float walkSpeed = 3f;
+    int nextIdx;
 
     NavMeshAgent agent;
     public List<Transform> movePoints;
+    
+    public GameObject group;
     readonly int hashMove = Animator.StringToHash("IsMove");
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
+        if (group)
+        {
+            movePoints.AddRange(group.GetComponentsInChildren<Transform>());
+            movePoints.RemoveAt(0);
+            nextIdx = Random.Range(0, movePoints.Count);
+        }
     }
     void Update()
     {
@@ -34,7 +42,7 @@ public class NpcMovement : MonoBehaviour
 
         if(agent.velocity.magnitude < 1.5f && agent.remainingDistance <= 1.5f)
         {
-            nextIdx = Random.Range(0, movePoints.Count+1);
+            nextIdx = Random.Range(0, movePoints.Count);
         }
 
     }
