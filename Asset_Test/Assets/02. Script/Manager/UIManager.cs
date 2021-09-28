@@ -9,6 +9,8 @@ public class UIManager : MonoSingletone<UIManager>
     public CharacterController characterController;
     public GameObject go_DamageText;
 
+    public GameObject QuestUI;
+
     public Canvas BackCanvas;
 
     public GameObject hotKeyGuid;
@@ -56,7 +58,7 @@ public class UIManager : MonoSingletone<UIManager>
         DamageText.SetDamageText(_Damage);
 
         if (_critical)
-        { 
+        {
             DamageText.SetTextColor(Color.red);
             DamageText.SetTextSize(65);
         }
@@ -160,4 +162,11 @@ public class UIManager : MonoSingletone<UIManager>
         characterController.enabled = true;
     }
 
+    public void OnClickQuestUIButton()
+    {
+        if (QuestUI.GetComponent<RectTransform>().localPosition.x != 750)
+            QuestUI.GetComponent<RectTransform>().localPosition = new Vector2(750, 85);
+        else
+            QuestUI.GetComponent<RectTransform>().localPosition = new Vector2(1100, 85);
+    }
 }
