@@ -7,7 +7,7 @@ public class Quest
     public string UIDCODE;
     public string Title;
     public string Desc;
-    public int State; //(0:미수락, 1:수행중, 2:조건완료, 3:퀘스트완료)
+    public int State; //(0:미수락, 1:진행중, 2:조건완료, 3:퀘스트완료)
 }
 
 public class QuestManager : MonoSingletone<QuestManager>
@@ -32,11 +32,19 @@ public class QuestManager : MonoSingletone<QuestManager>
 
     private void Start()
     {
-        ShowQuestInPanel(QuestDic["001"]);
-        QuestDic["001"].State = 1;
+        //GetQuest("001");
     }
 
-    public void ShowQuestInPanel(Quest _quest)
+    private void Update()
+    {
+        if (QuestDic["001"].State == 1)
+        {
+            if (quest1_Count >= 10)
+                QuestDic["001"].State = 2;
+        }
+    }
+
+    public void AddQuestInPanel(Quest _quest)
     {
         var obj = Instantiate(go_QuestText);
         obj.name = _quest.Title + " QuestText";
@@ -48,5 +56,20 @@ public class QuestManager : MonoSingletone<QuestManager>
         questText.UIDCODE = _quest.UIDCODE;
         questText.SetTitleText(_quest.Title);
         questText.SetDescText(_quest.Desc);
+    }
+
+    /// <summary>
+    /// 퀘스트의 UIDCODE를 넣어주면 퀘스트 패널에 추가되고, 퀘스트의 상태를 진행중으로 바꿔준다.<br/>
+    /// 또한 퀘스트 패널을 열어준다.
+    /// </summary>
+    /// <param name="_UIDCODE"></param>
+    public void GetQuest(string _UIDCODE)
+    {
+        AddQuestInPanel(QuestDic[_UIDCODE]);
+        QuestDic[_UIDCODE].State = 1;
+
+        Debug.Log(QuestDic[_UIDCODE].Title + " 퀘스트의 상태가 " + QuestDic[_UIDCODE].State + "가 되었습니다.");
+
+        UIManager.Instance.QuestUI.GetComponent<RectTransform>().localPosition = new Vector2(750, 85);
     }
 }

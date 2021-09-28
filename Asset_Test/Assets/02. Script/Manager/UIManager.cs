@@ -38,6 +38,7 @@ public class UIManager : MonoSingletone<UIManager>
     {
         wayPoints.AddRange(GameObject.FindGameObjectsWithTag("WayPoint"));
         merchants.AddRange(GameObject.FindGameObjectsWithTag("Merchant"));
+
     }
 
     private void Update()
@@ -76,6 +77,10 @@ public class UIManager : MonoSingletone<UIManager>
             {
                 explainTxt.text = "상점창열기";
             }
+            else if (hotKeyGuidTarget.CompareTag("Npc"))
+            {
+                explainTxt.text = "대화하기";
+            }
         }
     }
 
@@ -111,7 +116,11 @@ public class UIManager : MonoSingletone<UIManager>
             }
         }
 
-        hotKeyGuid.SetActive(false);
+        if (hotKeyGuidTarget != null)
+        {
+            if (!hotKeyGuidTarget.CompareTag("Npc"))
+                hotKeyGuid.SetActive(false);
+        }
     }
 
     /// <summary>

@@ -227,6 +227,14 @@ public class MonsterBoar : MonsterBase
         GetComponent<CapsuleCollider>().enabled = false;
         AttackEffect1.SetActive(false);
         AttackEffect2.SetActive(false);
+
+        if (QuestManager.Instance.QuestDic["001"].State == 1)
+        {
+            QuestManager.Instance.quest1_Count++;
+
+            if (QuestManager.Instance.quest1_Count >= 10)
+                QuestManager.Instance.QuestDic["001"].State = 2;
+        }
     }
 
     public override void DropItem()

@@ -17,6 +17,7 @@ TagManager:
   - QuickSkillSlot
   - QuickPotionSlot
   - Merchant
+  - Npc
   layers:
   - Default
   - TransparentFX

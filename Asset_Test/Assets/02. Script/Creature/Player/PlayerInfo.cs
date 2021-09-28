@@ -158,7 +158,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
         finalStr = (stats.Str + ItemEffectStr + SkillEffectStr) * (1 + ItemEffectStrMultiplier + SkillEffectStrMultiplier);
         finalInt = (stats.Int + ItemEffectInt + SkillEffectInt) * (1 + ItemEffectIntMultiplier + SkillEffectIntMultiplier);
 
-        finalCriticalChance = 1000 + ItemEffectCriticalChance + SkillEffectCriticalChace;
+        finalCriticalChance = 2000 + ItemEffectCriticalChance + SkillEffectCriticalChace;
         if (finalCriticalChance >= 10000)
             finalCriticalChance = 10000;
 
@@ -269,6 +269,9 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public void GetExp(float _exp)
     {
         stats.CurExp += _exp;
+        
+        if (stats.CurExp >= stats.MaxExp)
+            LevelUp();
 
         SystemText_ScrollView_Ctrl.Instance.PrintText("경험치를 " + _exp + " 획득했습니다.");
     }
