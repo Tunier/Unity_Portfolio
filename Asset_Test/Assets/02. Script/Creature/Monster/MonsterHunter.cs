@@ -88,6 +88,7 @@ public class MonsterHunter : MonsterBase
 
         isDie = false;
         isAnger = true;
+        agent.enabled = true;
 
         state = STATE.Patrol;
 
@@ -151,7 +152,7 @@ public class MonsterHunter : MonsterBase
 
     public void Attack(Vector3 _target)
     {
-        
+
         if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.1f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
         {
             agent.enabled = true;
@@ -163,9 +164,6 @@ public class MonsterHunter : MonsterBase
                 monsterAnim.OnAttack();
                 isAttack = true;
             }
-
-            
-
         }
         else
         {
@@ -174,7 +172,8 @@ public class MonsterHunter : MonsterBase
 
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
-            Vector3 dir = (_target - transform.position).normalized;
+            Vector3 dir = new Vector3(_target.x, 0, _target.z) - new Vector3(transform.position.x, 0, transform.position.z);
+            dir = dir.normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
         }
     }
@@ -190,7 +189,7 @@ public class MonsterHunter : MonsterBase
             //Debug.Log("옵스타클갑지");
             //뒤로 무빙할때 옵스타클 피하는 위치를 목적지로 설정하는 함수 넣기
         }
-        else if(!isAttack && !isHit)
+        else if (!isAttack && !isHit)
         {
             //Debug.Log("옵스타클 비감지");
             agent.SetDestination(transform.position + dir * traceDist);

@@ -99,7 +99,7 @@ public class PlayerActionCtrl : MonoBehaviour
 
     void Update()
     {
-        if (cController.isGrounded)
+        if (cController.isGrounded && player.state != STATE.Die)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {

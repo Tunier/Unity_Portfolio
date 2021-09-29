@@ -20,8 +20,6 @@ public class MonsterSpawner : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
-        spawnOvertime = spawnDelay - 2f;
     }
 
     private void Start()

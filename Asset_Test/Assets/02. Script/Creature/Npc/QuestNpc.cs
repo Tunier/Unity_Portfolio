@@ -7,6 +7,8 @@ public class QuestNpc : MonoBehaviour
     GameObject player;
     DialogUI dialogUI;
 
+    public string npcName;
+
     [TextArea]
     public string dialog1;
     [TextArea]
@@ -32,7 +34,9 @@ public class QuestNpc : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 3f)
         {
-            Vector3 rot = (player.transform.position - transform.position).normalized;
+            Vector3 rot = player.transform.position - transform.position;
+            rot.y = transform.position.y;
+            rot = rot.normalized;
             transform.rotation = Quaternion.LookRotation(rot);
 
             if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange && !UIManager.Instance.hotKeyGuid.activeSelf)

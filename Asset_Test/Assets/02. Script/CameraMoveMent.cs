@@ -40,12 +40,25 @@ public class CameraMoveMent : MonoBehaviour
 
             float x = camAngle.x - mouseDelta.y;
 
-            if (x < 180f)
-                x = Mathf.Clamp(x, -1f, 50f);
-            else
-                x = Mathf.Clamp(x, 360f, 361f);
+            //if (x < 180f)
+            //    x = Mathf.Clamp(x, -1f, 50f);
+            //else
+            //    x = Mathf.Clamp(x, 360f, 361f);
 
-            cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseX, camAngle.z);
+            if (x < 180f)
+            {
+                if (x >= -1f && x <= 50f)
+                    cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseX, camAngle.z);
+                else
+                    cameraArm.rotation = Quaternion.Euler(camAngle.x, camAngle.y + mouseX, camAngle.z);
+            }
+            else
+            {
+                if (x >= 360f && x <= 361f)
+                    cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseX, camAngle.z);
+                else
+                    cameraArm.rotation = Quaternion.Euler(camAngle.x, camAngle.y + mouseX, camAngle.z);
+            }
         }
     }
 

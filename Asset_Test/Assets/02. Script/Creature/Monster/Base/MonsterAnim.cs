@@ -15,6 +15,8 @@ public class MonsterAnim : MonoBehaviour
     readonly int hashAttack = Animator.StringToHash("IsAttack");
     readonly int hashIdleIdx = Animator.StringToHash("IdleIdx");
     readonly int hashWalk = Animator.StringToHash("IsWalk");
+    readonly int hashTaunt = Animator.StringToHash("IsTaunt");
+    readonly int hashCombo = Animator.StringToHash("IsCombo");
 
     private void Awake()
     {
@@ -55,6 +57,16 @@ public class MonsterAnim : MonoBehaviour
     public void OnAttackCollision()
     {
         attackCollision.SetActive(true);
+    }
+
+    public void OnTaunt()
+    {
+        animator.SetTrigger(hashTaunt);
+    }
+
+    public void OnComboAttack()
+    {
+        animator.SetTrigger(hashCombo);
     }
 }
 

@@ -40,7 +40,7 @@ public class HpCanvas : MonoBehaviour
 
     void Recognize()
     {
-        if (monster.state == STATE.Attacking || monster.state == STATE.Chase)
+        if (monster.state == STATE.Attacking || monster.state == STATE.Chase || monster.state == STATE.Backing)
         {
             recognize.enabled = true;
         }

@@ -7,6 +7,12 @@ public class MonsterGoblinKing : MonsterBase
 {
     [SerializeField]
     GameObject attackEffect;
+    [SerializeField]
+    GameObject tauntEffect;
+    [SerializeField]
+    GameObject tauntAttackGo;
+
+    public GameObject pattunSpawner;
 
     GameObject playerGo;
     public GameObject minimapCube;
@@ -19,7 +25,7 @@ public class MonsterGoblinKing : MonsterBase
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
     public float maxDist = 0f;
-    public float attackDist = 4f;       //최대 공격거리
+    public float attackDist = 6f;       //최대 공격거리
     public float traceDist = 15f;       //추적 거리
 
     public float attackRate = 0.2f;     //공격딜레이
@@ -35,15 +41,19 @@ public class MonsterGoblinKing : MonsterBase
 
     private Collider monsterCollider;
 
+    public Renderer meshRenderer;
     public bool isDie = false;
     public bool isAttack = false;
     public bool isHit = false;
+    public bool isTaunt = false;
+    public bool isRaze = false;
 
     float stateDelay = 0f;
     float dist; //플레이어와 적의 거리
     Vector3 monsterTr;
     NavMeshAgent agent;
     MonsterAnim monsterAnim;
+    KingPointCtrl kingPoint;
 
     //public Collider[] monsters; //테스트
     public List<Collider> monsters = new List<Collider>();
@@ -55,6 +65,8 @@ public class MonsterGoblinKing : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
+
+        kingPoint = FindObjectOfType<KingPointCtrl>();
 
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
@@ -78,6 +90,8 @@ public class MonsterGoblinKing : MonsterBase
 
     private void OnEnable()
     {
+        kingPoint.goblinKing = transform;
+
         StartCoroutine(Action());
         checkState = StartCoroutine(CheckState());
 
@@ -97,6 +111,11 @@ public class MonsterGoblinKing : MonsterBase
         curHp = finalMaxHp;
     }
 
+    private void OnDisable()
+    {
+        pattunSpawner.SetActive(false);
+    }
+
     private void Update()
     {
         foreach (var obj in monsters)
@@ -107,6 +126,19 @@ public class MonsterGoblinKing : MonsterBase
             }
         }
         dist = Vector3.Distance(playerTr.position, transform.position);
+
+        if (curHp <= (finalMaxHp / 2) && isRaze == false)
+        {
+            TauntMode();
+        }
+        else if (curHp <= (finalMaxHp * 3 / 4) && isTaunt == false)
+        {
+            isTaunt = true;
+            monsterAnim.OnTaunt();
+            for (int i = 0; i < movePoints.Count; i++)
+                pattunSpawner.GetComponent<MonsterSpawner>().movepoints[i] = movePoints[i].gameObject;
+            pattunSpawner.SetActive(true);
+        }
     }
 
     public void MovePoint()
@@ -152,20 +184,35 @@ public class MonsterGoblinKing : MonsterBase
 
     public void Attack(Vector3 _target)
     {
-        Vector3 dir = (_target - transform.position).normalized;
         if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //시야각
         {
             agent.enabled = true;
+            agent.isStopped = false;
             Stop();
-
+            int randomAttack = Random.Range(0, 10000);
             if (Time.time >= nextFire && !isAttack)
             {
-                monsterAnim.OnAttack();
-                nextFire = Time.time + attackRate + Random.Range(0.5f, 1f);
                 isAttack = true;
-            }
 
-            
+                if (isRaze == false)
+                {
+                    monsterAnim.OnAttack();
+                }
+                else
+                {
+                    int x = randomAttack <= 3500 ? 1 : 0;
+                    switch (x)
+                    {
+                        case 0:
+                            monsterAnim.OnAttack();
+                            break;
+                        case 1:
+                            monsterAnim.OnComboAttack();
+                            break;
+                    }
+                }
+                nextFire = Time.time + attackRate + Random.Range(0.5f, 1f);
+            }
         }
         else
         {
@@ -174,6 +221,8 @@ public class MonsterGoblinKing : MonsterBase
 
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
+            Vector3 dir = new Vector3(_target.x, 0, _target.z) - new Vector3(transform.position.x, 0, transform.position.z);
+            dir = dir.normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
         }
     }
@@ -214,18 +263,28 @@ public class MonsterGoblinKing : MonsterBase
         agent.ResetPath();
     }
 
+    public void TauntMode()
+    {
+        isRaze = true;
+        monsterAnim.OnTaunt();
+        tauntAttackGo.SetActive(true);
+        meshRenderer.material.color = Color.red;
+    }
+
     public override void Die()
     {
         monsterAnim.OnDie();
 
         movePoints.Clear();
 
-        Stop();
+        if (agent.enabled)
+        {
+            Stop();
+        }
         isDie = true;
         isAttack = false;
         isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
-        attackEffect.SetActive(false);
     }
 
     public override void DropItem()
@@ -275,10 +334,8 @@ public class MonsterGoblinKing : MonsterBase
                 }
             }
         }
-
-        monsterAnim.OnHit();
     }
-        
+
     public void ExitHitMotion()
     {
         isHit = false;
@@ -289,9 +346,19 @@ public class MonsterGoblinKing : MonsterBase
         isAttack = false;
     }
 
-    public void OnOffAttackEffect()
+    public IEnumerator OnOffAttackEffect()
     {
-        attackEffect.SetActive(!attackEffect.activeSelf);
+        yield return new WaitForSeconds(0.4f);
+        attackEffect.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        attackEffect.SetActive(false);
+    }
+
+    public IEnumerator OnOffTauntEffect()
+    {
+        tauntEffect.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        tauntEffect.SetActive(false);
     }
 
     IEnumerator CheckState()

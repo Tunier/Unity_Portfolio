@@ -31,5 +31,10 @@ public class QuestTextUI : MonoBehaviour
                 stateText.text = "";
                 break;
         }
+
+        if (QuestManager.Instance.QuestDic[UIDCODE].State == 3 || QuestManager.Instance.QuestDic[UIDCODE].State == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

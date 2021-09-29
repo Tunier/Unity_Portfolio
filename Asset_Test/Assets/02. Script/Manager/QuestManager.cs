@@ -68,7 +68,7 @@ public class QuestManager : MonoSingletone<QuestManager>
         AddQuestInPanel(QuestDic[_UIDCODE]);
         QuestDic[_UIDCODE].State = 1;
 
-        Debug.Log(QuestDic[_UIDCODE].Title + " 퀘스트의 상태가 " + QuestDic[_UIDCODE].State + "가 되었습니다.");
+        //Debug.Log(QuestDic[_UIDCODE].Title + " 퀘스트의 상태가 " + QuestDic[_UIDCODE].State + "가 되었습니다.");
 
         UIManager.Instance.QuestUI.GetComponent<RectTransform>().localPosition = new Vector2(750, 85);
     }

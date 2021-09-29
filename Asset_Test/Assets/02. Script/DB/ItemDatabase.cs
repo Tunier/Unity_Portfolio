@@ -22,8 +22,8 @@ public class Item
     public int SellCost;
     public string ItemImagePath;
 
-    public int SlotIndex = 0; // 세이브용 데이터
-    public int Count = 0; // 세이브용 데이터
+    public int SlotIndex; // 세이브용 데이터
+    public int Count; // 세이브용 데이터
 
     public ItemEffect itemEffect = new ItemEffect();
 }

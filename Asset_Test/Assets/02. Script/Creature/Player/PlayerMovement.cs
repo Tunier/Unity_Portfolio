@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
                         Physics.Raycast(ray, out hit, Mathf.Infinity);
 
-                        Vector3 mousePos = new Vector3(hit.point.x, 0, hit.point.z);
+                        Vector3 mousePos = hit.point;
 
                         nav.SetDestination(mousePos);
 

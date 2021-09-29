@@ -150,7 +150,7 @@ public class MonsterFootman : MonsterBase
 
     public void Attack(Vector3 _target)
     {
-        Vector3 dir = (_target - transform.position).normalized;
+
         if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //½Ã¾ß°¢
         {
             agent.enabled = true;
@@ -168,10 +168,11 @@ public class MonsterFootman : MonsterBase
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
 
+            Vector3 dir = new Vector3(_target.x, 0, _target.z) - new Vector3(transform.position.x, 0, transform.position.z);
+            dir = dir.normalized;
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
-
         }
     }
 
@@ -223,7 +224,7 @@ public class MonsterFootman : MonsterBase
         isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
         AttackEffect.SetActive(false);
-       
+
     }
 
     public override void DropItem()

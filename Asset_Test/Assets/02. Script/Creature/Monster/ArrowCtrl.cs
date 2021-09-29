@@ -21,7 +21,7 @@ public class ArrowCtrl : MonoBehaviour
     private void OnEnable()
     {
         delayTime = 0;
-        shotRot = (new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z) - new Vector3(transform.position.x, 0.1f, transform.position.z)).normalized;
+        shotRot = (new Vector3(player.transform.position.x, 0, player.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
     }
 
     void Update()

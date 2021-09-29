@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public int index = 0;
+    public int index;
     public Item item;
     public Image itemImage;
     public Image slot_BG;
@@ -950,7 +950,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
                         SetSlotCount(-1);
 
-                        var obj = Instantiate(Resources.Load<GameObject>("Effect/HpHealingEffect"));
+                        var obj = Instantiate(Resources.Load<GameObject>("Effect/MpHealingEffect"));
                         Destroy(obj, 2f);
                     }
                     else

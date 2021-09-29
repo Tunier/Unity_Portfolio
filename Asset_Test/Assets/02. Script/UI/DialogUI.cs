@@ -77,8 +77,8 @@ public class DialogUI : MonoBehaviour
 
     public void SetButtonTextAcceptRefuseType()
     {
-        SetButtonText(DialogButton.Left, "수락하기");
-        SetButtonText(DialogButton.Right, "거절하기");
+        SetButtonText(DialogButton.Left, "거절하기");
+        SetButtonText(DialogButton.Right, "수락하기");
         buttonType = ButtonType.AcceptRefuse;
     }
 
@@ -142,16 +142,7 @@ public class DialogUI : MonoBehaviour
                     index--;
                 break;
             case ButtonType.AcceptRefuse:
-                if (QuestManager.Instance.QuestDic[questUIDCODE].State == 0)
-                {
-                    QuestManager.Instance.GetQuest(questUIDCODE);
-                    gameObject.SetActive(false);
-                }
-                else
-                {
-                    SetButtonTextCoversationType();
-                    dialogText.text = "넌이미 퀘스트를 진행중이거나 완료했어.";
-                }
+                gameObject.SetActive(false);
                 questUIDCODE = "";
                 ClearTextList();
                 break;
@@ -185,7 +176,16 @@ public class DialogUI : MonoBehaviour
                     index++;
                 break;
             case ButtonType.AcceptRefuse:
-                gameObject.SetActive(false);
+                if (QuestManager.Instance.QuestDic[questUIDCODE].State == 0)
+                {
+                    QuestManager.Instance.GetQuest(questUIDCODE);
+                    gameObject.SetActive(false);
+                }
+                else
+                {
+                    SetButtonTextCoversationType();
+                    dialogText.text = "넌이미 퀘스트를 진행중이거나 완료했어.";
+                }
                 questUIDCODE = "";
                 ClearTextList();
                 break;

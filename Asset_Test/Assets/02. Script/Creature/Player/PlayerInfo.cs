@@ -126,15 +126,18 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 
     private void Update()
     {
-        if (curHp < finalMaxHp)
-            curHp += finalHpRegen * Time.deltaTime;
-        else
-            curHp = finalMaxHp;
+        if (state != STATE.Die)
+        {
+            if (curHp < finalMaxHp)
+                curHp += finalHpRegen * Time.deltaTime;
+            else
+                curHp = finalMaxHp;
 
-        if (curMp < finalMaxMp)
-            curMp += finalMpRegen * Time.deltaTime;
-        else
-            curMp = finalMaxMp;
+            if (curMp < finalMaxMp)
+                curMp += finalMpRegen * Time.deltaTime;
+            else
+                curMp = finalMaxMp;
+        }
 
         if (curHp < 0)
             curHp = 0;
@@ -269,7 +272,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public void GetExp(float _exp)
     {
         stats.CurExp += _exp;
-        
+
         if (stats.CurExp >= stats.MaxExp)
             LevelUp();
 
@@ -349,8 +352,11 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             //GetItem(ItemDatabase.instance.newItem("0000003"));
             inven.GetItem(ItemDatabase.instance.newItem("0000000"));
             inven.GetItem(ItemDatabase.instance.newItem("0000004"));
-            inven.GetItem(ItemDatabase.instance.newItem("0000007"));
-            inven.GetItem(ItemDatabase.instance.newItem("0000008"), 555);
+            //inven.GetItem(ItemDatabase.instance.newItem("0000007"));
+            inven.GetItem(ItemDatabase.instance.newItem("0000008"), 100);
+
+            for (int i = 0; i < 3; i++)
+                inven.inventory_Slots[i].item.SlotIndex = i;
             //GetItem(ItemDatabase.instance.newItem("0000009"), 10);
 
             stats.Gold = 1000;

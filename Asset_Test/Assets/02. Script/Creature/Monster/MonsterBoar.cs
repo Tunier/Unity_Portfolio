@@ -147,7 +147,6 @@ public class MonsterBoar : MonsterBase
 
     public void Attack(Vector3 _target)
     {
-        Vector3 dir = (_target - transform.position).normalized;
         if (Physics.Raycast(transform.position + (Vector3.up * 2.5f), transform.forward, attackDist * 1.5f, 1 << playerLayer))//Vector3.Angle(enemyTr.forward, dir) < viewAngle * 0.5f) //½Ã¾ß°¢
         {
             agent.enabled = true;
@@ -159,18 +158,17 @@ public class MonsterBoar : MonsterBase
                 nextFire = Time.time + attackRate + Random.Range(0.5f, 1f);
                 isAttack = true;
             }
-
-
         }
         else
         {
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
 
+            Vector3 dir = new Vector3(_target.x, 0, _target.z) - new Vector3(transform.position.x, 0, transform.position.z);
+            dir = dir.normalized;
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
-
         }
     }
 
@@ -228,13 +226,8 @@ public class MonsterBoar : MonsterBase
         AttackEffect1.SetActive(false);
         AttackEffect2.SetActive(false);
 
-        if (QuestManager.Instance.QuestDic["001"].State == 1)
-        {
+        if (QuestManager.Instance.QuestDic["001"].State == 1 && QuestManager.Instance.quest1_Count < 10)
             QuestManager.Instance.quest1_Count++;
-
-            if (QuestManager.Instance.quest1_Count >= 10)
-                QuestManager.Instance.QuestDic["001"].State = 2;
-        }
     }
 
     public override void DropItem()
