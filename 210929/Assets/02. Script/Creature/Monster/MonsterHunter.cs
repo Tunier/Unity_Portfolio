@@ -88,6 +88,7 @@ public class MonsterHunter : MonsterBase
 
         isDie = false;
         isAnger = true;
+        agent.enabled = true;
 
         state = STATE.Patrol;
 
@@ -171,8 +172,9 @@ public class MonsterHunter : MonsterBase
 
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
-            Vector3 dir = (_target - transform.position).normalized;
+            Vector3 dir = _target - transform.position;
             dir.y = transform.position.y;
+            dir = dir.normalized;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);
         }
     }

@@ -12,6 +12,8 @@ public class SpecialAttackCtrl : MonoBehaviour
 
     Vector3 shotRot;
 
+    bool isAttacked;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -21,23 +23,14 @@ public class SpecialAttackCtrl : MonoBehaviour
     private void OnEnable()
     {
         delayTime = 0;
-        shotRot = (new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z) - new Vector3(transform.position.x, 0.1f, transform.position.z)).normalized;
+        shotRot = (new Vector3(transform.position.x, transform.position.y, transform.position.z) - new Vector3(player.transform.position.x, 0, player.transform.position.z)).normalized;
+        isAttacked = false;
     }
 
     void Update()
     {
-        BackPooling();
-    }
-
-    private void FixedUpdate()
-    {
-        rb.AddForce(shotRot * 1f, ForceMode.Impulse);
-    }
-
-    public void BackPooling()
-    {
         delayTime += Time.deltaTime;
-        if (delayTime >= 1f)
+        if (delayTime >= 0.5f)
         {
             delayTime -= delayTime;
             rb.velocity = Vector3.zero;
@@ -45,15 +38,21 @@ public class SpecialAttackCtrl : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void FixedUpdate()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        rb.AddForce(transform.up * 1f, ForceMode.Impulse);
+    }
+   
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            var playerCreature = player.GetComponent<Creature>();
-            playerCreature.Hit(goblinKing.finalNormalAtk);
-
-            rb.velocity = Vector3.zero;
-            this.gameObject.SetActive(false);
+            if (isAttacked == false)
+            {
+                isAttacked = true;
+                var playerCreature = player.GetComponent<Creature>();
+                playerCreature.Hit(goblinKing.finalNormalAtk);
+            }
         }
     }
 }

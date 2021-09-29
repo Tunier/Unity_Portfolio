@@ -168,8 +168,9 @@ public class MonsterFootman : MonsterBase
             monsterAnim.OnMove(true, agent.speed);
             agent.enabled = false;
 
-            Vector3 dir = (_target - transform.position).normalized;
+            Vector3 dir = _target - transform.position;
             dir.y = transform.position.y;
+            dir = dir.normalized;
             //agent.SetDestination(_target);
             //agent.speed = backSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 120f);

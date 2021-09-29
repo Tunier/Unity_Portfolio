@@ -22,7 +22,8 @@ public class MonsterFire : MonoBehaviour
         var _slash = ObjPoolingManager.Instance.GetObjAtPool(ObjPoolingManager.Obj.GoblinKingSlah);
         _slash.GetComponent<SpecialAttackCtrl>().goblinKing = GetComponent<MonsterGoblinKing>();
         _slash.transform.position = shotPos.position;
-        _slash.transform.rotation = shotPos.rotation;
+        //_slash.transform.rotation = shotPos.rotation;
+        _slash.transform.eulerAngles = new Vector3(90, gameObject.transform.eulerAngles.y, 0);
         _slash.SetActive(true);
     }
 

@@ -68,7 +68,7 @@ public class ObjPoolingManager : MonoSingletone<ObjPoolingManager>
             {
                 arrowPool.Add(obj);
             }
-            else if (obj.name.Contains("Goblin_Slah"))
+            else if (obj.name.Contains("Goblin_Slash"))
             {
                 slashPool.Add(obj);
             }
