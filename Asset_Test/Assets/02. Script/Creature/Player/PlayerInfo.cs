@@ -138,6 +138,11 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             else
                 curMp = finalMaxMp;
         }
+        else if (state == STATE.Die)
+        {
+            finalLifeSteal = 0;
+            finalLifeStealPercent = 0;
+        }
 
         if (curHp < 0)
             curHp = 0;
