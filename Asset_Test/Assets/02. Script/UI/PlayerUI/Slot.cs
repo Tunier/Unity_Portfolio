@@ -259,7 +259,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 }
                 else if (DragSlot.instance.dragSlot.CompareTag("Equipment"))
                 {
-                    UnEquipItem(DragSlot.instance.dragSlot.item);
+                    DragSlot.instance.dragSlot.UnEquipItem(DragSlot.instance.dragSlot.item, this);
                 }
                 else if (DragSlot.instance.dragSlot.CompareTag("QuickPotionSlot"))
                 {

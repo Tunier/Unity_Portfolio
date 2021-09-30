@@ -270,7 +270,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBAAC\uC2A4\uD130 \uC774\uB984"
+  m_Text: "Npc \uC774\uB984\n"
 --- !u!114 &5085966876105720394
 MonoBehaviour:
   m_ObjectHideFlags: 0
