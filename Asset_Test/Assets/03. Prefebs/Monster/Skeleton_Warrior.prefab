@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 2484758521140150708}
   - component: {fileID: 2484758521140150705}
   - component: {fileID: 2484758521140150704}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,8 +966,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 3
+  m_Radius: 1
+  m_Height: 3.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.55, z: 0}
 --- !u!54 &2484758521723183981
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   curHp: 0
   movePoints: []
   spawner: {fileID: 0}
-  AttackEffect: {fileID: 1205234692577697}
+  attackEffect: {fileID: 1205234692577697}
   minimapCube: {fileID: 2484758520565183779}
   hpCanvas: {fileID: 5797453905621728307}
   group: {fileID: 0}

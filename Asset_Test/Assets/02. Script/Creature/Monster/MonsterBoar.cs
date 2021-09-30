@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class MonsterBoar : MonsterBase
 {
     [SerializeField]
-    GameObject AttackEffect1;
+    GameObject attackEffect1;
     [SerializeField]
-    GameObject AttackEffect2;
+    GameObject attackEffect2;
 
     GameObject playerGo;
     public GameObject minimapCube;
@@ -213,18 +213,19 @@ public class MonsterBoar : MonsterBase
     {
         monsterAnim.OnDie();
 
+        movePoints.Clear();
+
         if (agent.enabled)
         {
             Stop();
         }
+
         isDie = true;
         isAttack = false;
         isHit = false;
-        movePoints.Clear();
-
         GetComponent<CapsuleCollider>().enabled = false;
-        AttackEffect1.SetActive(false);
-        AttackEffect2.SetActive(false);
+        attackEffect1.SetActive(false);
+        attackEffect2.SetActive(false);
 
         if (QuestManager.Instance.QuestDic["001"].State == 1 && QuestManager.Instance.quest1_Count < 10)
             QuestManager.Instance.quest1_Count++;
@@ -252,6 +253,26 @@ public class MonsterBoar : MonsterBase
 
     public override void Hit(float _damage)
     {
+        isHit = true;
+        agent.enabled = true;
+        Stop();
+        curHp -= _damage - finalNormalDef;
+
+        if (curHp <= 0)
+        {
+            state = STATE.Die;
+
+            player.GetExp(exp);
+            player.GetGold(dropGold);
+
+            if (player.stats.CurExp > player.stats.MaxExp)
+                player.LevelUp();
+
+            StopCoroutine(checkState);
+
+            return;
+        }
+
         var ary_monster = Physics.OverlapSphere(transform.position, traceDist * 3, 1 << monsterLayer);
 
         foreach (var monster in ary_monster)
@@ -277,22 +298,6 @@ public class MonsterBoar : MonsterBase
             }
         }
 
-        curHp -= _damage - finalNormalDef;
-
-        if (curHp <= 0)
-        {
-            state = STATE.Die;
-
-            player.GetExp(exp);
-            player.GetGold(dropGold);
-
-            if (player.stats.CurExp > player.stats.MaxExp)
-                player.LevelUp();
-
-            StopCoroutine(checkState);
-
-            return;
-        }
 
         monsterAnim.OnHit();
     }
@@ -307,14 +312,17 @@ public class MonsterBoar : MonsterBase
         isHit = false;
     }
 
-    public void OnOffAttackEffect()
+    public IEnumerator OnOffAttackEffect()
     {
-        AttackEffect1.SetActive(!AttackEffect1.activeSelf);
-    }
-
-    public void OnOffAttackEffect2()
-    {
-        AttackEffect2.SetActive(!AttackEffect2.activeSelf);
+        yield return new WaitForSeconds(0.2f);
+        if (!isHit)
+        {
+            attackEffect1.SetActive(true);
+            attackEffect2.SetActive(true);
+        }
+        yield return new WaitForSeconds(0.3f);
+        attackEffect1.SetActive(false);
+        attackEffect2.SetActive(false);
     }
 
     IEnumerator CheckState()

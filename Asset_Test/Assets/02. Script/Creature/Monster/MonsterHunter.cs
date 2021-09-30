@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class MonsterHunter : MonsterBase
 {
     [SerializeField]
-    GameObject AttackEffect;
+    GameObject attackEffect;
 
     GameObject playerGo;
     public GameObject minimapCube;
@@ -230,7 +230,7 @@ public class MonsterHunter : MonsterBase
         isAttack = false;
         isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
-        AttackEffect.SetActive(false);
+        attackEffect.SetActive(false);
     }
 
     public override void DropItem()
@@ -256,6 +256,7 @@ public class MonsterHunter : MonsterBase
     public override void Hit(float _damage)
     {
         isHit = true;
+        agent.enabled = true;
         Stop();
         curHp -= _damage - finalNormalDef;
 
@@ -312,9 +313,15 @@ public class MonsterHunter : MonsterBase
         isHit = false;
     }
 
-    public void OnOffAttackEffect()
+    public IEnumerator OnOffAttackEffect()
     {
-        AttackEffect.SetActive(!AttackEffect.activeSelf);
+        yield return new WaitForSeconds(0.6f);
+        if (!isHit)
+        {
+            attackEffect.SetActive(true);
+        }
+        yield return new WaitForSeconds(1f);
+        attackEffect.SetActive(false);
     }
 
     IEnumerator CheckState()

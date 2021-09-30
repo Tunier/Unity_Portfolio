@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class MonsterFootman : MonsterBase
 {
     [SerializeField]
-    GameObject AttackEffect;
+    GameObject attackEffect;
 
     GameObject playerGo;
     public GameObject minimapCube;
@@ -218,12 +218,16 @@ public class MonsterFootman : MonsterBase
 
         movePoints.Clear();
 
-        Stop();
+        if (agent.enabled)
+        {
+            Stop();
+        }
+
         isDie = true;
         isAttack = false;
         isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
-        AttackEffect.SetActive(false);
+        attackEffect.SetActive(false);
 
     }
 
@@ -249,6 +253,9 @@ public class MonsterFootman : MonsterBase
 
     public override void Hit(float _damage)
     {
+        isHit = true;
+        agent.enabled = true;
+        Stop();
         curHp -= _damage - finalNormalDef;
 
         if (curHp <= 0)
@@ -303,10 +310,15 @@ public class MonsterFootman : MonsterBase
     {
         isHit = false;
     }
-
-    public void OnOffAttackEffect()
+    public IEnumerator OnOffAttackEffect()
     {
-        AttackEffect.SetActive(!AttackEffect.activeSelf);
+        yield return new WaitForSeconds(0.1f);
+        if (!isHit)
+        {
+            attackEffect.SetActive(true);
+        }
+        yield return new WaitForSeconds(1f);
+        attackEffect.SetActive(false);
     }
 
     IEnumerator CheckState()
