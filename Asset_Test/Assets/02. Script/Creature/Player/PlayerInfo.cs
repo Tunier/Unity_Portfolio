@@ -358,13 +358,13 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
             inven.GetItem(ItemDatabase.instance.newItem("0000000"));
             inven.GetItem(ItemDatabase.instance.newItem("0000004"));
             //inven.GetItem(ItemDatabase.instance.newItem("0000007"));
-            inven.GetItem(ItemDatabase.instance.newItem("0000008"), 100);
+            inven.GetItem(ItemDatabase.instance.newItem("0000008"), 10);
 
             for (int i = 0; i < 3; i++)
                 inven.inventory_Slots[i].item.SlotIndex = i;
             //GetItem(ItemDatabase.instance.newItem("0000009"), 10);
 
-            stats.Gold = 1000;
+            stats.Gold = 100;
 
             #endregion
         }
