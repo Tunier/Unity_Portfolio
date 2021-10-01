@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NpcCanvas : MonoBehaviour
 {
     GameObject cameraArm;
-    QuestNpc npc;
+    Npc npc;
 
     [SerializeField]
     Image upperImage;
@@ -16,7 +16,7 @@ public class NpcCanvas : MonoBehaviour
     void Awake()
     {
         cameraArm = GameObject.Find("CameraArm");
-        npc = GetComponentInParent<QuestNpc>();
+        npc = GetComponentInParent<Npc>();
 
         nameText.text = npc.npcName;
     }
@@ -26,15 +26,18 @@ public class NpcCanvas : MonoBehaviour
         Vector3 Rot = new Vector3(0, cameraArm.transform.eulerAngles.y, 0);
         transform.eulerAngles = Rot;
 
-        if (QuestManager.Instance.QuestDic[npc.questUIDCODE].State == 0)
+        if (npc.questUIDCODE != "")
         {
-            upperImage.gameObject.SetActive(true);
-            upperImage.sprite = Resources.Load<Sprite>("UI/57");
-        }
-        else if (QuestManager.Instance.QuestDic[npc.questUIDCODE].State == 2)
-        {
-            upperImage.gameObject.SetActive(true);
-            upperImage.sprite = Resources.Load<Sprite>("UI/64");
+            if (QuestManager.Instance.QuestDic[npc.questUIDCODE].State == 0)
+            {
+                upperImage.gameObject.SetActive(true);
+                upperImage.sprite = Resources.Load<Sprite>("UI/57");
+            }
+            else if (QuestManager.Instance.QuestDic[npc.questUIDCODE].State == 2)
+            {
+                upperImage.gameObject.SetActive(true);
+                upperImage.sprite = Resources.Load<Sprite>("UI/64");
+            }
         }
         else
         {

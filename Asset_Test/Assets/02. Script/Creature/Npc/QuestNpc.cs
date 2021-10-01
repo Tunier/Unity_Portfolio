@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestNpc : MonoBehaviour
+public class QuestNpc : Npc
 {
-    GameObject player;
     DialogUI dialogUI;
-
-    public string npcName;
 
     [TextArea]
     public string dialog1;
@@ -16,12 +13,13 @@ public class QuestNpc : MonoBehaviour
     [TextArea]
     public string dialog3;
 
-    public string questUIDCODE;
-
     public List<string> dialogs = new List<string>();
+
+    Vector3 firstRot;
 
     void Awake()
     {
+        firstRot = transform.eulerAngles;
         player = GameObject.Find("Player");
         dialogUI = FindObjectOfType<DialogUI>();
 
@@ -53,7 +51,7 @@ public class QuestNpc : MonoBehaviour
         }
         else
         {
-            transform.eulerAngles = new Vector3(0, -60, 0);
+            transform.eulerAngles = firstRot;
         }
 
         if (dialogUI.gameObject.activeSelf)
