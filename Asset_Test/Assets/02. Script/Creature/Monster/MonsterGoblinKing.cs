@@ -99,7 +99,6 @@ public class MonsterGoblinKing : MonsterBase
 
         minimapCube.SetActive(true);
         hpCanvas.SetActive(true);
-        GetComponent<CapsuleCollider>().enabled = true;
 
         state = STATE.Patrol;
 

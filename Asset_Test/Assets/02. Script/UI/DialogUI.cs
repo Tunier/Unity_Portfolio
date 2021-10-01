@@ -69,9 +69,6 @@ public class DialogUI : MonoBehaviour
                     case "001":
                         dialogText.text += " 보상은 골드 500, 경험치 250이야";
                         break;
-                    case "002":
-                        dialogText.text += " 보상은 골드 1000, 경험치 500이야";
-                        break;
                 }
                 SetButtonTextQuestClearType();
             }
@@ -108,8 +105,8 @@ public class DialogUI : MonoBehaviour
 
     public void SetButtonTextQuestClearType()
     {
-        SetButtonText(DialogButton.Left, "대화종료");
-        SetButtonText(DialogButton.Right, "보상받기");
+        SetButtonText(DialogButton.Left, "보상받기");
+        SetButtonText(DialogButton.Right, "대화종료");
         buttonType = ButtonType.QuestClear;
     }
 
@@ -162,6 +159,14 @@ public class DialogUI : MonoBehaviour
                 ClearTextList();
                 break;
             case ButtonType.QuestClear:
+                QuestManager.Instance.QuestDic[questUIDCODE].State = 3;
+                switch (questUIDCODE)
+                {
+                    case "001":
+                        player.GetExp(250);
+                        player.GetGold(500);
+                        break;
+                }
                 gameObject.SetActive(false);
                 questUIDCODE = "";
                 ClearTextList();
@@ -197,18 +202,6 @@ public class DialogUI : MonoBehaviour
                 ClearTextList();
                 break;
             case ButtonType.QuestClear:
-                QuestManager.Instance.QuestDic[questUIDCODE].State = 3;
-                switch (questUIDCODE)
-                {
-                    case "001":
-                        player.GetExp(250);
-                        player.GetGold(500);
-                        break;
-                    case "002":
-                        player.GetExp(500);
-                        player.GetGold(1000);
-                        break;
-                }
                 gameObject.SetActive(false);
                 questUIDCODE = "";
                 ClearTextList();
