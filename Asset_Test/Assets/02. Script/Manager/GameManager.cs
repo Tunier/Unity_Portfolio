@@ -14,10 +14,15 @@ public class GameManager : MonoSingletone<GameManager>
     public GameObject worldMapUI;
     public GameObject PauseCanvas;
 
-    public GameObject dieText;
+    public GameObject pauseButtonUI;
+    public GameObject settingButtonUI;
 
+    //public GameObject dieText;
+
+    GameObject cameraArm;
     PlayerInfo player;
     PlayerActionCtrl playerAC;
+    CharacterController playerCc;
     Inventory inventory;
     Tooltip tooltip;
 
@@ -29,8 +34,10 @@ public class GameManager : MonoSingletone<GameManager>
 
     private void Awake()
     {
+        cameraArm = GameObject.Find("CameraArm");
         player = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
         playerAC = FindObjectOfType<PlayerActionCtrl>();
+        playerCc = player.GetComponent<CharacterController>();
         inventory = FindObjectOfType<Inventory>();
         tooltip = FindObjectOfType<Tooltip>();
 
@@ -74,11 +81,16 @@ public class GameManager : MonoSingletone<GameManager>
         if (isPause && !isGamequit)
         {
             PauseCanvas.SetActive(true);
+            if (!settingButtonUI.activeSelf)
+                pauseButtonUI.SetActive(true);
+
             Time.timeScale = 0;
         }
         else if (!isPause || isGamequit)
         {
             PauseCanvas.SetActive(false);
+            settingButtonUI.SetActive(false);
+
             Time.timeScale = 1;
         }
 
@@ -116,6 +128,27 @@ public class GameManager : MonoSingletone<GameManager>
     public void OnPauseClick()
     {
         isPause = !isPause;
+    }
+
+    public void OnSettingButtonClick()
+    {
+        pauseButtonUI.SetActive(false);
+        settingButtonUI.SetActive(true);
+    }
+
+    public void OnSettingQuitButtonClick()
+    {
+        pauseButtonUI.SetActive(true);
+        settingButtonUI.SetActive(false);
+    }
+
+    public void OnPlayerResetPosButtonClick()
+    {
+        playerCc.enabled = false;
+        player.gameObject.transform.position = new Vector3(138.8f, 0, 191.2f);
+        player.gameObject.transform.eulerAngles = new Vector3(0, 270, 0);
+        cameraArm.transform.eulerAngles = new Vector3(0, -90, 0);
+        playerCc.enabled = true;
     }
 
     public void OnStatusButtonClick()
