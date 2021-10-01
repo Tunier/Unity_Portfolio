@@ -163,6 +163,7 @@ public class PlayerActionCtrl : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
+                player.state = STATE.Idle;
                 ani.SetBool(hashIsAttack, false);
             }
             else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())

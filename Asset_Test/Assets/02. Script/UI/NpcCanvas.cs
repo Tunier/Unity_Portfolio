@@ -48,6 +48,11 @@ public class NpcCanvas : MonoBehaviour
                 if (upperImage.sprite != questionMark)
                     upperImage.sprite = questionMark;
             }
+            else
+            {
+                if (upperImage.gameObject.activeSelf)
+                    upperImage.gameObject.SetActive(false);
+            }
         }
         else
         {
