@@ -231,6 +231,9 @@ public class MonsterHunter : MonsterBase
         isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
         attackEffect.SetActive(false);
+
+        if (QuestManager.Instance.QuestDic["002"].State == 1 && QuestManager.Instance.quest2_Count < 10)
+            QuestManager.Instance.quest2_Count++;
     }
 
     public override void DropItem()

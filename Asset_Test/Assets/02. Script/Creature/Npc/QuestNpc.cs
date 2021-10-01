@@ -16,6 +16,7 @@ public class QuestNpc : Npc
     public List<string> dialogs = new List<string>();
 
     Vector3 firstRot;
+    Vector3 lookRot;
 
     void Awake()
     {
@@ -32,10 +33,10 @@ public class QuestNpc : Npc
     {
         if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 3f)
         {
-            Vector3 rot = player.transform.position - transform.position;
-            rot.y = transform.position.y;
-            rot = rot.normalized;
-            transform.rotation = Quaternion.LookRotation(rot);
+            lookRot = player.transform.position - transform.position;
+            lookRot.y = 0;
+            lookRot = lookRot.normalized;
+            transform.rotation = Quaternion.LookRotation(lookRot);
 
             if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange && !UIManager.Instance.hotKeyGuid.activeSelf)
             {

@@ -18,8 +18,10 @@ public class QuestManager : MonoSingletone<QuestManager>
     public Dictionary<string, Quest> QuestDic = new Dictionary<string, Quest>(); // 퀘스트UID, 퀘스트
 
     Quest quest1 = new Quest();
+    Quest quest2 = new Quest();
 
     public int quest1_Count = 0;
+    public int quest2_Count = 0;
 
     private void Awake()
     {
@@ -27,12 +29,12 @@ public class QuestManager : MonoSingletone<QuestManager>
         quest1.Title = "돼지고기 구하기";
         quest1.Desc = "리틀보어 10마리 잡기.";
 
-        QuestDic.Add(quest1.UIDCODE, quest1);
-    }
+        quest2.UIDCODE = "002";
+        quest2.Title = "고블린 혼내주기";
+        quest2.Desc = "고블린 궁수 10마리 잡기.";
 
-    private void Start()
-    {
-        //GetQuest("001");
+        QuestDic.Add(quest1.UIDCODE, quest1);
+        QuestDic.Add(quest2.UIDCODE, quest2);
     }
 
     private void Update()
@@ -42,14 +44,20 @@ public class QuestManager : MonoSingletone<QuestManager>
             if (quest1_Count >= 10)
                 QuestDic["001"].State = 2;
         }
+
+        if (QuestDic["002"].State == 1)
+        {
+            if (quest2_Count >= 10)
+                QuestDic["002"].State = 2;
+        }
     }
 
     public void AddQuestInPanel(Quest _quest)
     {
-        var obj = Instantiate(go_QuestText);
+        var obj = Instantiate(go_QuestText, questPanel.transform);
         obj.name = _quest.Title + " QuestText";
 
-        obj.transform.SetParent(questPanel.transform);
+        //obj.transform.SetParent(questPanel.transform);
 
         var questText = obj.GetComponent<QuestTextUI>();
 

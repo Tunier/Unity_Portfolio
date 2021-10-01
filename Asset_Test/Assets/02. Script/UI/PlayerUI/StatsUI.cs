@@ -28,40 +28,45 @@ public class StatsUI : MonoBehaviour
     public Text AtkHpRecoverText;
     public Text AtkLifeStealText;
 
-    void Start()
+    WaitForSeconds refreshDelay = new WaitForSeconds(0.1f);
+
+    void Awake()
     {
         player = FindObjectOfType<PlayerInfo>();
+        StartCoroutine(RefreshStatsUIText());
     }
 
-    void Update()
-    {
-        RefreshStatsUIText();
-
-        //print(player.finalLifeStealPercent);
-    }
-
-    public void RefreshStatsUIText()
+    private void Start()
     {
         //NameText.text = player.stats.s_Name;
         NameText.text = "Tunier";
-        LvText.text = "레벨 : " + player.stats.Level;
-        JobText.text = "직업 : 전사";
-        HpText.text = Mathf.CeilToInt(player.curHp) + " / " + player.finalMaxHp;
-        MpText.text = Mathf.CeilToInt(player.curMp) + " / " + player.finalMaxMp;
-        HpRegenText.text = player.finalHpRegen + "";
-        MpRegenText.text = player.finalMpRegen + "";
-        StrText.text = player.finalStr + "";
-        IntText.text = player.finalInt + "";
-        NormalAtkText.text = player.finalNormalAtk + "";
-        NormalDefText.text = player.finalNormalDef + "";
-        MagicAtkText.text = player.finalMagicAtk + "";
-        MagicDefText.text = player.finalMagicDef + "";
-        CritChanceText.text = player.finalCriticalChance * 0.01f + " %";
-        CritDamageText.text = player.finalCriticalDamageMuliplie * 100 + " %";
-        //AtkSpeedText.text = player.;
-        //CastSpeedText;
-        //MoveSpeedText;
-        AtkHpRecoverText.text = player.finalLifeSteal + "";
-        AtkLifeStealText.text = player.finalLifeStealPercent + " %";
+    }
+
+    public IEnumerator RefreshStatsUIText()
+    {
+        while (player.state != STATE.Die)
+        {
+            LvText.text = "레벨 : " + player.stats.Level;
+            JobText.text = "직업 : 전사";
+            HpText.text = Mathf.CeilToInt(player.curHp) + " / " + player.finalMaxHp;
+            MpText.text = Mathf.CeilToInt(player.curMp) + " / " + player.finalMaxMp;
+            HpRegenText.text = player.finalHpRegen + "";
+            MpRegenText.text = player.finalMpRegen + "";
+            StrText.text = player.finalStr + "";
+            IntText.text = player.finalInt + "";
+            NormalAtkText.text = player.finalNormalAtk + "";
+            NormalDefText.text = player.finalNormalDef + "";
+            MagicAtkText.text = player.finalMagicAtk + "";
+            MagicDefText.text = player.finalMagicDef + "";
+            CritChanceText.text = player.finalCriticalChance * 0.01f + " %";
+            CritDamageText.text = player.finalCriticalDamageMuliplie * 100 + " %";
+            //AtkSpeedText.text = player.;
+            //CastSpeedText;
+            //MoveSpeedText;
+            AtkHpRecoverText.text = player.finalLifeSteal + "";
+            AtkLifeStealText.text = player.finalLifeStealPercent + " %";
+
+            yield return refreshDelay;
+        }
     }
 }

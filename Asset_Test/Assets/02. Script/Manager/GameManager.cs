@@ -12,6 +12,7 @@ public class GameManager : MonoSingletone<GameManager>
     public GameObject skilltreeUI;
     public GameObject shopUI;
     public GameObject worldMapUI;
+    public GameObject dialogUI;
     public GameObject PauseCanvas;
 
     public GameObject pauseButtonUI;
@@ -59,7 +60,7 @@ public class GameManager : MonoSingletone<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (wayPointUI.activeSelf || inventoryUI.activeSelf || statusUI.activeSelf || skilltreeUI.activeSelf || shopUI.activeSelf || worldMapUI.activeSelf)
+            if (wayPointUI.activeSelf || inventoryUI.activeSelf || statusUI.activeSelf || skilltreeUI.activeSelf || shopUI.activeSelf || worldMapUI.activeSelf || dialogUI.activeSelf)
             {
                 wayPointUI.SetActive(false);
                 inventoryUI.SetActive(false);

@@ -73,6 +73,13 @@ public class DialogUI : MonoBehaviour
                 SetButtonTextQuestClearType();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameObject.SetActive(false);
+            questUIDCODE = "";
+            ClearTextList();
+        }
     }
 
     public void SetButtonTextAcceptRefuseType()
