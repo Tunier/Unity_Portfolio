@@ -74,7 +74,7 @@ public class MonsterHunter : MonsterBase
         {
             playerTr = playerGo.GetComponent<Transform>();
         }
-        stats.s_Name = "고블린 헌터";
+        stats.s_Name = "고블린 궁수";
     }
 
     private void OnEnable()
