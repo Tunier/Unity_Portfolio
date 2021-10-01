@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         effectOverTime += Time.deltaTime;
 
-        if (isRun && effectOverTime >= 0.2f && z > 0)
+        if (isRun && effectOverTime >= 0.2f && z > 0 && cController.isGrounded)
         {
             effectOverTime = 0;
             var obj = ObjPoolingManager.Instance.GetEffectAtPool(ObjPoolingManager.Effect.RunEffect);
