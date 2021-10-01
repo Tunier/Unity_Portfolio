@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 209474960}
   - component: {fileID: 209474961}
   - component: {fileID: 5506399417967730021}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TauntAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1426,7 +1426,7 @@ GameObject:
   - component: {fileID: 8822394189424803658}
   - component: {fileID: 8822394189406514902}
   - component: {fileID: 8822394189407060832}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NovaCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6192,7 +6192,7 @@ GameObject:
   - component: {fileID: 8822394189424876474}
   - component: {fileID: 8822394189406404750}
   - component: {fileID: 8822394189407060218}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11017,9 +11017,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 658790810088832917}
     m_Modifications:
+    - target: {fileID: 128774, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 153796, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 175222, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 188992, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 195466, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
       propertyPath: m_Name
       value: Taunt
+      objectReference: {fileID: 0}
+    - target: {fileID: 195466, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 195466, guid: 56c3274d2f9ec214ab584a80b5ce2d6d, type: 3}
       propertyPath: m_IsActive
@@ -11239,13 +11259,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 658790810088832917}
     m_Modifications:
+    - target: {fileID: 120048, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 135392, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 163552, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 180820, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
       propertyPath: m_Name
       value: SoftBodySlam
       objectReference: {fileID: 0}
     - target: {fileID: 180820, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 180820, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 421996, guid: a07608802ac497743a7f19f6633fdd70, type: 3}
       propertyPath: m_RootOrder
@@ -11338,13 +11374,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 658790810088832917}
     m_Modifications:
+    - target: {fileID: 1069784641726116, guid: 2b2844f70cdc117499cbac5446906321, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1205235233878744, guid: 2b2844f70cdc117499cbac5446906321, type: 3}
       propertyPath: m_Name
       value: SwordSlashThickRed
       objectReference: {fileID: 0}
     - target: {fileID: 1205235233878744, guid: 2b2844f70cdc117499cbac5446906321, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205235233878744, guid: 2b2844f70cdc117499cbac5446906321, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239986575847496, guid: 2b2844f70cdc117499cbac5446906321, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4444968969833766, guid: 2b2844f70cdc117499cbac5446906321, type: 3}
       propertyPath: m_RootOrder

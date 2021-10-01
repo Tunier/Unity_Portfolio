@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 984407834756790864}
   - component: {fileID: 984407834757450408}
   - component: {fileID: 3781904338360857927}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MpHealingEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 984407834775147654}
   - component: {fileID: 984407834756788272}
   - component: {fileID: 984407834756835460}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9701,7 +9701,7 @@ GameObject:
   - component: {fileID: 984407834775151778}
   - component: {fileID: 984407834756830528}
   - component: {fileID: 984407834756819976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MiniParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

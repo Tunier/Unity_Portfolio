@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3102331745425811200}
   - component: {fileID: 7281327880385308838}
   - component: {fileID: 7327721079919786711}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Goblin_Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,4 +126,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06578a0013a8bae43bd2c9a2821f37f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowDamage: 10
+  hunter: {fileID: 0}

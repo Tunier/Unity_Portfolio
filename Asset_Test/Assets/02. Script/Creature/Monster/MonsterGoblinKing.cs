@@ -20,6 +20,7 @@ public class MonsterGoblinKing : MonsterBase
 
     PlayerInfo player;
     Transform playerTr;
+    Inventory inven;
 
     public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
@@ -65,6 +66,7 @@ public class MonsterGoblinKing : MonsterBase
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
+        inven = FindObjectOfType<Inventory>();
 
         kingPoint = FindObjectOfType<KingPointCtrl>();
 
@@ -102,6 +104,9 @@ public class MonsterGoblinKing : MonsterBase
 
         isDie = false;
         isAnger = true;
+        isRaze = false;
+
+        meshRenderer.material.color = Color.white;
 
         exp = 75f;
         dropGold = 60 + Random.Range(0, 6);
@@ -289,6 +294,22 @@ public class MonsterGoblinKing : MonsterBase
 
     public override void DropItem()
     {
+        int random = Random.Range(0, 10000);
+
+        if (random >= 9500)
+        {
+            var item = ItemDatabase.instance.newItem("0000003");
+            inven.GetItem(item);
+
+            SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " 을 획득했습니다.");
+        }
+        else if (random >= 9000)
+        {
+            var item = ItemDatabase.instance.newItem("0000007");
+            inven.GetItem(item);
+
+            SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " 을 획득했습니다.");
+        }
     }
 
     public override void Hit(float _damage)

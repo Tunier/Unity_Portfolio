@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6335380545395644025}
   - component: {fileID: 6335380545376343075}
   - component: {fileID: 6335380545376285717}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LevelUpEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4833,7 +4833,7 @@ GameObject:
   - component: {fileID: 6335380545395636033}
   - component: {fileID: 6335380545376313365}
   - component: {fileID: 6335380545376259943}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MagicDust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9653,7 +9653,7 @@ GameObject:
   - component: {fileID: 6339759639058107629}
   - component: {fileID: 6137079647942552051}
   - component: {fileID: 6138119298609328047}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CenterGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
