@@ -66,6 +66,7 @@ public class PlayerActionCtrl : MonoBehaviour
     readonly int hashSwordSkill2 = Animator.StringToHash("UseSwordSkill2");
     readonly int hashDeath = Animator.StringToHash("Death_b");
     readonly int hashDeathtype = Animator.StringToHash("DeathType_int");
+    readonly int hashMeleeAttackState = Animator.StringToHash("MeleeAttatckState");
 
     void Awake()
     {
@@ -163,7 +164,7 @@ public class PlayerActionCtrl : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                ani.SetBool(hashIsAttack, false);
+                //ani.SetBool(hashIsAttack, false);
             }
             else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -465,8 +466,27 @@ public class PlayerActionCtrl : MonoBehaviour
     {
         ClearMobList();
 
-        if (!Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButtonUp(0) && !Input.GetMouseButtonDown(0))
             player.state = STATE.Idle;
+    }
+
+    public void EventIsAttack()
+    {
+        if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0) || Input.GetMouseButtonDown(0))
+        {
+            player.state = STATE.Attacking;
+            ani.SetBool(hashIsAttack, true);
+        }
+        else
+        {
+            player.state = STATE.Idle;
+            ani.SetBool(hashIsAttack, false);
+        }
+    }
+
+    public void AttackStateChange(int _i)
+    {
+        ani.SetInteger(hashMeleeAttackState, _i);
     }
 
     public void WeaponColCtrl()
