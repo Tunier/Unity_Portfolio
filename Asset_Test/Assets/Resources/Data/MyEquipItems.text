@@ -1,0 +1,53 @@
+[
+  {
+    "UIDCODE": "0000002",
+    "Name": "빛나는 한손검",
+    "Type": 0,
+    "Rarity": 2,
+    "BuyCost": 200,
+    "SellCost": 40,
+    "ItemImagePath": "UI/Item/Transparent/MeleeWeapon1H/Great_Sword",
+    "SlotIndex": 0,
+    "Count": 1,
+    "itemEffect": {
+      "UIDCODE": null,
+      "Value": null,
+      "ValueType": null,
+      "ValueDic": {
+        "7": 4.0,
+        "11": 2.0
+      },
+      "RequireValue": null,
+      "RequireValueType": null,
+      "RequireValueDic": {
+        "1": 3.0
+      }
+    }
+  },
+  {
+    "UIDCODE": "0000007",
+    "Name": "화려한 갑옷",
+    "Type": 3,
+    "Rarity": 3,
+    "BuyCost": 0,
+    "SellCost": 100,
+    "ItemImagePath": "UI/Item/Transparent/Armor/Militiaman",
+    "SlotIndex": 2,
+    "Count": 1,
+    "itemEffect": {
+      "UIDCODE": null,
+      "Value": null,
+      "ValueType": null,
+      "ValueDic": {
+        "9": 2.0,
+        "3": 10.0,
+        "4": 5.0
+      },
+      "RequireValue": null,
+      "RequireValueType": null,
+      "RequireValueDic": {
+        "1": 4.0
+      }
+    }
+  }
+]

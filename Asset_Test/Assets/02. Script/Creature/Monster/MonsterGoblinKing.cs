@@ -293,8 +293,8 @@ public class MonsterGoblinKing : MonsterBase
         isHit = false;
         GetComponent<CapsuleCollider>().enabled = false;
 
-        if (QuestManager.Instance.QuestDic["003"].State == 1 && QuestManager.Instance.quest2_Count < 1)
-            QuestManager.Instance.quest2_Count++;
+        if (QuestManager.Instance.QuestDic["003"].State == 1 && QuestManager.Instance.quest3_Count < 1)
+            QuestManager.Instance.quest3_Count++;
     }
 
     public override void DropItem()

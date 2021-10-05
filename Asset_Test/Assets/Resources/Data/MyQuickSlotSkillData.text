@@ -1,0 +1,32 @@
+[
+  {
+    "UIDCODE": "0300002",
+    "Name": "발도",
+    "Type": 4,
+    "CostType": 2,
+    "Cost": 20,
+    "Value": 40,
+    "ValueFactor": 10.0,
+    "CoolTime": 10.0,
+    "MaxSkillLv": 5,
+    "NeedLv": 5,
+    "slotIndex": 0,
+    "SkillDescription": "발도.\n{0}의 데미지를 줍니다.",
+    "SkillImagePath": "Skill/Skill_Icon/Slice_Attack"
+  },
+  {
+    "UIDCODE": "0300005",
+    "Name": "휠윈드",
+    "Type": 4,
+    "CostType": 2,
+    "Cost": 30,
+    "Value": 20,
+    "ValueFactor": 2.0,
+    "CoolTime": 25.0,
+    "MaxSkillLv": 5,
+    "NeedLv": 15,
+    "slotIndex": 1,
+    "SkillDescription": "회전하면서 주위의 적에게 5초간\n초당 {0}의 데미지를 줍니다.",
+    "SkillImagePath": "Skill/Skill_Icon/Whirl_Wind"
+  }
+]
