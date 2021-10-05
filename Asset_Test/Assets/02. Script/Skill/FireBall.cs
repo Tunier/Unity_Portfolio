@@ -26,12 +26,12 @@ public class FireBall : MonoBehaviour
     void Start()
     {
         rb.velocity = transform.forward * moveSpeed;
-        Destroy(gameObject, 1.2f);
+        Destroy(gameObject, 1f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("RaycastTarget") && !other.CompareTag("Player"))
+        if (!other.CompareTag("RaycastTarget") && !other.CompareTag("Player") && !other.CompareTag("Effect"))
         {
             rb.velocity = Vector3.zero;
             fireBallEffect.SetActive(false);

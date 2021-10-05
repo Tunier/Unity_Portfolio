@@ -34,6 +34,7 @@ public class Stats
     public int Gold;
 }
 
+[System.Serializable]
 public enum STATE
 {
     Idle,

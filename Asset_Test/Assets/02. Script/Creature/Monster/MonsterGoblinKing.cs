@@ -111,9 +111,9 @@ public class MonsterGoblinKing : MonsterBase
         meshRenderer.material.color = Color.white;
 
         exp = 75f;
-        dropGold = 60 + Random.Range(0, 6);
-        finalNormalAtk = 50f;
-        finalMaxHp = 125f;
+        dropGold = 100 + Random.Range(0, 26);
+        finalNormalAtk = 45f;
+        finalMaxHp = 300f;
         finalNormalDef = 0f;
         curHp = finalMaxHp;
     }

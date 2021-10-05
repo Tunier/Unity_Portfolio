@@ -19,6 +19,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
 {
     public Dictionary<string, int> player_Skill_Dic = new Dictionary<string, int>();
 
+    [HideInInspector]
     public GameObject targetMonster;
 
     public GameObject cameraArm;

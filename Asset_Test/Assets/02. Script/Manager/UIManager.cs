@@ -28,7 +28,8 @@ public class UIManager : MonoSingletone<UIManager>
     [SerializeField]
     GameObject shopUI;
 
-    public float recognitionRange = 3.5f;
+    public float recognitionRange = 5.5f;
+
     private void Awake()
     {
         hotKeyGuid.SetActive(false);

@@ -8,6 +8,10 @@ using UnityEngine.EventSystems;
 
 public class PlayerActionCtrl : MonoBehaviour
 {
+    CharacterController cController;
+    Animator ani;
+
+    [Header("무기관련")]
     public Collider weaponCol;
     PlayerWeaponCtrl playerWP;
     [SerializeField]
@@ -15,17 +19,20 @@ public class PlayerActionCtrl : MonoBehaviour
     [SerializeField]
     GameObject AttackEffect2;
 
+    [Header("플레이어 정보 관련")]
     PlayerInfo player;
     SkillDatabase skillDB;
     Tooltip tooltip;
     [SerializeField]
     GameObject cameraArm;
 
-    public RectTransform inventoryRect;
-    public RectTransform skillTreeRect;
-
+    [Header("스킬관련")]
     [SerializeField]
     Player_SkillIndicator skillIndicator;
+
+    [Header("플레이어 UI관련")]
+    public RectTransform inventoryRect;
+    public RectTransform skillTreeRect;
 
     [SerializeField]
     GameObject wayPointUI;
@@ -40,25 +47,28 @@ public class PlayerActionCtrl : MonoBehaviour
     [SerializeField]
     GameObject WorldMap;
 
+    [Header("스킬 퀵슬롯 관련")]
     public GameObject QuickSkillSlotParents;
     public GameObject QuickPotionSlotParents;
-
-    CharacterController cController;
-    Animator ani;
 
     public List<SkillSlot> skillSlot = new List<SkillSlot>();
     public Dictionary<string, float> curSkillCooltime = new Dictionary<string, float>();
     List<string> keys = new List<string>();
 
+    [Header("포션 퀵슬롯 관련")]
     public List<Slot> potionSlot = new List<Slot>();
 
     SkillSlot readySkillSlot = null;
     Skill readySkill = null;
 
+    [HideInInspector]
     public bool isUsingSkill = false;
-
+    [HideInInspector]
     public bool isWhirlwind = false;
+    [HideInInspector]
     public bool isSwordSkill2 = false;
+
+    #region 에니메이터 파라메터
     readonly int hashWhirlwind = Animator.StringToHash("IsWhirlwind");
     readonly int hashIsAttack = Animator.StringToHash("IsAttack");
     readonly int hashSpeed = Animator.StringToHash("Speed_f");
@@ -67,6 +77,7 @@ public class PlayerActionCtrl : MonoBehaviour
     readonly int hashDeath = Animator.StringToHash("Death_b");
     readonly int hashDeathtype = Animator.StringToHash("DeathType_int");
     readonly int hashMeleeAttackState = Animator.StringToHash("MeleeAttatckState");
+    #endregion
 
     void Awake()
     {

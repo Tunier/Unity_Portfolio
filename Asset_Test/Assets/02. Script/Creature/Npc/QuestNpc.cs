@@ -31,19 +31,19 @@ public class QuestNpc : Npc
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 3f)
+        if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 5f)
         {
             lookRot = player.transform.position - transform.position;
             lookRot.y = 0;
             lookRot = lookRot.normalized;
             transform.rotation = Quaternion.LookRotation(lookRot);
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange && !UIManager.Instance.hotKeyGuid.activeSelf)
+            if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 2f && !UIManager.Instance.hotKeyGuid.activeSelf)
             {
                 UIManager.Instance.hotKeyGuid.SetActive(true);
                 UIManager.Instance.hotKeyGuidTarget = gameObject;
             }
-            else if (Vector3.Distance(transform.position, player.transform.position) > UIManager.Instance.recognitionRange && UIManager.Instance.hotKeyGuidTarget == gameObject)
+            else if (Vector3.Distance(transform.position, player.transform.position) > UIManager.Instance.recognitionRange + 2f && UIManager.Instance.hotKeyGuidTarget == gameObject)
             {
                 UIManager.Instance.hotKeyGuid.SetActive(false);
                 dialogUI.gameObject.SetActive(false);
@@ -61,6 +61,7 @@ public class QuestNpc : Npc
         }
 
         if (Input.GetKeyDown(KeyCode.G))
+        {
             if (UIManager.Instance.hotKeyGuidTarget == gameObject && UIManager.Instance.hotKeyGuid.activeSelf)
             {
                 for (int i = 0; i < 3; i++)
@@ -73,5 +74,6 @@ public class QuestNpc : Npc
                 dialogUI.SetButtonTextNextBackType();
                 dialogUI.gameObject.SetActive(true);
             }
+        }
     }
 }
