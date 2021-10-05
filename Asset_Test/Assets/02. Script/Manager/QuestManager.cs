@@ -19,9 +19,12 @@ public class QuestManager : MonoSingletone<QuestManager>
 
     Quest quest1 = new Quest();
     Quest quest2 = new Quest();
+    Quest quest3 = new Quest();
 
     public int quest1_Count = 0;
     public int quest2_Count = 0;
+    public int quest3_Count = 0;
+
 
     private void Awake()
     {
@@ -33,8 +36,13 @@ public class QuestManager : MonoSingletone<QuestManager>
         quest2.Title = "고블린 혼내주기";
         quest2.Desc = "고블린 궁수 10마리 잡기.";
 
+        quest3.UIDCODE = "003";
+        quest3.Title = "고블린 킹 죽이기";
+        quest3.Desc = "고블린 킹 1마리 잡기.";
+
         QuestDic.Add(quest1.UIDCODE, quest1);
         QuestDic.Add(quest2.UIDCODE, quest2);
+        QuestDic.Add(quest3.UIDCODE, quest3);
     }
 
     private void Update()
@@ -49,6 +57,12 @@ public class QuestManager : MonoSingletone<QuestManager>
         {
             if (quest2_Count >= 10)
                 QuestDic["002"].State = 2;
+        }
+
+        if (QuestDic["003"].State == 1)
+        {
+            if (quest3_Count >= 1)
+                QuestDic["003"].State = 2;
         }
     }
 

@@ -30,6 +30,9 @@ public class QuestTextUI : MonoBehaviour
             case "002":
                 stateText.text = "고블린 궁수 " + QuestManager.Instance.quest2_Count + " / 10";
                 break;
+            case "003":
+                stateText.text = $"고블린 킹 {QuestManager.Instance.quest3_Count} / 1";
+                break;
             default:
                 stateText.text = "";
                 break;

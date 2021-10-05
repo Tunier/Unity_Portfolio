@@ -32,6 +32,36 @@ public class NpcCanvas : MonoBehaviour
 
         if (npc.questUIDCODE != "")
         {
+            if (npc.questUIDCODE == "003")
+            {
+                if (QuestManager.Instance.QuestDic["001"].State == 3)
+                {
+                    if (QuestManager.Instance.QuestDic["003"].State == 0)
+                    {
+                        if (!upperImage.gameObject.activeSelf)
+                            upperImage.gameObject.SetActive(true);
+
+                        if (upperImage.sprite != bangMark)
+                            upperImage.sprite = bangMark;
+                    }
+                    else if (QuestManager.Instance.QuestDic["003"].State == 2)
+                    {
+                        if (!upperImage.gameObject.activeSelf)
+                            upperImage.gameObject.SetActive(true);
+
+                        if (upperImage.sprite != questionMark)
+                            upperImage.sprite = questionMark;
+                    }
+                }
+                else
+                {
+                    if (upperImage.gameObject.activeSelf)
+                        upperImage.gameObject.SetActive(false);
+                }
+                
+                return;
+            }
+
             if (QuestManager.Instance.QuestDic[npc.questUIDCODE].State == 0)
             {
                 if (!upperImage.gameObject.activeSelf)

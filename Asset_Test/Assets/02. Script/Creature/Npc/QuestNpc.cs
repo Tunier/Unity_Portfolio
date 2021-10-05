@@ -31,28 +31,60 @@ public class QuestNpc : Npc
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 5f)
+        if (questUIDCODE != "003")
         {
-            lookRot = player.transform.position - transform.position;
-            lookRot.y = 0;
-            lookRot = lookRot.normalized;
-            transform.rotation = Quaternion.LookRotation(lookRot);
+            if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 5f)
+            {
+                lookRot = player.transform.position - transform.position;
+                lookRot.y = 0;
+                lookRot = lookRot.normalized;
+                transform.rotation = Quaternion.LookRotation(lookRot);
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 2f && !UIManager.Instance.hotKeyGuid.activeSelf)
-            {
-                UIManager.Instance.hotKeyGuid.SetActive(true);
-                UIManager.Instance.hotKeyGuidTarget = gameObject;
+                if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 2f && !UIManager.Instance.hotKeyGuid.activeSelf)
+                {
+                    UIManager.Instance.hotKeyGuid.SetActive(true);
+                    UIManager.Instance.hotKeyGuidTarget = gameObject;
+                }
+                else if (Vector3.Distance(transform.position, player.transform.position) > UIManager.Instance.recognitionRange + 2f && UIManager.Instance.hotKeyGuidTarget == gameObject)
+                {
+                    UIManager.Instance.hotKeyGuid.SetActive(false);
+                    dialogUI.gameObject.SetActive(false);
+                    dialogUI.ClearTextList();
+                }
             }
-            else if (Vector3.Distance(transform.position, player.transform.position) > UIManager.Instance.recognitionRange + 2f && UIManager.Instance.hotKeyGuidTarget == gameObject)
+            else
             {
-                UIManager.Instance.hotKeyGuid.SetActive(false);
-                dialogUI.gameObject.SetActive(false);
-                dialogUI.ClearTextList();
+                transform.eulerAngles = firstRot;
             }
         }
-        else
+        else if (questUIDCODE == "003")
         {
-            transform.eulerAngles = firstRot;
+            if (QuestManager.Instance.QuestDic["001"].State == 3)
+            {
+                if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 5f)
+                {
+                    lookRot = player.transform.position - transform.position;
+                    lookRot.y = 0;
+                    lookRot = lookRot.normalized;
+                    transform.rotation = Quaternion.LookRotation(lookRot);
+
+                    if (Vector3.Distance(transform.position, player.transform.position) <= UIManager.Instance.recognitionRange + 2f && !UIManager.Instance.hotKeyGuid.activeSelf)
+                    {
+                        UIManager.Instance.hotKeyGuid.SetActive(true);
+                        UIManager.Instance.hotKeyGuidTarget = gameObject;
+                    }
+                    else if (Vector3.Distance(transform.position, player.transform.position) > UIManager.Instance.recognitionRange + 2f && UIManager.Instance.hotKeyGuidTarget == gameObject)
+                    {
+                        UIManager.Instance.hotKeyGuid.SetActive(false);
+                        dialogUI.gameObject.SetActive(false);
+                        dialogUI.ClearTextList();
+                    }
+                }
+                else
+                {
+                    transform.eulerAngles = firstRot;
+                }
+            }
         }
 
         if (dialogUI.gameObject.activeSelf)

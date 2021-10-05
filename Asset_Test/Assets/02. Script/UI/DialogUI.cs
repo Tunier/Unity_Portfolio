@@ -31,10 +31,12 @@ public class DialogUI : MonoBehaviour
     public ButtonType buttonType = ButtonType.NextBack;
 
     PlayerInfo player;
+    Inventory inven;
 
     private void Awake()
     {
         player = FindObjectOfType<PlayerInfo>();
+        inven = FindObjectOfType<Inventory>();
     }
 
     void Start()
@@ -71,6 +73,9 @@ public class DialogUI : MonoBehaviour
                         break;
                     case "002":
                         dialogText.text += " 보상은 골드 1000, 경험치 500이야";
+                        break;
+                    case "003":
+                        dialogText.text = "자네는 포폴왕국의 영웅이야! 이 검을 받게";
                         break;
                 }
                 SetButtonTextQuestClearType();
@@ -198,6 +203,7 @@ public class DialogUI : MonoBehaviour
                 break;
             case ButtonType.QuestClear:
                 QuestManager.Instance.QuestDic[questUIDCODE].State = 3;
+                print($"{QuestManager.Instance.QuestDic[questUIDCODE].UIDCODE} : {QuestManager.Instance.QuestDic[questUIDCODE].State}");
                 switch (questUIDCODE)
                 {
                     case "001":
@@ -207,6 +213,11 @@ public class DialogUI : MonoBehaviour
                     case "002":
                         player.GetExp(500);
                         player.GetGold(1000);
+                        break;
+                    case "003":
+                        Item item = ItemDatabase.instance.newItem("0000003");
+                        inven.GetItem(item);
+                        SystemText_ScrollView_Ctrl.Instance.PrintText(item.Name + " 을 획득했습니다.");
                         break;
                 }
                 gameObject.SetActive(false);
