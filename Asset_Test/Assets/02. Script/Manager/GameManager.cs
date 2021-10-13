@@ -75,7 +75,7 @@ public class GameManager : MonoSingletone<GameManager>
                 DragSlot.instance.dragSlot = null;
                 DragSlot.instance.dragSkillSlot = null;
             }
-            else if (!wayPointUI.activeSelf && !inventoryUI.activeSelf && !statusUI.activeSelf && !skilltreeUI.activeSelf && !shopUI.activeSelf && !worldMapUI.activeSelf)
+            else if (!wayPointUI.activeSelf && !inventoryUI.activeSelf && !statusUI.activeSelf && !skilltreeUI.activeSelf && !shopUI.activeSelf && !worldMapUI.activeSelf && dialogUI.activeSelf)
                 isPause = !isPause;
         }
 
