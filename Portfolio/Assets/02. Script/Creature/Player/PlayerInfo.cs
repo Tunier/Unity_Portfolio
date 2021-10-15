@@ -22,9 +22,9 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     [HideInInspector]
     public GameObject targetMonster;
 
-    public GameObject cameraArm;
-    public Inventory inven;
-    public GameObject levelUpEffect;
+    [SerializeField] GameObject cameraArm;
+    [SerializeField] Inventory inven;
+    [SerializeField] GameObject levelUpEffect;
 
     public float ItemEffectMaxHp;
     public float SkillEffectMaxHp;
@@ -36,7 +36,7 @@ public class PlayerInfo : Creature, iPlayerMustHaveFuc
     public float ItemEffectHpRegenMultiplier;
     public float SkillEffectHpRegenMultiplier;
 
-    public float finalMaxMp { get; protected set; }
+    public float finalMaxMp { get ; protected set; }
     public float curMp;
     public float ItemEffectMaxMp;
     public float SkillEffectMaxMp;

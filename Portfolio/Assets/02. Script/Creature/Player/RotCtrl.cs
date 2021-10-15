@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RotCtrl : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject cameraArm;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject cameraArm;
 
     void Update()
     {

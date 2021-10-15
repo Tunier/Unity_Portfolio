@@ -5,8 +5,7 @@ using UnityEngine;
 public class MonsterAnim : MonoBehaviour
 {
     Animator animator;
-    [SerializeField]
-    GameObject attackCollision;
+    [SerializeField] GameObject attackCollision;
 
     readonly int hashMove = Animator.StringToHash("IsMove");
     readonly int hashDie = Animator.StringToHash("IsDie");
@@ -69,4 +68,3 @@ public class MonsterAnim : MonoBehaviour
         animator.SetTrigger(hashCombo);
     }
 }
-

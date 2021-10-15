@@ -7,28 +7,19 @@ using UnityEngine;
 /// </summary>
 public class MonsterFire : MonoBehaviour
 {
-    public Transform shotPos;   //화살 발사 위치
-
-    private void Awake()
-    {
-    }
+    [SerializeField] Transform shotPos;   //화살 발사 위치
 
     public void SlashAttack()
     {
         var _slash = ObjPoolingManager.Instance.GetObjAtPool(ObjPoolingManager.Obj.GoblinKingSlah);
         _slash.GetComponent<SpecialAttackCtrl>().goblinKing = GetComponent<MonsterGoblinKing>();
         _slash.transform.position = shotPos.position;
-        //_slash.transform.rotation = shotPos.rotation;
         _slash.transform.eulerAngles = new Vector3(90, gameObject.transform.eulerAngles.y, 0);
         _slash.SetActive(true);
     }
 
     public void ArrowShot()
     {
-        //테스트 instantiate
-        //var _arrow = Instantiate(arrow,transform.position, Quaternion.identity);
-
-        //쏠때 파티클 제어문
         var _arrow = ObjPoolingManager.Instance.GetObjAtPool(ObjPoolingManager.Obj.GoblinHunterArrow);
         _arrow.GetComponent<ArrowCtrl>().hunter = GetComponent<MonsterHunter>();
         _arrow.transform.position = shotPos.position;

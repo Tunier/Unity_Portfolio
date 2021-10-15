@@ -5,20 +5,13 @@ using UnityEngine.AI;
 
 public class MonsterBoar : MonsterBase
 {
-    [SerializeField]
-    GameObject attackEffect1;
-    [SerializeField]
-    GameObject attackEffect2;
-
-    GameObject playerGo;
-    public GameObject minimapCube;
-    public GameObject hpCanvas;
+    [SerializeField] GameObject attackEffect1;
+    [SerializeField] GameObject attackEffect2;
 
     PlayerInfo player;
     Transform playerTr;
     Inventory inven;
 
-    public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
     public float maxDist = 0f;
@@ -36,8 +29,6 @@ public class MonsterBoar : MonsterBase
     private int playerLayer;            //플레이어 레이어
     private int monsterLayer;           //몬스터 레이어
 
-    private Collider monsterCollider;
-
     public bool isDie = false;
     public bool isAttack = false;
     public bool isHit = false;
@@ -46,13 +37,12 @@ public class MonsterBoar : MonsterBase
     NavMeshAgent agent;
     MonsterAnim monsterAnim;
 
-    //public Collider[] monsters; //테스트
-    public List<Collider> monsters = new List<Collider>();
-    public Coroutine checkState;
+    [SerializeField] List<Collider> monsters = new List<Collider>();
+    Coroutine checkState;
+
     private void Awake()
     {
         monsterAnim = GetComponent<MonsterAnim>();
-        monsterCollider = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();

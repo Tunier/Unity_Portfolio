@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class TauntAttackCtrl : MonoBehaviour
 {
-    [SerializeField]
-    MonsterGoblinKing goblinKing;
-
+    [SerializeField] MonsterGoblinKing goblinKing;
     GameObject player;
+
     bool isAttacked;
 
     private void Awake()

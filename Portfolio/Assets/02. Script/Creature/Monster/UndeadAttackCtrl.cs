@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UndeadAttackCtrl : MonoBehaviour
 {
-    [SerializeField]
-    MonsterFootman footMan;
-
+    [SerializeField] MonsterFootman footMan;
     GameObject player;
+
     bool isAttacked;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -19,6 +19,7 @@ public class UndeadAttackCtrl : MonoBehaviour
         StartCoroutine(AutoDisable());
         isAttacked = false;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -37,5 +38,4 @@ public class UndeadAttackCtrl : MonoBehaviour
 
         gameObject.SetActive(false);
     }
-
 }

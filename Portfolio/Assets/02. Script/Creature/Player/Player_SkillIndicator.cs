@@ -7,10 +7,11 @@ public class Player_SkillIndicator : MonoBehaviour
 {
     [Header("원형 범위 스킬")]
     public GameObject circleIndicator;
-    public Image circleIndicatorImage;
+    [SerializeField] Image circleIndicatorImage;
+
     [Header("직선형 범위 스킬")]
     public GameObject straightIndicator;
-    public Image straightIndicatorImage;
+    [SerializeField] Image straightIndicatorImage;
 
     GameObject player;
 

@@ -10,8 +10,6 @@ public class SpecialAttackCtrl : MonoBehaviour
     float delayTime = 0;
     Rigidbody rb;
 
-    Vector3 shotRot;
-
     bool isAttacked;
 
     private void Awake()
@@ -23,13 +21,13 @@ public class SpecialAttackCtrl : MonoBehaviour
     private void OnEnable()
     {
         delayTime = 0;
-        shotRot = (new Vector3(transform.position.x, transform.position.y, transform.position.z) - new Vector3(player.transform.position.x, 0, player.transform.position.z)).normalized;
         isAttacked = false;
     }
 
     void Update()
     {
         delayTime += Time.deltaTime;
+
         if (delayTime >= 0.5f)
         {
             delayTime -= delayTime;

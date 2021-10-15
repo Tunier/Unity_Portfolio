@@ -12,44 +12,34 @@ public class PlayerActionCtrl : MonoBehaviour
     Animator ani;
 
     [Header("무기관련")]
-    public Collider weaponCol;
+    [SerializeField] Collider weaponCol;
     PlayerWeaponCtrl playerWP;
-    [SerializeField]
-    GameObject AttackEffect1;
-    [SerializeField]
-    GameObject AttackEffect2;
+    [SerializeField] GameObject AttackEffect1;
+    [SerializeField] GameObject AttackEffect2;
 
     [Header("플레이어 정보 관련")]
     PlayerInfo player;
     SkillDatabase skillDB;
     Tooltip tooltip;
-    [SerializeField]
-    GameObject cameraArm;
+    [SerializeField] GameObject cameraArm;
 
     [Header("스킬관련")]
-    [SerializeField]
-    Player_SkillIndicator skillIndicator;
+    [SerializeField] Player_SkillIndicator skillIndicator;
 
     [Header("플레이어 UI관련")]
-    public RectTransform inventoryRect;
-    public RectTransform skillTreeRect;
+    [SerializeField] RectTransform inventoryRect;
+    [SerializeField] RectTransform skillTreeRect;
 
-    [SerializeField]
-    GameObject wayPointUI;
-    [SerializeField]
-    GameObject inventoryUI;
-    [SerializeField]
-    GameObject skilltreeUI;
-    [SerializeField]
-    GameObject statsUI;
-    [SerializeField]
-    GameObject shopUI;
-    [SerializeField]
-    GameObject WorldMap;
+    [SerializeField] GameObject wayPointUI;
+    [SerializeField] GameObject inventoryUI;
+    [SerializeField] GameObject skilltreeUI;
+    [SerializeField] GameObject statsUI;
+    [SerializeField] GameObject shopUI;
+    [SerializeField] GameObject WorldMap;
 
     [Header("스킬 퀵슬롯 관련")]
-    public GameObject QuickSkillSlotParents;
-    public GameObject QuickPotionSlotParents;
+    [SerializeField] GameObject QuickSkillSlotParents;
+    [SerializeField] GameObject QuickPotionSlotParents;
 
     public List<SkillSlot> skillSlot = new List<SkillSlot>();
     public Dictionary<string, float> curSkillCooltime = new Dictionary<string, float>();

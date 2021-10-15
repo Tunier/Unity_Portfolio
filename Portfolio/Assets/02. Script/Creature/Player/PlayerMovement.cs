@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    GameObject cameraArm;
+    [SerializeField] GameObject cameraArm;
     Player_SkillIndicator pSkillIndicator;
     ClickEffect clickEffect;
 
@@ -25,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
-    public Transform[] Rot;
+    [SerializeField] Transform[] Rot;
 
     PlayerInfo playerInfo;
     PlayerActionCtrl playerActionCtrl;
@@ -42,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     float pushTime = 0;
 
     Ray ray;
-    public RaycastHit hit;
+    [SerializeField] RaycastHit hit;
 
     float effectOverTime = 0.2f;
 

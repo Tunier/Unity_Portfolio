@@ -5,24 +5,16 @@ using UnityEngine.AI;
 
 public class MonsterGoblinKing : MonsterBase
 {
-    [SerializeField]
-    GameObject attackEffect;
-    [SerializeField]
-    GameObject tauntEffect;
-    [SerializeField]
-    GameObject tauntAttackGo;
+    [SerializeField] GameObject attackEffect;
+    [SerializeField] GameObject tauntEffect;
+    [SerializeField] GameObject tauntAttackGo;
 
-    public GameObject pattunSpawner;
-
-    GameObject playerGo;
-    public GameObject minimapCube;
-    public GameObject hpCanvas;
+    [SerializeField] GameObject pattunSpawner;
 
     PlayerInfo player;
     Transform playerTr;
     Inventory inven;
 
-    public GameObject group;            //몬스터별 무브포인트 기준 파일 넣어주기
     public int nextIdx;                 //다음 순찰 지점의 인덱스
     public float minDist = -1f;          //최소 공격거리
     public float maxDist = 0f;
@@ -40,29 +32,26 @@ public class MonsterGoblinKing : MonsterBase
     private int playerLayer;            //플레이어 레이어
     private int monsterLayer;           //몬스터 레이어
 
-    private Collider monsterCollider;
-
-    public Renderer meshRenderer;
+    [SerializeField] Renderer meshRenderer;
     public bool isDie = false;
     public bool isAttack = false;
     public bool isHit = false;
     public bool isTaunt = false;
     public bool isRaze = false;
 
-    float stateDelay = 0f;
     float dist; //플레이어와 적의 거리
-    Vector3 monsterTr;
+    Vector3 monsterTr => transform.position + (Vector3.up * 2);
+
     NavMeshAgent agent;
     MonsterAnim monsterAnim;
     KingPointCtrl kingPoint;
 
-    //public Collider[] monsters; //테스트
-    public List<Collider> monsters = new List<Collider>();
-    public Coroutine checkState;
+    [SerializeField] List<Collider> monsters = new List<Collider>();
+    Coroutine checkState;
+
     private void Awake()
     {
         monsterAnim = GetComponent<MonsterAnim>();
-        monsterCollider = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
         playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.GetComponent<PlayerInfo>();
@@ -73,8 +62,6 @@ public class MonsterGoblinKing : MonsterBase
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
         playerLayer = LayerMask.NameToLayer("Player");
         monsterLayer = LayerMask.NameToLayer("Monster");
-
-        monsterTr = transform.position + (Vector3.up * 2);
 
         if (group)
         {

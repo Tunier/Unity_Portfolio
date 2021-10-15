@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GoblinAttackCtrl : MonoBehaviour
 {
-    [SerializeField]
-    MonsterGoblinKing goblinKing;
-    [SerializeField]
-    GameObject attackEffect;
+    [SerializeField] MonsterGoblinKing goblinKing;
+    [SerializeField] GameObject attackEffect;
 
     GameObject player;
     bool isAttacked;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -40,5 +39,4 @@ public class GoblinAttackCtrl : MonoBehaviour
         attackEffect.SetActive(false);
         gameObject.SetActive(false);
     }
-
 }

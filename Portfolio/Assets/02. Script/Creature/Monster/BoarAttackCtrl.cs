@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BoarAttackCtrl : MonoBehaviour
 {
-    [SerializeField]
-    MonsterBoar boar;
+    [SerializeField] MonsterBoar boar;
 
     GameObject player;
     bool isAttacked;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");

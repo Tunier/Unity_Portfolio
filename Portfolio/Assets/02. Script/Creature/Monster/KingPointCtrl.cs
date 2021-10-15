@@ -11,6 +11,5 @@ public class KingPointCtrl : MonoBehaviour
         {
             transform.position = goblinKing.position;
         }
-        
     }
 }

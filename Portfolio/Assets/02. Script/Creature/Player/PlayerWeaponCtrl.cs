@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWeaponCtrl : MonoBehaviour
 {
-    public PlayerInfo player;
+    [SerializeField] PlayerInfo player;
     PlayerActionCtrl playerAC;
 
     Collider col;
