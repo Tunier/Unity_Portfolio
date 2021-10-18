@@ -71,12 +71,8 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             curCooltime = playerActl.curSkillCooltime[skill.UIDCODE];
 
         if (gameObject.CompareTag("SkillTreeSlot"))
-        { 
+        {
             skillTreeLvText.text = player.player_Skill_Dic[skill.UIDCODE].ToString();
-            if (player.player_Skill_Dic[skill.UIDCODE] == 0)
-            { 
-
-            }
         }
     }
 

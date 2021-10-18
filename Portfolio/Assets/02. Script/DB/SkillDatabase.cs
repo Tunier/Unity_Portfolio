@@ -201,8 +201,6 @@ public class SkillDatabase : MonoBehaviour
                     break;
             }
         }
-
-
     }
 
     public void UsePassiveSkillOnLoad(Skill _skill, int _skillLv, GameObject _user)
